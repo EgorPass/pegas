@@ -1,0 +1,56 @@
+@import "./var/colors.scss";
+@import "./var/border.scss";
+@import "./var/size.scss";
+@import "./var/box.scss";
+@import "./mixin.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+	background-image: linear-gradient(45deg, $backgroundGrad1, $backgroundGrad2);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.pegas-body {
+	box-sizing: border-box;
+
+	min-height: $pegasBodyMinHeight;
+	min-width: $pegasBodyMinWidth;
+	width: calc( 100% - 150px);
+
+	display: grid;
+	grid-template-rows: min-content auto min-content;
+	grid-template-columns:  auto;
+
+	@include setBox($pegasBodyMargin, $pegasBodyPadding);
+
+
+		&__body-header {
+				width: $bodyHeaderWidth;
+		
+				background: $bodyHeagerBackground;
+		
+				@include setBox($bodyHeaderMargin, $bodyHeaderPadding);
+				@include setBorder($bodyHeaderBorder,
+					$bodyHeaderBorderRadius,
+					$bodyHeaderBoxShadow)
+			}
+
+	&__login-body {
+		height: 100vh;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		align-items: center;
+
+	}
+}

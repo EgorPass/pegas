@@ -1,0 +1,11 @@
+
+@mixin setBox($margin, $padding) {
+	margin: $margin;
+	padding: $padding;
+}
+
+@mixin setBorder($b, $r, $s) {
+	border: $b;
+	border-radius: $r;
+	box-shadow: $s;
+}

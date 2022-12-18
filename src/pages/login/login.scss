@@ -1,0 +1,139 @@
+@import "../../styles/var/border.scss";
+@import "../../styles/var/box.scss";
+@import "../../styles/var/colors.scss";
+@import "../../styles/var/size.scss";
+@import "../../styles/var/font.scss";
+@import "../../styles/mixin.scss";
+
+.login-body {
+
+	&__form-container{
+		box-sizing: border-box;
+		width: 400px;
+		min-width: 300px;
+
+		@include setBox ($loginBody__formContainer-margin, $loginBody__formContainer-padding);
+		
+	}
+
+	&__form-description {
+
+		@include setBox($loginBody__formDescription-margin, $loginBody__formDescription-padding);
+
+		font: $loginBody__formDescription-font;
+		text-shadow: $loginBody__formDescription-textShadow;
+		text-align: center;
+
+		&_error {
+			color: rgb(219, 0, 0);
+			text-shadow: 2px 2px 2px gray;
+		}
+
+	}
+
+	&__field-container {
+		box-sizing: border-box;
+		@include setBox($loginBody__fieldContainer-margin, $loginBody__fieldContainer-padding);
+
+	}	
+
+	&__field {
+
+		background-color: $loginBody__field-background;
+		
+		@include setBox($loginBody__field-margin, $loginBody__field-padding);
+
+		@include setBorder($loginBody__field-border, $loginBody__field-borderRadius, $loginBody__field-boxShadow);
+		
+		&_error {
+			background-color: rgb(250, 222, 220);
+		}
+	}
+
+	&__field-description {
+		position: relative;
+		top:  -8px;
+		left : -5%;
+		font: $loginBody__fieldDescription-font;
+		text-shadow: $loginBody__formDescription-textShadow;
+	}
+
+	&__field-input {
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		outline: none;
+		border: none;
+		background-color: transparent;
+
+		font: $loginBody__fieldInput-font;
+		text-shadow: $loginBody__formDescription-textShadow;
+
+		&_error {
+			text-shadow: 2px 2px 2px gray;
+		}
+	}
+
+	&__button-container {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: space-between;
+
+		@include setBox($loginBody__buttonContainer-margin, $loginBody__buttonContainer-padding)
+	}
+
+	&__button {
+		position: relative;
+		top: 0;
+		left: 0;
+
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: center;
+
+		width: 100px;
+		height: 40px;
+		margin: 0 15px;
+		border: 1px solid gray;
+		border-radius: 10px;
+		box-shadow: 0px 0px 4px lightseagreen;
+
+		color: rgb(90, 103, 116);
+		text-decoration: none;
+		text-shadow: 1px 1px 2px gray;
+		background-color: lightgoldenrodyellow;
+
+		transition: box-shadow .2s, background-color .4s, color .4s;
+
+		cursor: default;
+
+		&:hover {
+			background-color: lightslategrey;
+			color: lightgoldenrodyellow;
+			text-shadow: 1px 1px 2px lightgreen;
+		}
+	
+		&:active {
+			color: white;
+			top: 1px;
+			left: 1px;
+			box-shadow: 0 0 2px lightslategrey;
+		}
+
+	}
+
+	&__link {
+		font: $loginBody__regin-font;
+		padding: 0;
+		margin: 0 0 0 15px;
+	}
+
+	&__go-home {
+		position: fixed;
+		top: 20px;
+		left: 20px;
+		font: $loginBody__regin-font;
+	}
+}

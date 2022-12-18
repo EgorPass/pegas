@@ -1,0 +1,80 @@
+@import "../../../styles/var/colors.scss";
+@import "../../../styles/var/border.scss";
+@import "../../../styles/var/size.scss";
+@import "../../../styles/var/box.scss";
+@import "../../../styles/mixin.scss";
+
+.body-header {
+
+	&__head {
+		@include setBox(
+			$bodyHeader__headMargin,
+			$bodyHeader__headPadding,
+		);
+		
+		text-align: center;
+		color: $bodyHeader__headColor;
+		text-shadow: 1px 1px 2px gray;
+	}
+
+	&__nav {
+		margin: 25px 15px 15px;
+		padding:0;
+	}
+	
+	&__nav-lists {
+		list-style-type: none;
+		@include setBox(0, 0);
+
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+	}
+
+	&__nav-list-item {
+	}
+	
+	&__nav-link{
+		position: relative;
+		top: 0;
+		left: 0;
+
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		justify-content: center;
+		
+		width: 100px;
+		height: 30px;
+		margin: 0 15px;
+		border: 1px solid gray;
+		border-radius: 10px;
+		box-shadow: 0px 0px 4px lightseagreen;
+
+		color: rgb(90, 103, 116);
+		text-decoration: none;
+		text-shadow: 1px 1px 2px gray;
+		background-color: lightgoldenrodyellow;
+		
+		transition: box-shadow .2s, background-color .4s, color .4s;
+		
+		cursor: default;
+		
+		&_active {
+			background-color: rgb(213, 240, 150);
+		}
+
+		&:hover {
+			background-color: lightslategrey;
+			color: lightgoldenrodyellow;
+			text-shadow: 1px 1px 2px lightgreen;
+		}
+
+		&:active {
+			color: white;
+			top: 1px;
+			left: 1px;
+			box-shadow: 0 0 2px lightslategrey;
+		}
+	}
+}
