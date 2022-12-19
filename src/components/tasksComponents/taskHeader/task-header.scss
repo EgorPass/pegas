@@ -1,0 +1,42 @@
+@import "../../../styles/tasks/template.scss";
+
+.task-header {
+
+	&__search-field {
+		width: 100%;
+		
+		input {
+			width: 100%;
+			outline: none;
+			font: $searchFont;
+			text-shadow: $textShadowMain;
+			background: $searchFieldBackground;
+			
+			@include setBorder($searchFieldBorder, $searchFieldBorderRadius, $searchFieldBoxShadow);
+			@include setBox($searchFieldMargin, $searchFieldPadding);
+		}
+	}
+	
+	&__create-button {
+		height: $createButtonSize;
+		width: $createButtonSize;
+		font: $createButtonFont;
+		background-color: $createButtonBackground;
+		
+		@extend %template-circle-button;
+		
+		@include setBorder(	$createButtonBorder, 
+												$createButtonBorderRadius, 
+												$createButtonBoxShadow);
+	}
+
+		&__create-button:hover {
+			background: $createButtonHover;
+		}
+
+		&__create-button:active {
+			top: 1px;
+			left: 1px;
+			box-shadow: $createButtonBoxShadowActive;
+		}
+}

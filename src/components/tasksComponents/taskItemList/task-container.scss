@@ -1,0 +1,20 @@
+@import "../../../styles/tasks/template.scss";
+
+.task-container {
+
+	&__task-item {	
+		
+		cursor: default;
+
+		user-select: none;
+		tap-highlight-color: transparent;
+		-webkit-tap-highlight-color: transparent;
+		-moz-tap-highlight-color: transparent;
+		-o-tap-highlight-color: transparent;
+
+		border-bottom: $taskItemBorderBottom;
+	
+		@include setBox($taskItemMargin, $taskItemPadding);
+		@include setGrid($taskItemGridRow, $taskItemGridCol, $taskItemGridJustify, $taskItemGridAlign);
+	}
+}

@@ -1,0 +1,13 @@
+@import "../../../styles/tasks/template.scss";
+
+.deadline-container {
+
+	// &__deadline-description поставленны шрифты в контейнере &
+	
+	&__deadline {
+		outline: none;
+		border: none;
+		background-color: $backgroungField;
+	}
+
+}

@@ -1,0 +1,74 @@
+@import "../../../styles/tasks/template.scss";
+
+.task-item {
+
+	&__checkbox {
+		@extend %template-checkbox;
+
+		& input {
+			@extend %template-checkbox__input;
+		}
+
+		& input:checked~.task-item__checkmark {
+			background-color: $checkboxBackgroundChecked;
+		}
+
+		& input:checked~.task-item__checkmark:after {
+			opacity: 1;
+		}
+
+		&:hover input:checked~.task-item__checkmark {
+			background-color: $checkboxBackgroundHover;
+		}
+
+		& .task-item__checkmark {
+			@extend %template-checkbox__checkmark;
+		
+			@media (max-width: 500px) {
+				height: $checkboxSizeSmall;
+				width: $checkboxSizeSmall;
+			}
+		}
+
+		& .task-item__checkmark:after {
+			@extend %template-checkbox__checkmark_active;
+			
+			@media (max-width: 500px) {
+				left: 6px;
+				top: 2px;
+				width: 4px;
+				height: 8px;
+			}
+		}
+	}
+
+	&__title {
+		
+		outline: none;
+		justify-self: start;
+		@extend %template-title-font;
+			@include setBox($taskItemTitleMargin, $taskItemTitlePadding);
+
+	
+		&:hover {
+			color: $titleHoverColor;
+		}
+		&_deadmen {
+			color: $titleDeadmenColor;
+		}
+		
+		&_complite {
+			color: $titleCompliteColor;
+		}
+		
+		&_un-complite {
+			color: $titleColor;
+		}
+
+		@media (max-width: 500px) {
+			font: $titleFontSmall;
+		}
+	}
+
+}
+

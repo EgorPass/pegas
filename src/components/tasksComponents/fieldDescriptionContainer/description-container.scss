@@ -1,0 +1,23 @@
+@import "../../../styles/tasks/template.scss";
+
+.description-container {
+	
+	&__description {
+		box-sizing: border-box;
+		outline: none;
+		border: none;
+		resize: none;
+		
+		position: absolute;
+		top: 0;
+		left: 0%;
+		right: 100%;
+		
+		width: 100%;
+		height: 100%;
+
+		background-color: $backgroungField;
+
+		@include setBox($descriptionMargin, $descriptionPadding);
+	}
+}
