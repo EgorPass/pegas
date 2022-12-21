@@ -2,14 +2,16 @@ import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useGetStore } from "../../reduxHooks/useGetStore";
-import { useLoginActions, useAuthActions } from "../../reduxHooks/useBindActions";
+import { useLoginActions, useAuthActions, useTasksActions } from "../../reduxHooks/useBindActions";
 
 export function useLogin() {
 
+	const { error } = useGetStore("auth")
+	const { login, password, confirmPassword } = useGetStore("login")
+
+	const { getTasks } = useTasksActions();
 	const { setLogin, setPassword, setConfirmPassword } = useLoginActions();
 	const { setError, loginAtFirebase, reginAtFirebase, logoutAtFirebase } = useAuthActions();
-	const { login, password, confirmPassword } = useGetStore("login")
-	const { error } = useGetStore("auth")
 
 	const location = useLocation()
 	const navigate = useNavigate();
@@ -40,7 +42,7 @@ export function useLogin() {
 
 	
 	const navigateAfterAuth = (resultAuth, login) => {
-		if (resultAuth.payload === login) {
+		if (resultAuth.payload === login.replace(/\./gi, "_") ) {
 			const pathname = location?.state?.from || "/"
 			navigate(pathname, { replace: true })
 		}
@@ -50,6 +52,7 @@ export function useLogin() {
 		e.preventDefault();
 		
 		const res = await loginAtFirebase({ login, password })
+		console.log( res )
 		setPassword("")
 		navigateAfterAuth(res, login)
 	}
@@ -74,7 +77,8 @@ export function useLogin() {
 		
 		navigate("/", { replace: true })
 
-		logoutAtFirebase()	
+		logoutAtFirebase()
+		getTasks([]);
 	}
 	, [  ] )
 

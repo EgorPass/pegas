@@ -10,8 +10,8 @@ export const TaskContainerLoader =
 	memo(
 	( { state, content, children } ) => {
 		
-		console.log( "   ... TaskContainerLoader's state: ", state )
-		console.log("three dots render ....")
+		// console.log( "   ... TaskContainerLoader's state: ", state )
+		// console.log("three dots render ....")
 
 
 		return (

@@ -16,7 +16,7 @@ import { memo } from "react";
  */
 export const SearchField = memo( ( { changeSearch, content }  ) => {
 
-	console.log("/searchFiled render...")
+	// console.log("/searchFiled render...")
 
 	return (
 		<div className = "task-header__search-field">

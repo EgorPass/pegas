@@ -24,7 +24,7 @@ import "./file-container.scss"
 export const FieldFileContainer =	memo(
 	({id, upload, clickAtAddFile, files, clickAtFile, clickAtCancelLoad, clickAtRemoveFile, }) => {
 
-		console.log("file field render...")
+		// console.log("file field render...")
 
 		return (
 			<div className="task-field__file-container file-container">	

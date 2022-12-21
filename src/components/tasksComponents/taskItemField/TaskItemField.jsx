@@ -45,7 +45,7 @@ export const TaskItemField =
 					setModeForTitle,			uploadTaskRef,
 																									}) => {
 	
-	console.log("taskItemField render ......",)
+	// console.log("taskItemField render ......",)
 
 	const classNameForFieldTitle =
 		useMemo( () => (
@@ -55,9 +55,9 @@ export const TaskItemField =
 																											)}` )
 		, [fieldContent.isComplite, fieldContent.deadline])
 		
-	console.log("uploadTaskRef from TaskField: ", uploadTaskRef)
+	// console.log("uploadTaskRef from TaskField: ", uploadTaskRef)
 
-			console.log(".....////  :  ", fieldContent.isComplite)
+			// console.log(".....////  :  ", fieldContent.isComplite)
 			
 	return (
 		<div className = "task-body__task-cover" >

@@ -6,9 +6,20 @@ import {
 	createUserWithEmailAndPassword,
 } from "firebase/auth"
 
-function setStorage(login) {
+function emailNormalize(email) {
+	return email.replace(/\./gi, "_")
+}
+
+function setStorage( login, email ) {
 	window.localStorage.setItem( "pegas-user",login )
-	window.localStorage.setItem( "pegas-user-login", login )
+	window.localStorage.setItem( "pegas-user-login", email )
+	// window.localStorage.setItem( "pegas-user-uid", uid )
+}
+
+function removeStorage() {
+	window.localStorage.setItem( "pegas-user","" )
+	// window.localStorage.setItem( "pegas-user-login", "" )
+	// window.localStorage.setItem( "pegas-user-uid", "" )
 }
 
 export const loginAtFirebase = createAsyncThunk(
@@ -26,9 +37,11 @@ export const loginAtFirebase = createAsyncThunk(
 			const auth = getAuth();
 			const user = await signInWithEmailAndPassword( auth, login, password )
 
-			setStorage(user.user.email)
-			
-			return user.user.email
+			const email = emailNormalize( user.user.email )
+
+			setStorage(email, user.user.email)
+
+			return email
 		}
 		catch( err ) {
 			if ( err instanceof Error ) {
@@ -46,9 +59,12 @@ export const reginAtFirebase = createAsyncThunk(
 			const auth = getAuth();
 			const user = await createUserWithEmailAndPassword( auth, login, password )
 			
-			setStorage(user.user.email)
+			const email = emailNormalize( user.user.email )
 
-				return user.user.email
+
+			setStorage(email, user.user.email)
+
+				return email
 		}
 		catch( err ) {
 			if ( err instanceof Error ) {
@@ -66,7 +82,7 @@ export const logoutAtFirebase = createAsyncThunk(
 			const auth = getAuth()		
 			await signOut( auth )
 						
-			window.localStorage.setItem( "pegas-user", "" )
+			removeStorage()
 		
 		}
 		catch ( err ) {

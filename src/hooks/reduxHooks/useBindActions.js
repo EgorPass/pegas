@@ -53,7 +53,7 @@ export const useTasksActions = () => {
 
 // работа с открытым полем ..
 
-export const useTaskFileActions = () => {
+export const useFieldFilesActions = () => {
 	const dispatch = useDispatch();
 	return bindActionCreators(fieldFilesActions, dispatch)
 }

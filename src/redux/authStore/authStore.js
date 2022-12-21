@@ -7,6 +7,7 @@ export const { actions: authActions, reducer: authState } = createSlice( {
 		isAuth: false,
 		status: "",
 		error: "",
+		user: ""
 	},
 	reducers: {
 		setError: {
@@ -16,6 +17,10 @@ export const { actions: authActions, reducer: authState } = createSlice( {
 		setIsAuth: {
 			prepare: ( val ) => ( { payload: val } ),
 			reducer: ( state, { payload } ) => ( { ...state, isAuth: payload } )
+		},
+		setUser: {
+			prepare: ( val ) => ( { payload: val } ),
+			reducer: ( state, { payload } ) => ( { ...state, user: payload } )
 		}
 	},
 	extraReducers: ( builder ) => {
@@ -38,6 +43,7 @@ function pending( state ) {
 	return {
 		error: "",
 		isAuth: false,
+		user: "",
 		status: "pending",
 	}
 }
@@ -46,14 +52,17 @@ function rejected( state, { payload } ) {
 	return {
 		error: payload,
 		isAuth: false,
+		user: "",
 		status: "rejected",
 	}
 }
 
-function fulfilled( state ) {
+function fulfilled( state, { payload } ) {
+	console.log(payload)
 	return {
 		error: "",
 		isAuth: true,
+		user: payload,
 		status: "fulfilled",
 	}
 }
@@ -62,6 +71,7 @@ function fulfilledOut( state ) {
 	return {
 		error: "",
 		isAuth: false,
+		user: "",
 		status: "fulfilled",
 
 	}

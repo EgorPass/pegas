@@ -1,6 +1,8 @@
 import { useLayoutEffect, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
+import { getAuth } from "firebase/auth"
+
 import { LoginContext, TaskHeaderContext, TaskItemListContext, TaskItemFieldContext, EditContext } from "./hooks/context/useContextData"
 
 import { useAuthActions } from "./hooks/reduxHooks/useBindActions"
@@ -19,11 +21,16 @@ import { RequestAuth } from "./hooks/HOCs/RequestAuth"
 function App() {
 	console.log( "App render... " )
 	
-	const { setIsAuth } = useAuthActions();
+	const auth = getAuth();
+
+	// console.log( auth )
+
+	const { setIsAuth, setUser } = useAuthActions();
 	const user = window.localStorage.getItem( "pegas-user" );
 	
-	// useEffect(() => {
-		setIsAuth(!!user)
+	// useLayoutEffect(() => {
+	setIsAuth(!!user)
+	setUser(user)
 	// })
  
 	return (

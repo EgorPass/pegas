@@ -17,16 +17,16 @@ export const FileRemove = memo(
 
 		return (
 			<div
-				// key = { `span${ id }` }
-				// className = {
-				// 	`file-container__file-remove`
-				// }
-				// onClick = {
-				// 	(e) => {
-				// 		clickAtRemoveFile( id, fileId, name )
-				// 	}
-				// }
-				// data-task-tooltip = {`Удалить ${ name }` }
+				key = { `span${ id }` }
+				className = {
+					`file-container__file-remove`
+				}
+				onClick = {
+					(e) => {
+						clickAtRemoveFile( id, fileId, name )
+					}
+				}
+				data-task-tooltip = {`Удалить ${ name }` }
 			>
 				X
 			</div>

@@ -20,7 +20,7 @@ import { memo } from "react";
  */
 export const EditableTextField = memo( ( { className, content, onchange, } ) => {
 
-	console.log( "/editableTextField render..." )
+	// console.log( "/editableTextField render..." )
 
 	return (		
 		<textarea

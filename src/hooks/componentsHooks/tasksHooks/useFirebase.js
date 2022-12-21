@@ -1,4 +1,5 @@
 import { useCallback } from "react"
+import { getAuth } from "firebase/auth"
 import { getDatabase, onValue, ref as databasRef, update, get, set, child, } from "firebase/database"
 import { deleteObject, getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { useLoaderActions } from "../../reduxHooks/useBindActions"
@@ -11,6 +12,7 @@ import { useLoaderActions } from "../../reduxHooks/useBindActions"
 export function useFirebase() {
 	
 	const { setLoader } = useLoaderActions()
+	// getAuth()
 
 	/**
 	 * Обновляет содержимое realtimeDatabae, из которого формируется список задач.
@@ -26,6 +28,9 @@ export function useFirebase() {
 	 */
 	const setFieldAtDatabase = useCallback(
 		async ( path, field, prop ) => {
+
+			console.log(path)
+
 			const db = databasRef( getDatabase(), path )
 			return await update( db, { [ field ]: prop } )
 		}
@@ -41,6 +46,7 @@ export function useFirebase() {
 	const getFilesFromDatabase = useCallback(
 		async ( path ) => {
 			const map = await get( child( databasRef( getDatabase() ), path) )
+			
 			return await map.val();
 	}, [ ] )
 

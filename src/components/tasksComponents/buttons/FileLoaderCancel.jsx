@@ -20,9 +20,9 @@ export const FileLoaderCancel =	( { id, fileId, clickAtCancelLoad } ) => {
 
 	return (
 		<div
-			// onClick = { () => clickAtCancelLoad( id, fileId ) }
+			onClick = { () => clickAtCancelLoad( id, fileId ) }
 			className = "file-container__file-loader-cancel"
-			// data-task-tooltip = "Отменить загрузку"
+			data-task-tooltip = "Отменить загрузку"
 		>X</div>
 
 	)

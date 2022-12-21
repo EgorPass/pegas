@@ -1,5 +1,7 @@
 import { memo, useEffect } from "react";
 
+import { getAuth } from "firebase/auth";
+
 import { useGetStore } from "../../hooks/reduxHooks/useGetStore";
 import { useTasksActions } from "../../hooks/reduxHooks/useBindActions";
 
@@ -33,8 +35,12 @@ export const Tasks =
 	// memo(
 	() => {
 		
-	console.log("task body render ...")
-
+	// console.log("task body render ...")
+		// const userUID = window.localStorage.getItem("pegas-user-uid")
+		
+		// console.log(userUID)
+		
+	const { user } = useGetStore( "auth" )
 	const { search, loader, tasks, fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
 	
 	const { getTasks } = useTasksActions()
@@ -54,9 +60,11 @@ export const Tasks =
 
 	const { monitor } = useFirebase()
 	
-	useEffect(() => {
-		monitor("/tasks", getTasks)
-	},[ ] )
+	useEffect( () => {
+		
+		monitor( `/tasks/${ user }`, getTasks )		
+	
+	}, [ ] )
 
 	return (
 		<div className = "task-body">

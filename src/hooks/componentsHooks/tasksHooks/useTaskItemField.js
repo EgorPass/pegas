@@ -5,25 +5,37 @@ import {
 				useUploadFileActions,
 				useFieldContentActions,
 				useFieldStateActions,
-				useTaskFileActions
+				useFieldFilesActions,
 										} from "../../reduxHooks/useBindActions" 
 import { useGetStore} from "../../reduxHooks/useGetStore"
+
+import { useRefference } from "../ref/useRefference"
 
 /**
  * Хук для обработки изменений описания поля задачи (кнопики закрыть или удалить, чекбокс, изменение текстовых полей)
  * 
  * @returns {object} Возвращает объект методов для функциональности описания поля задачи: 		clickAtCheckboxField, clickAtRemoveButton, clickAtCloseButton, changeTitle, changeDescription, changeDate,
  */
-export function useTaskItemField( uploadTaskRef ) {
+// export function useTaskItemField( uploadTaskRef ) {
+export function useTaskItemField( ) {
 	
-	const { resetFieldContent, setFieldTitle, setFieldDescription, setFieldDeadline, setFieldIsComplite } = useFieldContentActions()
-	const { setOpenField, setNewField } = useFieldStateActions()
-	const { setFieldFiles, removeFieldFiles, resetFieldFiles } = useTaskFileActions();
+	const { user } = useGetStore( "auth" )
+	const { fieldContent, fieldFiles, fieldState, uploadFile, } = useGetStore( "tasks" )
 
+	const {
+					setFieldAtDatabase,			uploadFileToStorage,
+					deleteFileFromStorage,	downlaodFileFromStorage
+																													} = useFirebase()
+	const { setOpenField, setNewField } = useFieldStateActions()
+	const {
+					setFieldTitle,				setFieldDescription,
+					setFieldIsComplite,		setFieldDeadline,
+					resetFieldContent,
+																											} = useFieldContentActions()
+	const { setFieldFiles, removeFieldFiles, resetFieldFiles } = useFieldFilesActions();
+
+	const { uploadTaskRef } = useRefference()
 	const { setUploadFile, deleteUploadFile } = useUploadFileActions()
-	const { fieldContent, fieldFiles, fieldState, uploadFile, } = useGetStore("tasks")
-	const { deleteFileFromStorage, setFieldAtDatabase, uploadFileToStorage, downlaodFileFromStorage } = useFirebase()
-	
 
 	
 	/**
@@ -54,16 +66,12 @@ export function useTaskItemField( uploadTaskRef ) {
 
 			for ( let prop in fieldContent ) {
 				
-				console.log( prop )
-				setFieldAtDatabase( `/tasks/${ fieldContent.id }`,  prop , fieldContent[ prop ] )
+				setFieldAtDatabase( `/tasks/${ user }/${ fieldContent.id }`,  prop , fieldContent[ prop ] )
 			}
 			
-				// setFieldAtDatabase( `/${ id }`, "isComplite", fieldState.isComplite )
-
-
-			setOpenField( false )
-			resetFieldContent()
-			resetFieldFiles()
+				setOpenField( false )
+				resetFieldContent()
+				resetFieldFiles()
 
 			if ( fieldState.newField ) {
 				setNewField( false )
@@ -87,30 +95,32 @@ export function useTaskItemField( uploadTaskRef ) {
 	 * @return {void}
 	 */
 	const clickAtRemoveButton = useCallback(
-		async ( id ) => {
+		async (id) => {
+			if ( !window.confirm( `Вы уверены, что хотите удалить задачу: ${fieldContent.title}?` )) return;
+
 			const entries = Object.entries( fieldFiles ) || []
 			
-			if ( fieldState.newField ) {
-				setNewField( false )
-			}				
-			setOpenField( false )
-			resetFieldFiles()
-			setFieldAtDatabase( "/tasks/", id, null )
+				if ( fieldState.newField ) {
+					setNewField( false )
+				}				
+				setOpenField( false )
+				resetFieldFiles()
+				setFieldAtDatabase( `/tasks/${ user }`, id, null )
 
 				
-				for ( let [ name, value ] of entries ) {
+			for ( let [ name, value ] of entries ) {
+			
+				if ( ( name in uploadTaskRef ) && ( uploadTaskRef[ name ]._state === "running" ) ) {
+
+					uploadTaskRef[ name ].cancel();
+					deleteUploadFile( id, name );
+					delete uploadTaskRef[ name ];
 				
-					if ( ( name in uploadTaskRef ) && ( uploadTaskRef[ name ]._state === "running" ) ) {
-
-						uploadTaskRef[ name ].cancel();
-						deleteUploadFile( id, name );
-						delete uploadTaskRef[ name ];
-					
-					}
-					else
-						deleteFileFromStorage( `/tasks/${ id }/${ name }/${ value }`, value );
-
 				}
+				else
+					deleteFileFromStorage( `/tasks/${ user }/${ id }/${ name }/${ value }`, value );
+
+			}
 		}
 	, [ fieldFiles ] )
 	
@@ -207,7 +217,7 @@ export function useTaskItemField( uploadTaskRef ) {
 
 				const name = file.name;
 				const fileId = Date.now();
-				const uploadTask = uploadFileToStorage(`/tasks/${ id }/${ fileId }/${ name }`, file );
+				const uploadTask = uploadFileToStorage(`/tasks/${ user }/${ id }/${ fileId }/${ name }`, file );
 								
 				uploadTaskRef[ fileId ] = uploadTask;
 
@@ -226,7 +236,7 @@ export function useTaskItemField( uploadTaskRef ) {
 								console.log( `Файл ${ name } не загрузился `)
 						},
 						(data) => {
-								setFieldAtDatabase( `/tasks/${ id }/files/`, fileId, name )	
+								setFieldAtDatabase( `/tasks/${ user }/${ id }/files/`, fileId, name )	
 								delete uploadTaskRef[fileId]
 								deleteUploadFile( id, fileId )
 						}
@@ -254,7 +264,7 @@ export function useTaskItemField( uploadTaskRef ) {
 		
 					if (uploadFile[ id ][ fileId ].progress === 100) return;
 				
-				updateFieldAfterUpLoadOrCancel(`/tasks/${ id }/files/`, fileId, null)
+				updateFieldAfterUpLoadOrCancel(`/tasks/${ user }/${ id }/files/`, fileId, null)
 
 				uploadTaskRef[ fileId ].cancel()			
 				delete uploadTaskRef[ fileId ]			
@@ -278,8 +288,8 @@ export function useTaskItemField( uploadTaskRef ) {
 	 */
 	const clickAtRemoveFile = useCallback(
 		async ( id, fileId, name ) => {
-			updateFieldAfterUpLoadOrCancel(`/tasks/${ id }/files/`, fileId, null)		
-			deleteFileFromStorage(`/tasks/${ id }/${ fileId }/${ name }`, name)				
+			updateFieldAfterUpLoadOrCancel(`/tasks/${ user }/${ id }/files/`, fileId, null)		
+			deleteFileFromStorage(`/tasks/${ user }/${ id }/${ fileId }/${ name }`, name)				
 		}
 	, [])
 
@@ -298,7 +308,7 @@ export function useTaskItemField( uploadTaskRef ) {
 	 */
 	const clickAtFile = useCallback(
 		async ( id, fileId, name ) => {
-			downlaodFileFromStorage(`/tasks/${ id }/${ fileId }/${ name }`, name)
+			downlaodFileFromStorage(`/tasks/${ user }/${ id }/${ fileId }/${ name }`, name)
 		}
 	, [])
 

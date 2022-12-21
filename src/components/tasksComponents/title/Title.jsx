@@ -23,7 +23,7 @@ export const Title =
 	// memo(
 		({ id, title, className, clickAtTitle }) => {
 
-	console.log( "title in List render..." )
+	// console.log( "title in List render..." )
 
 	return (
 		<span

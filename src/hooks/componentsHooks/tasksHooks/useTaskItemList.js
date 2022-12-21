@@ -3,7 +3,7 @@ import { useGetStore} from "../../reduxHooks/useGetStore.js"
 import {	
 	useFieldContentActions,
 	useFieldStateActions,
-	useTaskFileActions
+	useFieldFilesActions
 } from "../../reduxHooks/useBindActions" 
 import { useFirebase } from "./useFirebase";
 import { useTaskItemField } from "./useTaskItemField.js";
@@ -17,11 +17,13 @@ export function useTaskItemList() {
 
 	const { newFieldContent, setFieldIsComplite } = useFieldContentActions()
 	const {setOpenField} = useFieldStateActions()
-	const { setFieldFiles } = useTaskFileActions();
+	const { setFieldFiles } = useFieldFilesActions();
 
 	const { clickAtCloseButton } = useTaskItemField()
-	const {  setFieldAtDatabase } = useFirebase()
+	const {  setFieldAtDatabase, getFilesFromDatabase } = useFirebase()
 	const { tasks,  uploadFile, fieldFiles,fieldState, fieldContent }= useGetStore("tasks")
+
+	const { user } = useGetStore("auth")
 	
 	
 	/**
@@ -41,6 +43,8 @@ export function useTaskItemList() {
 			if (fieldState.openField) {
 				clickAtCloseButton(id)
 			}
+
+			getFilesFromDatabase(`/tasks/${ user }/${id}`)
 
 			const task = tasks.find( it => it.id === id ) 
 			if ( !task ) return;
@@ -68,13 +72,11 @@ export function useTaskItemList() {
 											title: task.title,
 											description: task.description,
 											deadline: task.deadline,
+											isComplite: task.isComplite
 										} )
 			setFieldFiles( { ...task.files, ...files } )
-			setFieldIsComplite( task.isComplite )
 			setOpenField( true )
-			
-
-
+		
 		}
 	, [ tasks, fieldFiles, fieldContent, fieldState ])
 
@@ -87,10 +89,18 @@ export function useTaskItemList() {
 		( id ) => {
 			
 			const task = tasks.find(it => it.id === id)
-			setFieldAtDatabase(`/tasks/${task.id}`, "isComplite", !task.isComplite)
 			
+			if (fieldState.openField && (id === fieldContent.id)) {
+				console.log("click at checkbox: taskId: ", id,)
+				console.log( "click at checkbox: fieldContentId: ", fieldContent.id, )
+				
+				setFieldIsComplite( !task.isComplite )	
+			}
+
+			setFieldAtDatabase( `/tasks/${ user }/${ task.id }`, "isComplite", !task.isComplite )
+
 		}
-	, [ tasks ] )
+	, [ tasks, fieldState.openField, fieldContent.isComplite, fieldContent.id  ] )
 
 
 	return {				

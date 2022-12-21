@@ -7,7 +7,7 @@ import "./layout.scss"
 
 
 export const Layout = () => {
-	console.log(" Layout render....")
+	// console.log(" Layout render....")
 	
 	return (
 		<div className = "pegas-body">

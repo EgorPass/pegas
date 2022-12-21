@@ -24,7 +24,7 @@ export const Checkbox =
 	// memo(
 		({ id, isComplite, className, clickAtCheckbox }) => {
 
-	console.log("/checkbox render...")
+	// console.log("/checkbox render...")
 		
 	return (
 		<label

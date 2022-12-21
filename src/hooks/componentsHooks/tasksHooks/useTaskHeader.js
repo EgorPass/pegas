@@ -14,7 +14,8 @@ import { useTaskItemField } from "./useTaskItemField.js";
 export function useTaskHeader(  ) {
 	
 	
-	const { search, fieldContent, fieldState } = useGetStore("tasks");
+	const { tasks, search, fieldContent, fieldState } = useGetStore("tasks");
+	const { user } = useGetStore("auth");
 	const { getTasks } = useTasksActions();
 	const { setSearch } = useSearchActions();
 	const { newFieldContent } = useFieldContentActions();
@@ -34,8 +35,6 @@ export function useTaskHeader(  ) {
 		() => {
 			const id = Date.now();
 			
-			// перебить на заполнение fieldContent
-
 			return {
 				id,
 				title: "Новая задача",
@@ -65,12 +64,12 @@ export function useTaskHeader(  ) {
 			}
 
 			const newTask = createNewTask()
-			setFieldAtDatabase( '/tasks/', newTask.id, newTask )
+			setFieldAtDatabase( `/tasks/${ user }`, newTask.id, newTask )
 
 			setNewFieldState()
 			newFieldContent( newTask )
 		}
-	, [fieldContent, fieldState])
+	, [fieldContent, fieldState, tasks, user])
 
 	/**
 	 * Вспомогательная функция для обрабтчика ввода в поисковую строку changeSearct
@@ -83,7 +82,7 @@ export function useTaskHeader(  ) {
 
 	const searchTask = useCallback(
 		async ( value ) => {
-			const newTasks = await getFilesFromDatabase( '/tasks' )
+			const newTasks = await getFilesFromDatabase( `/tasks/${ user }/` )
 			const tasks = Object.values( newTasks )
 
 				const find = tasks.filter( it => { 
