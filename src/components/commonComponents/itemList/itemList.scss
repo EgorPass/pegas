@@ -1,0 +1,85 @@
+@import "../../../styles/template.scss";
+
+.list-container {
+
+	&__list-field {
+		box-sizing: border-box;
+		position: relative;
+
+		height: 100%;
+
+		display: grid;
+		grid-template-areas: "create-container" "list-container";
+		grid-template-columns: auto;
+		grid-template-rows: 25px auto;
+		
+		@include setBox( 0, ( 10px 2px 0 ) );
+	}
+
+	&__create-container {
+		grid-area: create-container;
+		box-sizing: border-box;
+		background-color: transparent;
+
+		@include setBox( 0, 0 );
+		@include setFlex($flexFlowRow, center, start);
+	}
+
+	&__create-button {
+		user-select: none;
+		box-sizing: border-box;
+		position: relative;
+		flex-basis: 75%;
+
+		height: 25px;
+				
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 1;
+		
+		@include setBox( 0, 0 );
+		@include setBorder( $gray-border-thin, 4px, $inset-box-shadow-button );
+		@include setFlex($flexFlowRow, center, center);
+
+		cursor: default;
+
+		&:hover {
+			box-shadow: $inset-box-shadow-button-hover;
+		}
+
+		&:active {
+			top: 1px;
+			left: 1px;
+			box-shadow: $inset-box-shadow-button-active;
+		}
+	}
+
+	&__items-container {
+		grid-area: list-container;
+		box-sizing: border-box;
+		
+		height: 99%;
+		overflow: auto;
+		list-style-type: none;
+
+		@include setBox(0, 0);
+		@include setBox( 0, ( 0 5px ) );
+	}
+
+	&__list-loader {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+
+		@include setFlex($flexFlowRow, center, center);
+	}
+
+	&__list-loader-empty {
+		text-align: center;
+		@include setBox( 0, 0 );
+		text-shadow: $main-text-shadow;
+	}
+
+}

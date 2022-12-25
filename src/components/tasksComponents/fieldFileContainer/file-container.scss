@@ -1,75 +1,69 @@
-@import "../../../styles/tasks/template.scss";
+@import "../../../styles/template.scss";
 
 .file-container {
 
 	&__file-list {
 		list-style-type: none;
-		max-height: $fileListMaxHeight;
 
 		@extend %template-overflow;
-
-		@include setBorder($fileListBorder, $fileListBorderRadius, $fileListBoxShadow );
-		@include setBox($fileListMargin, $fileListPadding);
-
-		@media (min-width: 960px) {
-			max-height: 100%;
-		}
+		@include setBox( ( 0 15px 0 0 ), ( 5px 5px 0px 8px ) );
+		@include setBorder($gray-border-thin, $border-radius-small, $inset-box-shadow );
 	}
 
 	&__file-item {
-		box-sizing: border-box;
-		@include setBox($fileItemMargin, $fileItemPadding);
-		@include setGrid($fileItemGridRow, $fileItemGridCol, $fileItemGridJustify, $fileItemGridAlign);
+		box-sizing: border-box;		
+		@include setBox( ( 0 0 5px 0 ), ( 0 ) );
+		@include setGrid(auto, $fileItemGridCol, stretch, center);
 	}
 
 	&__file-name {
+		user-select: none;
 		justify-self: start;
-		font: $fileNameFont;
-		text-shadow: $fileNameTextShadow;
-		color: $fileNameColor;
-		margin: $fileNameMargin;
+		margin: 0px 5px 0 0;
+			
+		text-shadow: $main-text-shadow;
+		color: $main-font-color; 
 		word-break: break-all;
 	}
 
 	&__file-name:hover {
 		cursor: pointer;
 		color: $fileNameColorHover;
-		text-decoration: $fileNameTextDecorHover;
+		text-decoration: underline;
 	}
 
 	&__file-add-position {
 		align-self: center;
-		justify-self: end;
+		justify-self: center;
 
 		@media (min-width: 960px) {
 			justify-self: center;
 		}
 	}
-	
-	&__file-add:hover {
-		background: $createButtonHover;
-	}
 
 	&__file-add {
 		height: $fileAddSize;
 		width: $fileAddSize;
-		font: $fileAddFont;
-		background-color: $createButtonBackground;
+		background-color: $circle-button-background;
+		
 		@extend %template-circle-button;
-
-		@include setBorder($createButtonBorder, $createButtonBorderRadius, $createButtonBoxShadow);
+		@include setBorder($gray-border-thin, 15px, $inset-box-shadow-button);
 
 		@media (max-width: 500px) {
 			width: $fileAddSizeSmall;
 			height: $fileAddSizeSmall;
-			font: $fileAddFontSmall;
 		}
+	}
+
+	&__file-add:hover {
+		background: $circle-button-background-hover;
+		box-shadow: $inset-box-shadow-button-hover;
 	}
 
 	&__file-add:active {
 		top: 1px;
 		left: 1px;
-		box-shadow: $createButtonBoxShadow;
+		box-shadow: $inset-box-shadow-button-active;
 	}
 
 	&__file-add-input {
@@ -78,53 +72,48 @@
 
 	&__file-loader {
 		position: relative;
-		
 	}
 
 	&__file-loader-cover {
-		position: absolute;
-		top: 0%;
-		left: 0;
-		z-index: 10;
-		height: 100%;
-		width: 100%;
-		cursor: default;
 
+		width: 100%;
+		z-index: 10;
+		cursor: default;
+		border: 1px dotted gray;
 		background: $fileLoaderCoverBackground;
+		@extend %template-loader-position;
 	}
 
-	&__file-loader-progress {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 10;
-		height: 100%;
+	&__file-loader-progress {		
 		width: 0%;
+		z-index: 10;
 		background-color: $fileLoaderProgressBackground;
+		@extend %template-loader-position;
 	}
 
 	&__file-remove,
 	&__file-loader-cancel {
+		font: 10px/1 Arial sans-serif;
 		justify-self: end;
 		align-self: center;
 		height: $fileRemoveSize;
 		width: $fileRemoveSize;
-		font: $fileRemoveFont;
-		background: $createButtonBackground;
+		background: $circle-button-background;
 	
 		@extend %template-circle-button;	
-		@include setBorder($createButtonBorder, $createButtonBorderRadius, $createButtonBoxShadow)
+		@include setBorder($gray-border-thin, 15px, $inset-box-shadow-button)
 	}
 
 	&__file-remove:hover,
 	&__file-loader-cancel:hover {
-		background: $createButtonHover;
+		background: $circle-button-background-hover;
+		box-shadow: $inset-box-shadow-button-hover;
 	}
 
 	&__file-remove:active,
 	&__file-loader-cancel:active {
 		top: 1px;
 		left: 1px;
-		box-shadow: 0 0 2px gray;
+		box-shadow: $inset-box-shadow-button-active;
 	}
 }

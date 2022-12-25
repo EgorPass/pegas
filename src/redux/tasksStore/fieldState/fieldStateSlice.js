@@ -23,7 +23,6 @@ export const { actions: fieldStateActions, reducer: fieldState } = createSlice({
 			{
 				openField: true,
 				newField: true,
-				// isComplite: false,
 			})
 	}
 })

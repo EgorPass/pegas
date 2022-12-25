@@ -18,12 +18,13 @@ import { memo } from "react";
  * @param onchange обработчик для изменения содержимого textarea 
  * @returns 
  */
-export const EditableTextField = memo( ( { className, content, onchange, } ) => {
+export const EditableTextField = memo( ( { className, content, onchange, nodeRef } ) => {
 
 	// console.log( "/editableTextField render..." )
 
 	return (		
 		<textarea
+			ref = { nodeRef }
 			value = { content }
 			className = { className }
 			onChange = { onchange }

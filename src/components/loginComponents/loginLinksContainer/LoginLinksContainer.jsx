@@ -10,7 +10,7 @@ export const LoginLinksContainer = memo( ( { regin, onclick } ) => {
 				
 				<Link
 					to = "/"
-					className="login-body__go-home"
+					className="login-body__link login-body__go-home"
 					onClick = { onclick }
 				>
 					Домой

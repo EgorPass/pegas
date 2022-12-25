@@ -1,12 +1,13 @@
-@import "../../../styles/tasks/template.scss";
+@import "../../../styles/mixin.scss";
 
 .checkbox-container {
 	// В компоненте для чек бокса применен класс task-item__checkbox, что бы избавиться от повторения кода
 	
 	&__check-description {
-		@include setBox($checkboxDescriptionMargin, $checkboxDescriptionPadding);
+		@include setBox( (0 0 0 10px), (0) );
+		
 		@media (max-width: 500px) {
-			margin: $checkboxDescriptionMarginSmall;
+			margin: 0 0 0 5px;
 		}
 	}
 

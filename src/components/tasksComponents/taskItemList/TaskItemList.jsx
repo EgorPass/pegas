@@ -3,7 +3,6 @@ import { memo } from "react"
 import { Title } from "../title/Title";
 import { Checkbox } from "../checkbox/Checkbox";
 import { FileAnchor } from "../fileAnchor/FileAnchor";
-import { TaskContainerLoader } from "../taskContainerLoader/TaskContainerLoader";
 
 import './task-container.scss';
 import './task-item.scss'
@@ -25,14 +24,12 @@ import './task-item.scss'
  */
 export const TaskItemList =
 	memo(
-	({ tasks, loader, setModeForTitle, clickAtTitle, clickAtCheckboxTitle }) => {
+	({ tasks, setModeForTitle, clickAtTitle, clickAtCheckboxTitle }) => {
 
 		// console.log( "taskItemList render ..." )
 			
-			
 		return (
-			<div className="task-body__content-container">
-				<ul className = "task-body__task-container task-container">
+			<>
 					{
 						tasks.map(it => (
 							<li
@@ -59,13 +56,7 @@ export const TaskItemList =
 							</li>
 						))
 					}
-				</ul>
-
-				<TaskContainerLoader	
-					state = { loader }
-					content = { "Давайте создадим первую задачу" }
-				/>
-			</div>
+			</>
 		)
 	}
 )

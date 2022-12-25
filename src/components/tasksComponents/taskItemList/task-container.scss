@@ -1,9 +1,11 @@
-@import "../../../styles/tasks/template.scss";
+@import "../../../styles/template.scss";
 
 .task-container {
 
 	&__task-item {	
-		
+
+		font-size: $task-item-title-fontSize;
+		text-shadow: $main-text-shadow;
 		cursor: default;
 
 		user-select: none;
@@ -12,9 +14,10 @@
 		-moz-tap-highlight-color: transparent;
 		-o-tap-highlight-color: transparent;
 
-		border-bottom: $taskItemBorderBottom;
+		border-bottom: 1px dashed gray;
 	
-		@include setBox($taskItemMargin, $taskItemPadding);
-		@include setGrid($taskItemGridRow, $taskItemGridCol, $taskItemGridJustify, $taskItemGridAlign);
+		@include setBox( ( 10px 0 0px 0 ), ( 0 ) );
+
+		@include setGrid( $taskItemGridRow, $taskItemGridCol, center, center );
 	}
 }

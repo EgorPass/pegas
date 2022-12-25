@@ -1,9 +1,33 @@
 
 // pegas-body
 
-$pegasBodyMinWidth: 500px;
 $pegasBodyMinHeight: 100vh;
 
 // body-header
 
 $bodyHeaderWidth: 100%;
+
+// body-header__container
+
+$body-header__container-mediumWidth: 80%;
+$body-header__container-largeWidth: 1200px;
+
+
+
+////////////////// list-body //////////////////////////////
+
+
+$max-height-for-title: 59px;
+$max-height-for-fileContainer: 92px;
+
+$checkboxSize: 16px;
+
+$fileAddSize: 22px;
+$fileAddSizeSmall: 20px;
+
+$fileRemoveSize: 14px;
+
+$itemButtonWidth: 100px;
+$itemButtonHeight: 35px;
+$itemButtonWidthSmall: 90px;
+$itemButtonHeightSmall: 30px;

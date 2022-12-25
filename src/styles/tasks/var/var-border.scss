@@ -1,60 +1,20 @@
 ////////////// Borders ////////////////
 
-$taskBodyShadow: 0px 0px 4px gray;
+$gray-border-thin: 1px solid gray;
 
-// task-header
+$border-radius-small: 2px;
+$border-radius-medium: 4px;
 
-$taskHeaderBorder: none;
-$taskHeaderBorderRadius: 8px 8px 0 0;
+$inset-box-shadow: inset 0 0 4px gray;
 
-// content-container
+// buttons 
+$inset-box-shadow-button: inset 0 0 4px grey, 1px 1px 2px black;
+$inset-box-shadow-button-active: inset 0 0 8px gray, 0 0 2px black;
+$inset-box-shadow-button-hover: inset 0 0 8px rgb(115, 122, 84), 1px 1px 2px black;
 
-$contentContainerBorder: none;
-$contentContainerBorderRadius: 0 0 8px 8px;
-
-// search //
-
-$searchFieldBorder: none;
-$searchFieldBorderRadius: 5px;
-$searchFieldBoxShadow: 0px 0px 4px rgb(100, 141, 76);
-
-// create-button //
-
-$createButtonBorder: 1px solid rgb(128, 128, 128);
-$createButtonBorderRadius: 15px;
-$createButtonBoxShadow: 1px 1px 4px rgb(100, 141, 76);
-
-$createButtonBoxShadowActive: 0 0 2px gray;
-
-// checkbox //
-
-$templateCheckboxCheckmarkBorder: 1px solid gray;
-$templateCheckboxCheckmarkBorderRadius: 11px;
-$templateCheckboxCheckmarkBoxShadow: 1px 1px 2px gray;
-
-// task-item //
-
-$taskItemBorderBottom: 1px dashed gray;
-
-// task-field //
-
-$taskFieldBorder: 1px outset gray;
-$taskFieldBorderRadius: 8px;
-$taskFieldBoxShadow: 0 0 4px gray, 2px 2px 4px rgb(83, 83, 83);
-
-//description-container
 
 $descriptionContainerBorder: 4px double gray;
 
-// file-list //
+$taskBodyShadow: 2px 2px 6px gray;
 
-$fileListBorder: 1px inset gray;
-$fileListBorderRadius: 5px;
-$fileListBoxShadow: inset 0 0 4px gray;
-
-// item-button //
-
-$itemButtonBorder: 1px solid gray;
-$itemButtonBorderRadius: 6px;
-$itemButtonBoxShadow: 2px 2px 4px gray;
-$itemButtonBoxShadowActive:0px 0px 2px gray;
+$list-body-filed-shadow: inset 0 0 4px grey, 2px 2px 4px black

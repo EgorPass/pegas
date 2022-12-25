@@ -1,9 +1,8 @@
-@import "../../../styles/tasks/template.scss";
+@import "../../../styles/template.scss";
 
 .task-item {
 
 	&__checkbox {
-		@extend %template-checkbox;
 
 		& input {
 			@extend %template-checkbox__input;
@@ -21,35 +20,31 @@
 			background-color: $checkboxBackgroundHover;
 		}
 
+		&:hover input~.task-item__checkmark {
+			background-color: $checkboxBackgroundHover;
+		}
+
 		& .task-item__checkmark {
 			@extend %template-checkbox__checkmark;
-		
-			@media (max-width: 500px) {
-				height: $checkboxSizeSmall;
-				width: $checkboxSizeSmall;
-			}
 		}
 
 		& .task-item__checkmark:after {
 			@extend %template-checkbox__checkmark_active;
-			
-			@media (max-width: 500px) {
-				left: 6px;
-				top: 2px;
-				width: 4px;
-				height: 8px;
-			}
 		}
+	}
+
+	&__file-anchor::before {
+		content: "\1F4CE";
+		font-size: .8em;
 	}
 
 	&__title {
 		
-		outline: none;
 		justify-self: start;
-		@extend %template-title-font;
-			@include setBox($taskItemTitleMargin, $taskItemTitlePadding);
 
-	
+
+		@include setBox( ( 0 0 0 5px ), 0 );
+
 		&:hover {
 			color: $titleHoverColor;
 		}
@@ -64,11 +59,6 @@
 		&_un-complite {
 			color: $titleColor;
 		}
-
-		@media (max-width: 500px) {
-			font: $titleFontSmall;
-		}
 	}
-
 }
 

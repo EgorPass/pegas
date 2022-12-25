@@ -1,0 +1,31 @@
+/////////////// Flex /////////////
+
+$flexFlowRow: row nowrap;
+$flexFlowCol: column nowrap;
+
+//////////////////  grid ///////////////
+
+// task-item //
+
+$taskItemGridRow: minmax(30px, auto);
+$taskItemGridCol: 10% 80% 10%;
+
+// task-field //
+
+// $taskFieldGridRow: 59px 234px 82px 40px min-content;
+$taskFieldGridRow: minmax( 38px, 69px)  auto 122px 20px 35px;
+
+$taskFieldGridRowBig:  minmax(38px, 69px) auto 122px min-content;
+
+$taskFieldGridCol: 45% 55%;
+$taskFieldJustify: stretch;
+$taskFieldAlign: center;
+
+
+// file-container //
+$fileContainerGridCol: 95% 5%;
+
+// file-item //
+$fileItemGridCol: 91% 9%;
+
+

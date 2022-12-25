@@ -1,0 +1,101 @@
+@import "../../../styles/template.scss";
+
+.field-container {
+
+	&__text-height {
+		position: relative;
+		color: rgba(0, 0, 0, 0);
+		@extend %template-wrap;			
+		@include setBox($textHeightMargin, $textHeightPadding);
+	}
+	
+	&__descriptio-container {
+		grid-area: description;
+		align-self: start;
+		height: 100%;
+
+		border-bottom: $descriptionContainerBorder;
+		border-top: $descriptionContainerBorder;			
+		
+		@extend %template-overflow;
+		@include setBox( ( 0 ), ( 5px 10px ) );
+			
+		& * {
+			font: $task-field-description-font;
+			text-shadow: $main-text-shadow;
+		}
+	}
+
+	&__title-container {
+		grid-area: header;
+		font-weight: bold;	
+		height: auto;
+		max-height: $max-height-for-title;
+
+		@extend %template-overflow;
+		@include setBox( ( 0 0 10px 0 ),( 0 ) );
+		
+		& * {
+			font: $task-field-title-font;
+			text-align: center;
+			text-shadow: $main-text-shadow;
+		}
+
+		& .title-container__title {
+			&_deadmen {
+				color: $titleDeadmenColor;
+			}
+
+			&_complite {
+				color: $titleCompliteColor;
+			}
+			
+			&_un-complite {
+				color: $titleColor;
+			}
+		}
+	}
+	
+	&__checkbox-container {
+		user-select: none;
+		grid-area: checkbox;
+		text-shadow: $main-text-shadow;
+
+		@include setFlex( $flexFlowRow, start, center );
+
+		@media (min-width: 980px) {
+			display: none
+		}
+	}
+
+	&__deadline-container {
+		grid-area: deadline;
+		user-select: none;
+
+		& * {
+			font: $task-field-deadline-font;
+			text-shadow: $main-text-shadow;
+			background-color: transparent;
+		}
+	}
+
+	&__file-container {	
+		grid-area: file;
+		height: $max-height-for-fileContainer;
+		
+		display: grid;
+		grid-template-columns: $fileContainerGridCol ;
+		justify-content: start;
+		
+		font: $task-field-fileContainer-font;
+		text-shadow: $main-text-shadow;
+
+		@include setBox( (0px 0), (15px 10px) );
+	}
+	
+	&__button-container {
+		grid-area: buttonContainer;	
+		@include setBox( 0 , 0 );
+		@include setFlex( $flexFlowRow,	end, center );
+	}
+}

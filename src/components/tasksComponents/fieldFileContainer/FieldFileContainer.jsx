@@ -27,7 +27,7 @@ export const FieldFileContainer =	memo(
 		// console.log("file field render...")
 
 		return (
-			<div className="task-field__file-container file-container">	
+			<div className="field-container__file-container file-container">	
 					<FileConetnt
 						id = {id }
 						files = {files}

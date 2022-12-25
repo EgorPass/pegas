@@ -2,14 +2,17 @@ import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useGetStore } from "../../reduxHooks/useGetStore";
-import { useLoginActions, useAuthActions, useTasksActions } from "../../reduxHooks/useBindActions";
+import { useLoginActions, useAuthActions, useTasksActions, useFieldContentActions, useFieldStateActions } from "../../reduxHooks/useBindActions";
 
 export function useLogin() {
 
-	const { error } = useGetStore("auth")
-	const { login, password, confirmPassword } = useGetStore("login")
+	const { error } = useGetStore( "auth" )
+	const { fieldState, fieldContent } = useGetStore( "tasks" );
+	const { login, password, confirmPassword } = useGetStore( "login" )
 
 	const { getTasks } = useTasksActions();
+	const { setOpenField } = useFieldStateActions();
+	const { resetFieldContent } = useFieldContentActions()
 	const { setLogin, setPassword, setConfirmPassword } = useLoginActions();
 	const { setError, loginAtFirebase, reginAtFirebase, logoutAtFirebase } = useAuthActions();
 
@@ -79,8 +82,13 @@ export function useLogin() {
 
 		logoutAtFirebase()
 		getTasks([]);
+		
+		if ( fieldState.openField ) {
+			setOpenField(false)
+			resetFieldContent();
+		}
 	}
-	, [  ] )
+	, [ fieldState, fieldContent ] )
 
 	const resetLoginFields = useCallback( () => {
 		setPassword("")

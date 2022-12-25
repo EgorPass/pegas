@@ -1,16 +1,32 @@
-@import "./var/colors.scss";
-@import "./var/border.scss";
-@import "./var/size.scss";
-@import "./var/box.scss";
-@import "./mixin.scss";
+// @import "./var/colors.scss";
+// @import "./var/font.scss";
+// @import "./var/border.scss";
+// @import "./var/size.scss";
+// @import "./var/box.scss";
+// @import "./mixin.scss";
+
+@import "./template.scss";
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  // user-select: none;
+	box-sizing: border-box;
+	
+	// height: 100vh;
+	max-height: 100vh;
+	
+	// overflow: auto;
+	overflow-x: hidden;
+
+	margin: 0px;
+	padding: 0;
+	
+
+
+  font-family: -apple-system, BlinkMacSystemFont, Time, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	font-size: 0px;
+	color: black;
 
 	background-image: linear-gradient(45deg, $backgroundGrad1, $backgroundGrad2);
 }
@@ -23,29 +39,127 @@ code {
 .pegas-body {
 	box-sizing: border-box;
 
-	min-height: $pegasBodyMinHeight;
-	min-width: $pegasBodyMinWidth;
-	width: calc( 100% - 150px);
+	min-height: 100vh;
+	max-height: 100vh;
 
+	
 	display: grid;
-	grid-template-rows: min-content auto min-content;
-	grid-template-columns:  auto;
+	grid-template-rows: 63px auto 63px;
+	grid-template-areas: "pegas-body__header" "pegas-body__main" "pegas-body__footer";
+	grid-template-columns: 1fr;
 
-	@include setBox($pegasBodyMargin, $pegasBodyPadding);
+	@media (min-width: 700px) {
+		grid-template-rows: 74px auto 74px;
+	}
 
 
-		&__body-header {
-				width: $bodyHeaderWidth;
+	&__body-header {
+
+		user-select: none;
+		box-sizing: border-box;
+		grid-area: pegas-body__header;
+		background: $bodyHeagerBackground;
+		box-shadow: 0 0px 8px black;
+		@include setBox( 0, 0 );
+		@include setBorder ( $gray-border-thin,  none, $list-body-filed-shadow );
+	}
+
+	&__body-footer {
+		box-sizing: border-box;
+		grid-area: pegas-body__footer;
+		// задать такой же цвет, но на своей переменной
+		background: $bodyHeagerBackground;
+		// box-shadow: 0 0 8px black;
+		@include setBox(0, 0);
+		@include setBorder ( $gray-border-thin, none, $list-body-field-shadow-invert );
+	}
+
+	&__main {
+		box-sizing: border-box;
+		position: relative;
+		width: 100%;
+		height: calc(100vh - 126px);
 		
-				background: $bodyHeagerBackground;
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		grid-area: pegas-body__main;
+
+		margin: 0px auto;
+		padding: 10px;
+
+		@media (min-width: 700px) {
+			height: calc(100vh - 148px);
+		}
+		// border: 1px dashed red;
+
+	}
+
+	&__list-body {
+
+		// border: 1px solid black;
+
+		box-sizing: border-box;
+		font-size: 16px;
+		width: 100%;
+		height: 100%;
 		
-				@include setBox($bodyHeaderMargin, $bodyHeaderPadding);
-				@include setBorder($bodyHeaderBorder,
-					$bodyHeaderBorderRadius,
-					$bodyHeaderBoxShadow)
-			}
+		overflow: hidden;
+		
+		@media (min-width: 980px) {
+			margin: 0 auto;
+			
+			display: grid;
+			grid-template-columns: auto auto;
+			grid-template-rows:  100%;
+			grid-template-areas: "listBody-contentContainer listField-contentContainer";
+			justify-content: center;
+
+			width: 960px;
+		}
+
+		@media (min-width: 1200px ) {
+			width: 1160px;
+		}
+	}
+
+	&__home {
+
+	}
+
+	&__about {
+		display: grid;
+
+		font-size: 18px;
+		text-shadow: $main-text-shadow;
+		
+		grid-template-columns: 1fr;
+		grid-template-areas: 	"about-name"
+													"about-contacts"
+													"about-skills"
+													"about-experience"; 
+
+		@media (min-width: 700px) {
+			margin: 0 auto;
+
+
+			grid-template-columns: auto 154px;
+			grid-template-rows: 91px 109px;
+			grid-auto-rows: auto;
+			grid-template-areas: 	"about-name about-photo" 
+			"about-contacts about-photo"
+			"about-experience about-skills";
+		}
+
+		@media (min-width: 980px) {
+			width: 960px;
+		}
+	}
+
+
 
 	&__login-body {
+		box-sizing: border-box;
 		height: 100vh;
 		display: flex;
 		flex-flow: row nowrap;

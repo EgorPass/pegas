@@ -1,80 +1,204 @@
-@import "../../../styles/var/colors.scss";
-@import "../../../styles/var/border.scss";
-@import "../../../styles/var/size.scss";
-@import "../../../styles/var/box.scss";
-@import "../../../styles/mixin.scss";
+@import "../../../styles/template.scss";
 
 .body-header {
 
+	&__container {
+
+		box-sizing: border-box;
+		// border: 1px solid red;
+
+		// background-color: rgba(124, 66, 66, 0.486);
+
+		@include setBox($body-header__container-margin, $body-header__container-padding);
+
+		font-size: $body-header__container-fontSize;
+
+		display: grid;
+
+		grid-auto-rows: auto;
+		grid-auto-columns: auto;
+
+		grid-template-areas: "header-head header-head" "header-nav header-search";
+		align-items: start;
+		justify-items: center;
+
+		@media (min-width: 700px) {
+			width: $body-header__container-mediumWidth;
+			font-size: $body-header__container-mediumFontSize;
+			padding: $body-header__container-mediumPadding;
+		}
+
+		@media (min-width: 1400px) {
+			width: $body-header__container-largeWidth;
+			font-size: $body-header__container-largeFontSize;
+			padding: $body-header__container-largePadding;
+		}
+	}
+
 	&__head {
+		grid-area: header-head;
+
 		@include setBox(
 			$bodyHeader__headMargin,
 			$bodyHeader__headPadding,
 		);
 		
-		text-align: center;
+		font-size: $body-header__head-font-SmallSize;
 		color: $bodyHeader__headColor;
-		text-shadow: 1px 1px 2px gray;
+		text-shadow: $body-header__head-textShadow;
+		
+		text-align: center;
+	
+		@media (min-width: 700px) {
+			font-size: $body-header__head-font-MediumSize
+		}
+		
+		@media (min-width: 1400px) {
+			font-size:$body-header__head-font-LargeSize;
+		}
+	
 	}
 
+	// &__menu {
+	// 	font-size: 20px;
+
+	// 	@media (min-width:500px) {
+	// 		display: none;
+	// 	}
+	// }
+
 	&__nav {
-		margin: 25px 15px 15px;
-		padding:0;
+		grid-area: header-nav;
+		justify-self: end;
+
+		@include setBox( $body-header__nav-margin, $body-header__nav-padding);
 	}
 	
 	&__nav-lists {
 		list-style-type: none;
-		@include setBox(0, 0);
-
+		
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: center;
+
+		@include setBox($body-header__navList-margin, $body-header__navList-padding);
 	}
 
 	&__nav-list-item {
 	}
 	
 	&__nav-link{
+		display: block;
 		position: relative;
-		top: 0;
-		left: 0;
-
-		display: flex;
-		flex-flow: row nowrap;
-		align-items: center;
-		justify-content: center;
 		
-		width: 100px;
-		height: 30px;
-		margin: 0 15px;
-		border: 1px solid gray;
-		border-radius: 10px;
-		box-shadow: 0px 0px 4px lightseagreen;
+		outline: none;
+		
+		@include setBorder($body-header__navLink-border, $body-header__navLink-borderRadius, $body-header__navLink-boxShadow);
 
-		color: rgb(90, 103, 116);
+		@include setBox( $body-header__navLink-margin, $body-header__navLink-padding);
+		
+		color: $body-header__navLink-color;
+		text-shadow: $main-text-shadow;
 		text-decoration: none;
-		text-shadow: 1px 1px 2px gray;
-		background-color: lightgoldenrodyellow;
-		
-		transition: box-shadow .2s, background-color .4s, color .4s;
-		
+
 		cursor: default;
 		
-		&_active {
-			background-color: rgb(213, 240, 150);
+		@media (min-width: 700px) {
+			
+			padding: $body-header__navLink-mediumPadding;
 		}
 
+		&_active {
+			color: $body-header__navLink-color-active;
+			text-shadow: $body-header__navLink-textShadow-active;
+		}
+		
 		&:hover {
-			background-color: lightslategrey;
-			color: lightgoldenrodyellow;
-			text-shadow: 1px 1px 2px lightgreen;
+			@media (min-width: 960px) {
+				left: -2px;
+				top: -3px;
+				color: $body-header__navLink-color-hover;
+				text-shadow: $body-header__navLink-textShadow-hover;
+			}
 		}
 
 		&:active {
-			color: white;
-			top: 1px;
-			left: 1px;
-			box-shadow: 0 0 2px lightslategrey;
+			top: 2px;
+			color: $body-header__navLink-color-click;
+
+			@media (min-width: 960px ) {	
+				top: 0px;
+				left: 0px;
+			}
+		}
+	}
+
+	&__search-field{
+		grid-area: header-search;
+		justify-self: start;
+		box-sizing: border-box;
+		position: relative;
+
+		width: auto;
+		height: 100%;
+
+		@include setBox( $body-header__searchField-margin, $body-header__searchField-padding);
+
+		& span {
+			box-sizing: brder-box;
+			position: absolute;
+			height: 0px;
+
+			@include setBorder(none, none, $body-hader__searchField-underline-boxShadow);			
+			border-bottom: 1px solid rgba(0, 0, 0, 0.253);
+
+			top: 20px;
+			left: 15px;
+			right: 5px;
+			
+			@media (min-width: 700px) {
+				top: 22px;
+			}
+
+			@media (min-width: 1400px) {
+				top: 22px;
+			}
+		}
+
+		&:before{
+			position: absolute;
+			top: 5px;
+			left: -2px;
+			content: "\1F50E";
+			font-size: 0.8em;
+		}
+
+		& input {
+			font: $body-header__searchField-font;
+			color: black;
+			font-style: italic;
+			text-shadow: 1px 1px 2px white, 2px 2px 2px black;
+
+			width: 100%;
+
+			outline: none;
+			border: none;
+			background-color: transparent;
+
+			@include setBox(  0 , 0  );
+
+			@media (min-width: 700px) {
+				font-size: $body-header__searchField-mediumFontSize
+			}
+
+			@media (min-width: 1400px) {
+				font-size: $body-header__searchField-largeFontSize;
+			}
+		}
+
+		& input::placeholder {
+			color: $body-header__searchField-placeholder-color;
+			text-shadow: $body-header__searchField-placeholder-textShadow;
 		}
 	}
 }

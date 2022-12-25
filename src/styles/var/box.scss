@@ -1,19 +1,43 @@
 
 // pegas-body
 
-$pegasBodyMargin: 0 auto;
-$pegasBodyPadding: 5px 0;
 
 
 // body-header
 
-$bodyHeaderMargin: 0 0 15px;
-$bodyHeaderPadding: 0;
+// body-header__container
+
+$body-header__container-margin: 0 auto;
+$body-header__container-padding: 4px 2px;
+$body-header__container-mediumPadding: 6px 0px;
+$body-header__container-largePadding: 6px 0;
 
 // body-header__head
 
-$bodyHeader__headMargin: 15px 0 25px;
+$bodyHeader__headMargin: 0 0 2px;
 $bodyHeader__headPadding: 0;
+
+// body-header__nav
+
+$body-header__nav-margin: 0;
+$body-header__nav-padding: 0;
+
+// body-header__nav-list
+
+$body-header__navList-margin: 0;
+$body-header__navList-padding: 0;
+
+// body-header__navLink
+
+$body-header__navLink-padding: 4px 4px;
+$body-header__navLink-margin: 0px;
+
+$body-header__navLink-mediumPadding: 4px 10px;
+
+//body-header__search-field
+
+$body-header__searchField-margin: 0 0 0 14px;
+$body-header__searchField-padding: 4px 5px 0px 16px;
 
 // login-body__form-container
 
@@ -39,3 +63,27 @@ $loginBody__field-padding: 0px 20px 12px;
 
 $loginBody__buttonContainer-margin: 50px 0;
 $loginBody__buttonContainer-padding: 0;
+
+
+
+
+
+
+
+
+
+//////////////////////// list-body //////////////////////////////////
+/// // text-height //////////////////////////////////////////////////
+// если меняем здесь параметры, то и у description & task-field-title
+$textHeightMargin: 0;
+$textHeightPadding: 0;
+// task-field-title //
+// константы должны быть как и у text-height
+$taskFieldTitleMargin: 0;
+$taskFieldTitlePadding: 0;
+// description //
+// константы, должны быть как и у text-height
+$descriptionMargin: 0;
+$descriptionPadding: 0;
+
+/////////////////////////////////////////////////////////////////////

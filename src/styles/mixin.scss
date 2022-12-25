@@ -9,3 +9,19 @@
 	border-radius: $r;
 	box-shadow: $s;
 }
+
+@mixin setFlex($flow, $justify,
+	$align) {
+	display: flex;
+	flex-flow: $flow;
+	align-items: $align;
+	justify-content: $justify;
+}
+
+@mixin setGrid($row, $col, $justifyIt, $alignIt) {
+	display: grid;
+	grid-template-rows: $row;
+	grid-template-columns: $col;
+	justify-items: $justifyIt;
+	align-items: $alignIt;
+}

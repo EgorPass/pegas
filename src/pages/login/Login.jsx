@@ -5,9 +5,10 @@ import { useGetStore } from '../../hooks/reduxHooks/useGetStore'
 import { useLoginContext } from "../../hooks/context/useContextData";
 
 import { LoginButton } from '../../components/loginComponents/loginButtons/LoginButton'
-import { LoginInputField } from '../../components/loginComponents/loginIputField/LoginInputField'
+import { InputField } from "../../components/commonComponents/inputField/InputField"
 import { LoginFormDescription } from '../../components/loginComponents/loginFormDescription/LoginFormDescription'
 import { LoginLinksContainer } from "../../components/loginComponents/loginLinksContainer/LoginLinksContainer";
+
 
 import "./login.scss"
 
@@ -72,31 +73,40 @@ export const Login = ( { regin = false } ) => {
 				
 				<form >
 
-					<LoginInputField
+					<InputField
 						title = "Логин"
 						content = { login }
 						onchange = { changeLogin }
 						type = "text"
-						autofocus = { true }
+						autofocus = { true}
+						autocomplite = "off"
 						classMod = { loginClassMod }
+						classNameBlock = "login-body"
 					/>
 
-					<LoginInputField
+					<InputField
 						title = "Пароль"
 						content = { password }
 						onchange = { changePassword }
 						type = "password"
+						autofocus = { false }
+						autocomplite = "off"
 						classMod = { passClassMod }
+						classNameBlock = "login-body"
 					/>
 
 					{
 						regin &&
-						<LoginInputField
+						<InputField
 							title = "Подтвердите пароль"
 							content = { confirmPassword }
 							onchange = { changeConfirmPassword }
 							type = "password"
+							autofocus = { false }
+							autocomplite = "off"
 							classMod = { confClassMod  }
+							classNameBlock = "login-body"
+
 						/>
 					}
 

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
 import { useSearchActions, useTasksActions, useFieldStateActions, useFieldContentActions} from "../../reduxHooks/useBindActions";
-import { useFirebase } from "./useFirebase";
+import { useFirebase } from "../firebaseHooks/useFirebase";
 import { useGetStore } from "../../reduxHooks/useGetStore";
 import { useTaskItemField } from "./useTaskItemField.js";
 

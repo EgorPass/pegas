@@ -20,10 +20,10 @@ import { memo } from "react"
  * @returns 
  */
 export const Title =
-	// memo(
+	memo(
 		({ id, title, className, clickAtTitle }) => {
 
-	// console.log( "title in List render..." )
+	console.log( "title in List render..." )
 
 	return (
 		<span
@@ -40,4 +40,4 @@ export const Title =
 	)
 
 	} 
-// )
+)

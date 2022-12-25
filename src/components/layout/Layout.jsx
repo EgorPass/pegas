@@ -3,8 +3,7 @@ import { Outlet } from "react-router-dom"
 import { Header } from "../headerComponents/header/Header"
 import { Footer } from "../footer/Footer"
 
-import "./layout.scss"
-
+import "./listBody.scss"
 
 export const Layout = () => {
 	// console.log(" Layout render....")
@@ -13,7 +12,7 @@ export const Layout = () => {
 		<div className = "pegas-body">
 			<Header />
 
-			<main>
+			<main className = "pegas-body__main">
 
 				<Outlet />
 			

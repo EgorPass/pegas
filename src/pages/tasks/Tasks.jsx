@@ -5,11 +5,12 @@ import { getAuth } from "firebase/auth";
 import { useGetStore } from "../../hooks/reduxHooks/useGetStore";
 import { useTasksActions } from "../../hooks/reduxHooks/useBindActions";
 
-import { useFirebase } from "../../hooks/componentsHooks/tasksHooks/useFirebase";
+import { useFirebase } from "../../hooks/componentsHooks/firebaseHooks/useFirebase";
 
 // import { useTaskHeaderContext, useEditContext, useTaskItemListContext, useTaskItemFieldContext,   } from "../../ComponentsHooks/useContextData";
 
-import { TaskHeader } from "../../components/tasksComponents/taskHeader/TaskHeader";
+
+import { ItemList } from "../../components/commonComponents/itemList/ItemList";
 
 import { TaskItemList } from "../../components/tasksComponents/taskItemList/TaskItemList";
 import { TaskItemField } from "../../components/tasksComponents/taskItemField/TaskItemField"
@@ -39,9 +40,12 @@ export const Tasks =
 		// const userUID = window.localStorage.getItem("pegas-user-uid")
 		
 		// console.log(userUID)
-		
+	
+		const { loaderItem } = useGetStore()
+		console.log( loaderItem)
+
 	const { user } = useGetStore( "auth" )
-	const { search, loader, tasks, fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
+	const { search, tasks, fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
 	
 	const { getTasks } = useTasksActions()
 	const { setModeForTitle } = useEdit();
@@ -67,51 +71,49 @@ export const Tasks =
 	}, [ ] )
 
 	return (
-		<div className = "task-body">
+		<div className = "pegas-body__list-body list-body">
 
-			<TaskHeader
-					search = { search }
-					changeSearch = { changeSearch }
-					createTask = { createTask }
-			/>
-				
-			<TaskItemList
-				tasks = { tasks }
-				loader = { loader }
-				setModeForTitle = { setModeForTitle }
-				clickAtTitle = { clickAtTitle }
-				clickAtCheckboxTitle = { clickAtCheckboxTitle }	
-			/>
-
-							{/* <div className = "task-field__task-back-field">
-					</div> */}
-
-			
-			{
-				fieldState.openField && (
-
-					<TaskItemField
-						fieldContent = { fieldContent }
-						fieldState = { fieldState }
-						fieldFiles = { fieldFiles }
-						uploadFile = { uploadFile }
-						uploadTaskRef = { uploadTaskRef }
-						
-						clickAtCheckboxField = { clickAtCheckboxField }
-						clickAtCloseButton = { clickAtCloseButton }
-						clickAtRemoveButton = { clickAtRemoveButton }
-						changeTitle = { changeTitle }
-						changeDescription = { changeDescription }
-						changeDate = { changeDate }
-									
-						clickAtFile = { clickAtFile }
-						clickAtAddFile = { clickAtAddFile }
-						clickAtRemoveFile = { clickAtRemoveFile }
-						clickAtCancelLoad = { clickAtCancelLoad }
+			<ItemList
+				classBlockName = "task"
+				loader = { loaderItem }
+				loaderContent = "Давайте создадим задачу!"
+				create = {  createTask }
+			>
+					<TaskItemList
+						tasks = { tasks }
 						setModeForTitle = { setModeForTitle }
+						clickAtTitle = { clickAtTitle }
+						clickAtCheckboxTitle = { clickAtCheckboxTitle }	
 					/>
-				)
-			}
+			</ItemList>
+			
+
+			<div className="list-body__back-field"></div>
+				{
+					fieldState.openField && (
+
+						<TaskItemField
+							fieldContent = { fieldContent }
+							fieldState = { fieldState }
+							fieldFiles = { fieldFiles }
+							uploadFile = { uploadFile }
+							uploadTaskRef = { uploadTaskRef }
+							
+							clickAtCheckboxField = { clickAtCheckboxField }
+							clickAtCloseButton = { clickAtCloseButton }
+							clickAtRemoveButton = { clickAtRemoveButton }
+							changeTitle = { changeTitle }
+							changeDescription = { changeDescription }
+							changeDate = { changeDate }
+										
+							clickAtFile = { clickAtFile }
+							clickAtAddFile = { clickAtAddFile }
+							clickAtRemoveFile = { clickAtRemoveFile }
+							clickAtCancelLoad = { clickAtCancelLoad }
+							setModeForTitle = { setModeForTitle }
+						/>
+					)
+				}
 
 		</div>
 	)

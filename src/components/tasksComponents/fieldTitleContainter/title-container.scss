@@ -1,27 +1,8 @@
-@import "../../../styles/tasks/template.scss";
-@import "../../../styles/tasks/var/var-Grid-Flex.scss";
-@import "../../../styles/tasks/var/var-background.scss";
-@import "../../../styles/tasks/var/var-border.scss";
-@import "../../../styles/tasks/var/var-box.scss";
-@import "../../../styles/tasks/var/var-font.scss";
-@import "../../../styles/tasks/var/var-size.scss";
+@import "../../../styles/template.scss";
 
 .title-container {
-	&__title {
-		box-sizing: border-box;
-		outline: none;
-		border: none;
-		resize: none;
-
-		position: absolute;
-		top: 0;
-		left: 0%;
-	
-		width: 100%;
-		height: 100%;
-
-		background-color: $backgroungField;
-	
+	&__title {		
+		@extend %template-editable-text-field;
 		@include setBox($taskFieldTitleMargin, $taskFieldTitlePadding	);
 	}
 } 

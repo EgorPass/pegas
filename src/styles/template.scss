@@ -1,0 +1,98 @@
+@import "./mixin.scss";
+@import "./var/font.scss";
+@import "./var/background.scss";
+@import "./var/border.scss";
+@import "./var/box.scss";
+@import "./var/grid-Flex.scss";
+@import "./var/size.scss";
+
+
+%template-anch-email {
+	content: "\2709";
+	padding: 0px 0 0px 5px;
+}
+%template-anch-phone {
+	content: "\2706";
+	padding: 0px 0 0px 5px;
+}
+%template-anch-telegram {
+	background-image: url("../images/telegram/telegram.png");
+}
+%template-anch-image-setting {
+	display: inline-block;
+	padding: 0px 0 0px 5px;
+	content: "";
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center right;
+}
+
+%template-circle-button {
+	user-select: none;
+	position: relative;
+	cursor: default;
+	@include setBox( 0, 0 );
+	@include setFlex($flexFlowRow, center, center);
+}
+
+// оставляем
+
+%template-loader-position {
+	position: absolute;
+	top: 0%;
+	left: 0;
+	height: 100%;
+}
+
+%template-editable-text-field {
+	box-sizing: border-box;
+	outline: none;
+	border: none;
+	resize: none;
+	background-color: transparent;
+
+	position: absolute;
+	top: 0;
+	left: 0%;
+
+	width: 100%;
+	height: 100%;
+}
+
+%template-wrap {
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+%template-overflow {
+	box-sizing: border-box;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+%template-checkbox__input{
+	position: absolute;
+	opacity: 0;
+	height: 0;
+	width: 0;
+}
+%template-checkbox__checkmark {
+	position: relative;
+	width: $checkboxSize;
+	height: $checkboxSize;
+	background-color: $checkboxBackground;
+
+	@include setBorder($gray-border-thin, 11px, $main-text-shadow )
+}
+%template-checkbox__checkmark_active {
+	content: "";
+	position: absolute;
+	left: 5px;
+	top: 3px;
+	width: 3px;
+	height: 5px;
+	border: solid #333;
+	border-width: 0 3px 3px 0;
+	transform: rotate(45deg);
+	opacity: 0;
+}

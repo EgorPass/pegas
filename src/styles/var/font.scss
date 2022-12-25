@@ -1,8 +1,31 @@
 
+// body-header__container
+
+$body-header__container-fontSize: 16px;
+$body-header__container-mediumFontSize: 18px;
+$body-header__container-largeFontSize: 18px;
+
+// body-header__head
+
+$body-header__head-font-SmallSize: 20px;
+$body-header__head-font-MediumSize: 24px;
+$body-header__head-font-LargeSize: 24px;
+$body-header__head-textShadow: 1px 1px 2px rgb(223, 241, 189), 2px 2px 2px gray;
+
+$body-header__navLink-textShadow-hover: 1px 1px 2px lightgreen, 2px 3px 2px gray;;
+$body-header__navLink-textShadow-active: 1px 1px 2px lightgreen, 2px 2px 2px gray;
+
+// body-header__search-field
+
+$body-header__searchField-font: 14px/1 Time serif;
+$body-header__searchField-textShadow: 1px 1px 2px gray;
+$body-header__searchField-mediumFontSize: 16px;
+$body-header__searchField-largeFontSize: 18px;
+
 // login-body__form-description
 
 $loginBody__formDescription-font: normal 20px/1.2 Time serif;
-$loginBody__formDescription-textShadow: 1px 1px 2px lightgreen;
+$loginBody__formDescription-textShadow: 2px 2px 4px gray;
 
 // login-body__field-description
 
@@ -14,4 +37,59 @@ $loginBody__fieldInput-font: normal 20px/1.2 Time serif;
 
 // login-body__regin
 
-$loginBody__regin-font: normal 16px/1 Time serif
+$loginBody__regin-font: normal 16px/1 Time serif;
+
+
+$loginBody__regin-textShadow: 1px 1px 2px gray;
+$loginBody__regin-textShadow-hover: 1px 1px 2px rgb(94, 94, 233);
+
+
+$bodyHeader__headColor: black;
+
+//login-body__button
+$login-body__button-textShadow: 1px 1px 2px gray;
+
+
+// body-header__nav-link
+
+$body-header__navLink-color: black;
+$body-header__navLink-color-active: lightgoldenrodyellow;
+$body-header__navLink-color-hover: white;
+$body-header__navLink-color-click: white;
+
+// body-header__search-field
+
+$body-header__searchField-color: white;
+
+$body-header__searchField-placeholder-color: gray;
+$body-header__searchField-placeholder-textShadow: 1px 1px 2px white;
+
+// login-body__regin
+
+$loginBody__regin-color: rgb(94, 94, 233);
+$loginBody__regin-color-hover: rgba(0, 0, 0, 0.651);
+
+
+
+
+//////////////////////// list-body //////////////////////////////////
+
+$rect-button-font: 15px/1 Time serif;
+
+$task-field-title-font: bold 24px/1.2 Time serif;
+$task-field-description-font: 18px/1.2 Time serif;
+$task-field-deadline-font: 16px/1 Time serif;
+$task-field-fileContainer-font: 14px/1 Time serif;
+
+$task-item-title-fontSize: 18px;
+
+$main-text-shadow: 1px 1px 1px white, 2px 2px 2px gray;
+$main-font-color: black;
+
+
+$titleColor: rgb(37, 31, 31);
+$titleHoverColor: rgb(136, 150, 12);
+$titleCompliteColor: rgb(19, 95, 19);
+$titleDeadmenColor: rgb(129, 35, 35);
+
+$fileNameColorHover: blue;

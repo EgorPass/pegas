@@ -28,7 +28,7 @@ export const FieldDeadlineContainer = memo(
 			isComplite ? "" : dayState ? "Выполнить до: " : "истек срок: "
 
 		return (
-			<div className = "task-field__deadline-container deadline-container">
+			<div className = "field-container__deadline-container deadline-container">
 				
 				<span className = "deadline-container__deadline-description">
 					{ deadLineDescription }

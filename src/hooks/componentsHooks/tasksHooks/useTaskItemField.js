@@ -1,6 +1,6 @@
 import {  useCallback } from "react";
 
-import { useFirebase } from "./useFirebase"
+import { useFirebase } from "../firebaseHooks/useFirebase"
 import {
 				useUploadFileActions,
 				useFieldContentActions,

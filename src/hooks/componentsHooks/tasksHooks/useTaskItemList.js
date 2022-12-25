@@ -5,7 +5,7 @@ import {
 	useFieldStateActions,
 	useFieldFilesActions
 } from "../../reduxHooks/useBindActions" 
-import { useFirebase } from "./useFirebase";
+import { useFirebase } from "../firebaseHooks/useFirebase";
 import { useTaskItemField } from "./useTaskItemField.js";
 
 /**

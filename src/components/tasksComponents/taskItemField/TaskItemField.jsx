@@ -5,9 +5,11 @@ import { FieldDescriptionContainer } from "../fieldDescriptionContainer/FieldDes
 import { FieldFileContainer } from "../fieldFileContainer/FieldFileContainer";
 import { FieldCheckboxContainer } from "../fieldCheckboxContainer/FieldCheckboxContainer";
 import { FieldDeadlineContainer } from "../fieldDeadlineContainer/FieldDeadlineContainer";
-import { FieldButtonContainer } from "../fieldButtonContainer/FieldButtonContainer";
+// import { FieldButtonContainer } from "../fieldButtonContainer/FieldButtonContainer";
 
-import './task-field.scss';
+import { FieldButtonContainer } from "../../commonComponents/fieldButtonContainer/FieldButtonContainer"
+
+import './field-container.scss';
 
 /**
  * Компонент создает блок контейнер в виде модального окна с перекритием содержимого на экране прозрачным блоком и формирует поля описания задания из дочерних компонентов.
@@ -60,8 +62,8 @@ export const TaskItemField =
 			// console.log(".....////  :  ", fieldContent.isComplite)
 			
 	return (
-		<div className = "task-body__task-cover" >
-			<div className = "task-body__task-field task-field" >
+		<div className = "list-body__cover-field" >
+			<div className = "list-body__field-container field-container" >
 				
 				<FieldTitleContainer
 					className = { classNameForFieldTitle }
@@ -101,6 +103,7 @@ export const TaskItemField =
 					id = { fieldContent.id }
 					clickAtCloseButton = { clickAtCloseButton }
 					clickAtRemoveButton = { clickAtRemoveButton }
+					classNameBlock = "task-field"
 				/>
 						
 			</div>		
