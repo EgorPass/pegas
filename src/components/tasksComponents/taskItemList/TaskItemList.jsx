@@ -26,7 +26,7 @@ export const TaskItemList =
 	memo(
 	({ tasks, setModeForTitle, clickAtTitle, clickAtCheckboxTitle }) => {
 
-		// console.log( "taskItemList render ..." )
+		console.log( "taskItemList render ..." )
 			
 		return (
 			<>

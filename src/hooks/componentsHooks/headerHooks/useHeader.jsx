@@ -70,12 +70,15 @@ export function useHeader() {
 				const newContacts = await getFilesFromDatabase(`/${path}/${user}/`)
 				const contacts = Object.values(newContacts)
 				let find = new Set();
-				
+
+				console.log( contacts )
+
 				for (let  val of contacts) {
 					const { contactData, contactName } = val
-				
+
 					Object.values( contactData ).forEach(it => {
-						if( typeof it === "string" ) {
+
+						if ( typeof it === "string" ) {
 
 							let string = it ? it.toLowerCase() : '';							
 							if( !!value && string.includes( value ) ) find.add( val )
@@ -123,7 +126,7 @@ export function useHeader() {
 			} )
 			.then( res => searchData["get" + path.slice(0,1).toUpperCase() + path.slice(1)]( res ) )
 		}
-	, [ pathname, contactsOpen,  contactName, contactData, fieldContent] )
+	, [ pathname,  contactName, contactData, fieldContent] )
 
 
 	return {

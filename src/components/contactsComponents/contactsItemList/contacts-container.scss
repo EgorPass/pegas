@@ -1,0 +1,24 @@
+@import "../../../styles/template.scss";
+
+.contacts-container {
+
+	&__contact-item {
+
+		@extend %template-listBody-listItem;
+		@include setBox((10px 0 0px 0), (0));
+		@include setGrid( $listBody-listItemGridRow, auto, start, center );
+	}
+}
+
+.contact-item {
+
+	&__contact-name {
+
+		@include setBox((0 0 0 20px), 0);
+
+		&:hover {
+			color: $titleHoverColor;
+		}
+	}
+
+}

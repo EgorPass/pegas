@@ -9,10 +9,10 @@ import { ThreeDots } from "react-loader-spinner"
  */
 export const LoaderForList =
 	memo(
-	( { state, content, classBlockName } ) => {
+	( { state, content } ) => {
 		
 		// console.log( "   ... LoaderForList state: ", state )
-		// console.log("three dots render ....")
+		console.log("three dots render ....")
 
 
 		return (

@@ -1,12 +1,4 @@
 
-// body-header__nav-link
-
-$body-header__navLink-border: 1px solid transparent;
-$body-header__navLink-borderRadius: 5px;
-$body-header__navLink-boxShadow: none;
-$body-header__navLink-boxShadow-hover: 2px 2px 6px white;
-$body-header__navLink-boxShadow-active: 0px 0px 2px white;
-//login-body__field
 
 $loginBody__field-border: none;
 $loginBody__field-borderRadius: 4px;
@@ -27,21 +19,15 @@ $login-body__button-box-shadow: 0px 0px 4px lightseagreen;
  
 $gray-border-thin: 1px solid gray;
 
-$border-radius-small: 2px;
-$border-radius-medium: 4px;
-
-$inset-box-shadow: inset 0 0 4px gray;
 
 // buttons 
-$inset-box-shadow-button: inset 0 0 4px grey, 1px 1px 2px black;
+$inset-box-shadow-button: inset 0 0 4px gray, 1px 1px 2px black;
 $inset-box-shadow-button-active: inset 0 0 8px gray, 0 0 2px black;
 $inset-box-shadow-button-hover: inset 0 0 8px rgb(115, 122, 84), 1px 1px 2px black;
 
 
 $descriptionContainerBorder: 4px double gray;
 
-$taskBodyShadow: 2px 2px 6px gray;
 
-$list-body-filed-shadow: inset 0 0 4px grey, 1px 1px 4px black;
-$list-body-field-shadow-invert: inset 0 0 4px grey, -1px -1px 4px black;
-
+$field-shadow-black-down: inset 0 0 4px gray, 1px 1px 4px black;;
+$field-shadow-black-up: inset 0 0 4px gray, -1px -1px 4px black;;

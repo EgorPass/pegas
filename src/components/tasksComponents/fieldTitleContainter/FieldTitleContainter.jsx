@@ -20,18 +20,18 @@ export const FieldTitleContainer =	memo(
 	( { className, content, onchange } ) => {
 
 		const nodeRef = useRef(null)
-		// console.log("title field render...")
+		console.log("title field render...")
 	
 			return (
 				<div
-					className="field-container__title-container title-container"
+					className="task-field__title-container title-container"
 					onClick={(e) => {
 						console.log( " click at title")
 						console.log( nodeRef.current)
 						if (nodeRef) nodeRef.current.focus();
 					} }
 				>
-					<div className = "field-container__text-height">	
+					<div className = "task-field__text-height">	
 						{ content }
 						&nbsp;
 						

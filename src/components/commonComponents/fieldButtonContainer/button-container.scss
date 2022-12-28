@@ -1,6 +1,10 @@
 @import "../../../styles/template.scss";
 
 .button-container {
+
+	// justify-self: end;
+	// border: 1px solid green;
+	// width: auto;
 	
 	&__item-button {
 		position: relative;
@@ -14,6 +18,10 @@
 		
 		@include setBox( ( 0 0 0 8px ) , ( 0 ) );
 		@include setBorder($gray-border-thin, 4px,$inset-box-shadow-button);
+
+		&:last-of-type {
+			maring: 0;
+		}
 
 		&:hover {
 			box-shadow: $inset-box-shadow-button-hover;

@@ -1,26 +1,5 @@
 
-// body-header__container
 
-$body-header__container-fontSize: 16px;
-$body-header__container-mediumFontSize: 18px;
-$body-header__container-largeFontSize: 18px;
-
-// body-header__head
-
-$body-header__head-font-SmallSize: 20px;
-$body-header__head-font-MediumSize: 24px;
-$body-header__head-font-LargeSize: 24px;
-$body-header__head-textShadow: 1px 1px 2px rgb(223, 241, 189), 2px 2px 2px gray;
-
-$body-header__navLink-textShadow-hover: 1px 1px 2px lightgreen, 2px 3px 2px gray;;
-$body-header__navLink-textShadow-active: 1px 1px 2px lightgreen, 2px 2px 2px gray;
-
-// body-header__search-field
-
-$body-header__searchField-font: 14px/1 Time serif;
-$body-header__searchField-textShadow: 1px 1px 2px gray;
-$body-header__searchField-mediumFontSize: 16px;
-$body-header__searchField-largeFontSize: 18px;
 
 // login-body__form-description
 
@@ -44,33 +23,65 @@ $loginBody__regin-textShadow: 1px 1px 2px gray;
 $loginBody__regin-textShadow-hover: 1px 1px 2px rgb(94, 94, 233);
 
 
-$bodyHeader__headColor: black;
 
 //login-body__button
 $login-body__button-textShadow: 1px 1px 2px gray;
 
 
-// body-header__nav-link
+/////////////// font 
+
+// body-header__container
+
+$body-header__container-fontSize: 16px;
+$body-header__container-largeFontSize: 18px;
+
+// body-header__head
+
+$body-header__head-font-SmallSize: 20px;
+$body-header__head-font-LargeSize: 24px;
+
+
+// body-header__search-field
+
+$body-header__searchField-font: 14px/1 Time serif;
+$body-header__searchField-mediumFontSize: 16px;
+$body-header__searchField-largeFontSize: 18px;
+
+
+
+
+
+////////////////////  color 
+$bodyHeader__headColor: black;
 
 $body-header__navLink-color: black;
 $body-header__navLink-color-active: lightgoldenrodyellow;
 $body-header__navLink-color-hover: white;
 $body-header__navLink-color-click: white;
 
-// body-header__search-field
-
 $body-header__searchField-color: white;
-
 $body-header__searchField-placeholder-color: gray;
-$body-header__searchField-placeholder-textShadow: 1px 1px 2px white;
-
-// login-body__regin
 
 $loginBody__regin-color: rgb(94, 94, 233);
 $loginBody__regin-color-hover: rgba(0, 0, 0, 0.651);
 
 
+//////////////////   text-shadow 
 
+
+// body-header__search-field
+
+
+$body-header__searchField-placeholder-textShadow: 1px 1px 2px white;
+
+// login-body__regin
+
+
+
+$body-header__head-textShadow: 1px 1px 2px rgb(223, 241, 189), 2px 2px 2px gray;
+
+$body-header__navLink-textShadow-hover: 1px 1px 2px lightgreen, 2px 3px 2px gray;;
+$body-header__navLink-textShadow-active: 1px 1px 2px lightgreen, 2px 2px 2px gray;
 
 //////////////////////// list-body //////////////////////////////////
 
@@ -83,6 +94,7 @@ $task-field-fileContainer-font: 14px/1 Time serif;
 
 $task-item-title-fontSize: 18px;
 
+$gray-text-shadow: 1px 1px 2px gray;
 $main-text-shadow: 1px 1px 1px white, 2px 2px 2px gray;
 $main-font-color: black;
 

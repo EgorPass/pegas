@@ -3,21 +3,9 @@
 .task-container {
 
 	&__task-item {	
-
-		font-size: $task-item-title-fontSize;
-		text-shadow: $main-text-shadow;
-		cursor: default;
-
-		user-select: none;
-		tap-highlight-color: transparent;
-		-webkit-tap-highlight-color: transparent;
-		-moz-tap-highlight-color: transparent;
-		-o-tap-highlight-color: transparent;
-
-		border-bottom: 1px dashed gray;
-	
+		
+		@extend	%template-listBody-listItem;
 		@include setBox( ( 10px 0 0px 0 ), ( 0 ) );
-
-		@include setGrid( $taskItemGridRow, $taskItemGridCol, center, center );
+		@include setGrid( $listBody-listItemGridRow, $listBody-listItemGridCol, center, center );
 	}
 }

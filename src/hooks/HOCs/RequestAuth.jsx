@@ -12,6 +12,7 @@ export const RequestAuth = ({ children }) => {
 	const location = useLocation();
 
 	if (!isAuth) {
+	// if(true) {
 		return <Navigate to="/login" replace state = { { from: location.pathname } } />
 	}
 

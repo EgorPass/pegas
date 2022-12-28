@@ -1,4 +1,4 @@
-import { useMemo, memo, useEffect } from "react"
+import { useMemo, useEffect } from "react"
 
 import { useGetStore } from "../../hooks/reduxHooks/useGetStore"
 import { useContactsActions } from "../../hooks/reduxHooks/useBindActions"
@@ -6,7 +6,6 @@ import { useContactsActions } from "../../hooks/reduxHooks/useBindActions"
 import { useFirebase } from "../../hooks/componentsHooks/firebaseHooks/useFirebase"
 
 import { ItemList } from "../../components/commonComponents/itemList/ItemList"
-import { useContactsHeader } from "../../hooks/componentsHooks/contactsHooks/useContactsHeader"
 import { useContactsItemList } from "../../hooks/componentsHooks/contactsHooks/uesContactsItemList"
 import { useContactsItemField } from "../../hooks/componentsHooks/contactsHooks/useContactsItemField"
 
@@ -17,7 +16,7 @@ import { ContactsItemField } from "../../components/contactsComponents/contactsI
 
 export const Contacts = () => {
 
-	// console.log( "contacts body render... ")
+	console.log( "contacts body render... ")
 
 	const { loaderItem } = useGetStore()
 	const { user } = useGetStore("auth")
@@ -30,8 +29,7 @@ export const Contacts = () => {
 		
 		clickAtCloseButton, clickAtRemoveButton,
 	} = useContactsItemField();
-	const { createContact } = useContactsHeader()
-	const { clickAtTitle } = useContactsItemList(contacts);
+	const { clickAtTitle, createContact } = useContactsItemList(contacts);
 	const { monitor } = useFirebase();
 
 	const dataOfName = useMemo(() => [
@@ -101,7 +99,7 @@ export const Contacts = () => {
 			<ItemList 
 				classBlockName = "contacts"
 				loader = { loaderItem }
-				laoderContent = "Давайте создадим контакт"
+				loaderContent = "Давайте создадим контакт"
 				create = { createContact }
 			>		
 			
@@ -110,8 +108,9 @@ export const Contacts = () => {
 					clickAtTitle = { clickAtTitle }
 				/>
 			</ItemList>
-			
 
+
+			<div className="list-body__back-field"></div>
 			{
 				contactState.openContact && 
 				<ContactsItemField

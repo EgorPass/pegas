@@ -14,20 +14,20 @@ import "./description-container.scss"
 export const FieldDescriptionContainer = memo(
 	( { content, onchange } ) => {
 
-			// console.log( "description field render..." )
+			console.log( "description field render..." )
 
 			const nodeRef = useRef(null)
 		
 			return (
 				<div
-					className="field-container__descriptio-container description-container"
+					className="task-field__descriptio-container description-container"
 					onClick={(e) => {
 						console.log( " click at title")
 						console.log( nodeRef.current)
 						if (nodeRef) nodeRef.current.focus();
 					} }
 				>
-					<div className = "field-container__text-height">	
+					<div className = "task-field__text-height">	
 						{ content }
 						&nbsp;
 						<EditableTextField 

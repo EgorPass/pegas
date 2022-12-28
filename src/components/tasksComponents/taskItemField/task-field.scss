@@ -1,6 +1,6 @@
 @import "../../../styles/template.scss";
 
-.field-container {
+.task-field {
 
 	&__text-height {
 		position: relative;
@@ -22,7 +22,7 @@
 			
 		& * {
 			font: $task-field-description-font;
-			text-shadow: $main-text-shadow;
+			text-shadow: $gray-text-shadow;
 		}
 	}
 
@@ -85,17 +85,17 @@
 		
 		display: grid;
 		grid-template-columns: $fileContainerGridCol ;
-		justify-content: start;
 		
 		font: $task-field-fileContainer-font;
-		text-shadow: $main-text-shadow;
+		text-shadow:$gray-text-shadow;
 
 		@include setBox( (0px 0), (15px 10px) );
 	}
 	
-	&__button-container {
+		
+	& .button-container {
 		grid-area: buttonContainer;	
-		@include setBox( 0 , 0 );
-		@include setFlex( $flexFlowRow,	end, center );
+		@include setFlex($flexFlowRow, end, center);
 	}
+
 }

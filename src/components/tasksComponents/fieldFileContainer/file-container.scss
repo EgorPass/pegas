@@ -7,7 +7,7 @@
 
 		@extend %template-overflow;
 		@include setBox( ( 0 15px 0 0 ), ( 5px 5px 0px 8px ) );
-		@include setBorder($gray-border-thin, $border-radius-small, $inset-box-shadow );
+		@include setBorder($gray-border-thin, 2px, ( inset 0 0 4px gray ) );
 	}
 
 	&__file-item {
@@ -21,7 +21,6 @@
 		justify-self: start;
 		margin: 0px 5px 0 0;
 			
-		text-shadow: $main-text-shadow;
 		color: $main-font-color; 
 		word-break: break-all;
 	}

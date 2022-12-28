@@ -5,6 +5,8 @@ import "./itemList.scss"
 
 export const ItemList = memo(( { classBlockName, loader, loaderContent, children, create }) => {
 	
+		console.log("ItemList render: ", classBlockName)
+
 	return (
 		<div className={`list-body__list-container list-container`}>
 			

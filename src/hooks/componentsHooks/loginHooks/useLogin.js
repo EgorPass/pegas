@@ -2,17 +2,28 @@ import { useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { useGetStore } from "../../reduxHooks/useGetStore";
-import { useLoginActions, useAuthActions, useTasksActions, useFieldContentActions, useFieldStateActions } from "../../reduxHooks/useBindActions";
+import {
+	useLoginActions, useAuthActions,
+	useTasksActions, useFieldContentActions, useFieldStateActions,
+	useContactDataActions, useContactNameActions, useContactStateActions, useContactsActions,
+} from "../../reduxHooks/useBindActions";
 
 export function useLogin() {
 
 	const { error } = useGetStore( "auth" )
-	const { fieldState, fieldContent } = useGetStore( "tasks" );
+	const { tasks, fieldState, fieldContent } = useGetStore( "tasks" );
+	const { contacts, contactState, contactName, contactData } = useGetStore( "contacts" );
 	const { login, password, confirmPassword } = useGetStore( "login" )
 
 	const { getTasks } = useTasksActions();
 	const { setOpenField } = useFieldStateActions();
-	const { resetFieldContent } = useFieldContentActions()
+	const { resetFieldContent } = useFieldContentActions();
+
+	const { getContacts } = useContactsActions();
+	const { resetNameData, } = useContactNameActions()
+	const { resetContactData } = useContactDataActions()
+	const { setOpenContact } = useContactStateActions();
+
 	const { setLogin, setPassword, setConfirmPassword } = useLoginActions();
 	const { setError, loginAtFirebase, reginAtFirebase, logoutAtFirebase } = useAuthActions();
 
@@ -79,16 +90,22 @@ export function useLogin() {
 		e.preventDefault();
 		
 		navigate("/", { replace: true })
-
 		logoutAtFirebase()
-		getTasks([]);
-		
+
+		if( tasks.length > 0 ) getTasks([]);
 		if ( fieldState.openField ) {
 			setOpenField(false)
 			resetFieldContent();
 		}
+		
+		if( contacts.length > 0 ) getContacts([])
+		if (contactState.openContact) {
+			setOpenContact(false) 
+			resetNameData();
+			resetContactData();
+		}
 	}
-	, [ fieldState, fieldContent ] )
+	, [ fieldState, fieldContent, contactData, contactName, contactState ] )
 
 	const resetLoginFields = useCallback( () => {
 		setPassword("")

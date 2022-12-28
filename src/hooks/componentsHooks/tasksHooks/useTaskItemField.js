@@ -17,7 +17,7 @@ import { useRefference } from "../ref/useRefference"
  * @returns {object} Возвращает объект методов для функциональности описания поля задачи: 		clickAtCheckboxField, clickAtRemoveButton, clickAtCloseButton, changeTitle, changeDescription, changeDate,
  */
 // export function useTaskItemField( uploadTaskRef ) {
-export function useTaskItemField( ) {
+export function useTaskItemField(  ) {
 	
 	const { user } = useGetStore( "auth" )
 	const { fieldContent, fieldFiles, fieldState, uploadFile, } = useGetStore( "tasks" )
@@ -26,6 +26,7 @@ export function useTaskItemField( ) {
 					setFieldAtDatabase,			uploadFileToStorage,
 					deleteFileFromStorage,	downlaodFileFromStorage
 																													} = useFirebase()
+
 	const { setOpenField, setNewField } = useFieldStateActions()
 	const {
 					setFieldTitle,				setFieldDescription,

@@ -61,10 +61,18 @@ export function useContactsItemField() {
 	}
 		, [contactData.other])
 
+	const checkName = () => {
+		const { name, surName, secondName } = contactName
+
+		if( name.length > 2|| surName.length > 2 || secondName.length > 2 ) return true
+		
+		return false
+	}
 	
 	const clickAtCloseButton = useCallback(
 		( id ) => {
 
+			if( !checkName() ) return;
 			
 			setFieldAtDatabase( `/contacts/${ user }/${ contactName.id }`,  "contactName" , contactName )
 			setFieldAtDatabase( `/contacts/${ user }/${ contactName.id }`,  "contactData" , contactData )
@@ -74,11 +82,12 @@ export function useContactsItemField() {
 			resetContactData();
 			
 		}
-	, [ contactData, contactName, contactState ] )
+	, [ contactData, contactName, contactState.openContact ] )
 	
 
 	const clickAtRemoveButton = useCallback(
 		( id ) => {
+			if ( !window.confirm( `Вы уверены, что хотите удалить контакт ${contactName.surName} ${contactName.name}?` )) return;
 
 			setOpenContact( false ) 
 			resetNameData();
@@ -86,10 +95,11 @@ export function useContactsItemField() {
 
 		setFieldAtDatabase( `/contacts/${ user }`, contactName.id, null )
 
-			// contacts = contacts.filter( it => id !== contacts.contactName.id )
 	}
-	, [ contacts, contactName, contactData, contactState ])
+	, [ contactName ])
+	// , [ contacts, contactName, contactData, contactState ])
 	
+
 	return {
 		changeName,
 		changeSurName,

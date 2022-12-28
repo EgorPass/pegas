@@ -7,6 +7,34 @@
 @import "./var/size.scss";
 
 
+%template-listBody-field {
+	box-sizing: border-box;
+	min-width: 300px;
+	width: calc(100% - 20px);
+	background: $listBody-background;
+}
+
+%template-body-headerAndFooter {
+		user-select: none;
+		box-sizing: border-box;
+		background: $bodyHeaderBackground;
+		@include setBox(0, 0);
+}
+
+%template-listBody-listItem {
+	font-size: $task-item-title-fontSize;
+	text-shadow: $main-text-shadow;
+	cursor: default;
+
+	user-select: none;
+	tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: transparent;
+	-moz-tap-highlight-color: transparent;
+	-o-tap-highlight-color: transparent;
+
+	border-bottom: 1px dashed gray;
+}
+
 %template-anch-email {
 	content: "\2709";
 	padding: 0px 0 0px 5px;

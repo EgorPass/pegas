@@ -29,16 +29,16 @@ function App() {
 	const user = window.localStorage.getItem( "pegas-user" );
 	
 	// useLayoutEffect(() => {
-	setIsAuth(!!user)
-	setUser(user)
-	// })
+		setIsAuth(!!user)
+		setUser(user)
+	// }, [ user ])
  
 	return (
 		<LoginContext>
 			
-										<Routes>
+									<Routes>
 
-										<Route path="/" element={<Layout /> } >
+											<Route path="/" element={<Layout /> } >
 												<Route index element = { <Home /> } />
 												<Route path = "tasks" element = { 
 																														<RequestAuth>
@@ -55,9 +55,9 @@ function App() {
 
 											<Route path = "login" element = { <Login /> } />
 											<Route path = "regin" element = { <Login regin = { true } /> } />
-											<Route path = "*" element={<NotFound />} />
 										
-										</Routes>
+											<Route path = "/*" element = { <NotFound />} />
+									</Routes>
 
 		</LoginContext>
   );

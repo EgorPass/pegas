@@ -8,7 +8,7 @@ export const NotFound = () => {
 	const { state: { errorName, errorMessage } } = useLocation();
 
 	return (
-		<main className="pegas-body__error-page error-page">		
+		<main className="pegas-body__error-page error-page">
 			<ErrorMessageContainer >
 				{
 						errorName &&

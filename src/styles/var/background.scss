@@ -1,28 +1,16 @@
 
 // body
 
-$backgroundGrad1: white;
-$backgroundGrad2: rgb(214, 214, 236);
-
-
+$bodybackgoundColor: rgb(234, 234, 234);
 // body-header
 
-$bodyHeagerBackground: rgb(170, 170, 170);
-$bodyHeagerBackground: rgb(189, 189, 189);
-$bodyHeagerBackground: #c9c9ce;
-$bodyHeagerBackground: #cacad4;
+$bodyHeaderBackground: rgb(232, 232, 232);
 
 // login-bddy__field
 
-$loginBody__field-background: lightyellow;
+$loginBody__field-background: rgba(255, 255, 224, 0.87);
 $loginBody__field-background-error: rgb(250, 222, 220);
 
-
-
-// login-bddy__field
-
-$loginBody__field-background: lightyellow;
-$loginBody__field-background-error: rgb(250, 222, 220);
 
 //login-body__button
 
@@ -30,19 +18,13 @@ $loginBody__background: lightgoldenrodyellow;
 $login-body__button-color: rgb(90, 103, 116);
 
 
-
-
-
-
 //////////////////////// list-body //////////////////////////////////
 
-$listBody-background: rgba(189, 189, 189, 0.212);
+$listBody-background: rgb(238, 238, 238);
 
-$list-body-backgound-gradient1: rgb(232, 232, 236);
-$list-body-backgound-gradient2: rgb(210, 210, 226);
+$listBodyCoverBackground: rgba(0, 0, 0, 0.349);
+$listBodyBackFieldBackground: transparent;
 
-
-$taskCoverBackground: rgba(0, 0, 0, 0.349);
 
 $circle-button-background: rgb(220, 238, 203);
 $circle-button-background-hover: rgb(249, 252, 205);

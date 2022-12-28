@@ -18,6 +18,8 @@ import { InputField } from "../../commonComponents/inputField/InputField";
  */
 export const FieldNameContainer = memo( ( { dataOfName } ) => {
 
+	console.log("FieldNameContainer render... ");
+
 	const className = "name-container"
 	
 	return (

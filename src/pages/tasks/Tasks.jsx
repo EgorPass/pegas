@@ -1,14 +1,9 @@
-import { memo, useEffect } from "react";
-
-import { getAuth } from "firebase/auth";
+import { useEffect } from "react";
 
 import { useGetStore } from "../../hooks/reduxHooks/useGetStore";
 import { useTasksActions } from "../../hooks/reduxHooks/useBindActions";
 
 import { useFirebase } from "../../hooks/componentsHooks/firebaseHooks/useFirebase";
-
-// import { useTaskHeaderContext, useEditContext, useTaskItemListContext, useTaskItemFieldContext,   } from "../../ComponentsHooks/useContextData";
-
 
 import { ItemList } from "../../components/commonComponents/itemList/ItemList";
 
@@ -17,14 +12,13 @@ import { TaskItemField } from "../../components/tasksComponents/taskItemField/Ta
 
 
 import { useEdit } from "../../hooks/componentsHooks/tasksHooks/useEdit";
-import { useTaskHeader } from "../../hooks/componentsHooks/tasksHooks/useTaskHeader";
 import { useTaskItemList } from "../../hooks/componentsHooks/tasksHooks/useTaskItemList";
 import { useTaskItemField } from "../../hooks/componentsHooks/tasksHooks/useTaskItemField";
 
 import "./task-body.scss"
 
 /**
- * Мемоизированный компонент отрисовывает блок контейнр в котором отрисовывается три основные блока из которых состоит список задач: TaskHeader, TaskContainer и TaskItemField.
+ * Компонент отрисовывает блок контейнр в котором отрисовывается три основные блока из которых состоит список задач: TaskHeader, TaskContainer и TaskItemField.
  * 
  * TaskItemField отрисовывается только если заполнено состояние field.
  *  
@@ -32,25 +26,23 @@ import "./task-body.scss"
  *  
  * @returns 
  */
-export const Tasks =
-	// memo(
-	() => {
+export const Tasks = () => {
 		
-	// console.log("task body render ...")
-		// const userUID = window.localStorage.getItem("pegas-user-uid")
-		
-		// console.log(userUID)
-	
-		const { loaderItem } = useGetStore()
+	console.log("task body render ...")
+			
+	const { loaderItem } = useGetStore()
 		console.log( loaderItem)
 
 	const { user } = useGetStore( "auth" )
-	const { search, tasks, fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
+	const { tasks, fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
+	const { monitor } = useFirebase()
 	
 	const { getTasks } = useTasksActions()
 	const { setModeForTitle } = useEdit();
-	const { changeSearch, createTask } = useTaskHeader()
-	const { clickAtTitle, clickAtCheckboxTitle } = useTaskItemList()
+	const {
+		createTask, clickAtTitle, clickAtCheckboxTitle
+														} = useTaskItemList( );
+	
 	const {
 					clickAtCheckboxField,			clickAtCloseButton,
 					clickAtRemoveButton,			changeTitle,
@@ -60,9 +52,8 @@ export const Tasks =
 					clickAtRemoveFile,				clickAtCancelLoad,
 
 					uploadTaskRef
-					} = useTaskItemField()
+	} = useTaskItemField( )
 
-	const { monitor } = useFirebase()
 	
 	useEffect( () => {
 		
@@ -117,5 +108,4 @@ export const Tasks =
 
 		</div>
 	)
-	} 
-// )
+} 

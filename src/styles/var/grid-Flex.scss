@@ -7,8 +7,8 @@ $flexFlowCol: column nowrap;
 
 // task-item //
 
-$taskItemGridRow: minmax(30px, auto);
-$taskItemGridCol: 10% 80% 10%;
+$listBody-listItemGridRow: minmax(30px, auto);
+$listBody-listItemGridCol: 10% 80% 10%;
 
 // task-field //
 
@@ -17,11 +17,13 @@ $taskFieldGridRow: minmax( 38px, 69px)  auto 122px 20px 35px;
 
 $taskFieldGridRowBig:  minmax(38px, 69px) auto 122px min-content;
 
-$taskFieldGridCol: 45% 55%;
-$taskFieldJustify: stretch;
-$taskFieldAlign: center;
 
 
+// contact-field //
+$contactFieldGridRow: auto;
+$contactFieldGridCol: auto;
+
+$contactFieldGridColBig: .5fr .5fr;
 // file-container //
 $fileContainerGridCol: 95% 5%;
 

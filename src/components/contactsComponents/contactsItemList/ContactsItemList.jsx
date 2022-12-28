@@ -1,10 +1,12 @@
+import { memo } from "react"
 
+import './contacts-container.scss'
 
-export const ContactsItemList = ({ contacts, loader, clickAtTitle }) => {
+export const ContactsItemList = memo( ({ contacts, clickAtTitle }) => {
+	
+	console.log("ContactsItemList render ...")
 
 	return (
-		// <div className="contacts-body__content-container">
-			// <ul className = "contacts-body__contacts-container contacts-container">
 				<>
 				{
 					contacts.map( it => {
@@ -30,13 +32,6 @@ export const ContactsItemList = ({ contacts, loader, clickAtTitle }) => {
 						)
 					})
 				}
-			{/* </ul> */}
-
-			{/* <TaskContainerLoader	
-				state = { loader }
-				content = { "Давайте создадим контакт" }
-			/> */}
-		{/* </div> */}
 			</>
 	)
-}
+} )

@@ -13,18 +13,66 @@ import { useTaskItemField } from "./useTaskItemField.js";
  * 
  * @returns {object} методы для обработки кликов по списку задач: 		clickAtTitle,	clickAtCheckboxTitle,
  */
-export function useTaskItemList() {
-
-	const { newFieldContent, setFieldIsComplite } = useFieldContentActions()
-	const {setOpenField} = useFieldStateActions()
-	const { setFieldFiles } = useFieldFilesActions();
-
-	const { clickAtCloseButton } = useTaskItemField()
-	const {  setFieldAtDatabase, getFilesFromDatabase } = useFirebase()
-	const { tasks,  uploadFile, fieldFiles,fieldState, fieldContent }= useGetStore("tasks")
+export function useTaskItemList( ) {
 
 	const { user } = useGetStore("auth")
+	const { tasks,  uploadFile, fieldFiles,fieldState, fieldContent }= useGetStore("tasks")
 	
+	const { setFieldFiles } = useFieldFilesActions();
+	const { setOpenField, setNewFieldState } = useFieldStateActions()
+	const { newFieldContent, setFieldIsComplite } = useFieldContentActions()
+	
+	const { clickAtCloseButton } = useTaskItemField()
+	const {  setFieldAtDatabase, getFilesFromDatabase } = useFirebase()
+
+	
+	/**
+	 * Вспомогательная функция, которая используется для создания объекта новой задачи, внутри функции createTask.
+	 * 
+	 * создает объект с индификатором, который генерирутся Date.now(),
+	 * 
+	 * @returns {object} возвращает объкет для создания новой задачи, типа taskState: { id: number, title: string, description: string, deadline: Date,	isComplite: boolean }
+	 */
+	const createNewTask = useCallback(
+		( ) => {
+			const id = Date.now();
+			
+			return {
+				id,
+				title: "Новая задача",
+				description: "описание задачи",
+				deadline: "2023-02-05",
+				isComplite: false,
+			}
+		}
+	, [])
+
+	/**
+	 * Создает и открывает новую задачу, 
+	 * Загружает новую задачу на RealTimeDatabase.
+	 * 
+	 * состоянию field ставит вновь созданный объект, сразу открыватеся поле описаня задач, для её создания
+	 * 
+	 * состояние createState ставит в true
+	 * 
+	 * Используется на onClick кнопки создания задачи компоненты TaskHeader.
+	 * @returns {void}
+	 */
+	const createTask = useCallback(
+		async () => {		
+
+			if (fieldState.openField) {
+				clickAtCloseButton(fieldContent.id)
+			}
+
+			const newTask = createNewTask()
+			setFieldAtDatabase( `/tasks/${ user }`, newTask.id, newTask )
+
+			setNewFieldState()
+			newFieldContent( newTask )
+		}
+	, [fieldContent, fieldState, tasks, user])
+
 	
 	/**
 	 * Отктрывае поле с описанием и вложениями из списка задач, по индификатору.
@@ -103,7 +151,8 @@ export function useTaskItemList() {
 	, [ tasks, fieldState.openField, fieldContent.isComplite, fieldContent.id  ] )
 
 
-	return {				
+	return {		
+		createTask,
 		clickAtTitle,
 		clickAtCheckboxTitle,
 	}

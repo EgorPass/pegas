@@ -1,6 +1,6 @@
 import { memo,  } from "react"
 
-
+import "./contacts-field.scss"
 
 import { FieldNameContainer } from "../fieldNameContainer/FieldNameContainer"
 import { FieldContactsContainer } from "../fieldContactsContainer/FieldContactsContainer"
@@ -9,27 +9,34 @@ import { FieldButtonContainer } from "../../commonComponents/fieldButtonContaine
 
 export const ContactsItemField = memo( ( {id, dataOfName, dataOfContacts, clickAtCloseButton, clickAtRemoveButton } ) => {
 
+	console.log("ContactsItemField render... ")
 
 	return (
-		<div className = { `contacts-body__contacts-cover` }>
-			<div className = "contacts-body__contacts-field contacts-field" >
-			
-				<FieldNameContainer
-					dataOfName = { dataOfName }
-				/>
+		<div className = { `list-body__cover-field` }>
+			<div className = "list-body__contacts-field contacts-field" >
 
-				<FieldContactsContainer
-					dataOfContacts = { dataOfContacts }
-				/>
+				<div className = "contacts-field__left-side">
+					<FieldNameContainer
+						dataOfName = { dataOfName }
+						/>
 
-				<FieldPhotoContainer />
+					<FieldPhotoContainer />
+				</div>
+				
+				<div className = "contacts-field__right-side">
 
-				<FieldButtonContainer
-					id = { id }
-					classNameBlock = "contacts-field"
-					clickAtCloseButton = { clickAtCloseButton }
-					clickAtRemoveButton = { clickAtRemoveButton }
-				/>
+					<FieldContactsContainer
+						dataOfContacts = { dataOfContacts }
+						/>
+
+
+					<FieldButtonContainer
+						id = { id }
+						classNameBlock = "contacts-field"
+						clickAtCloseButton = { clickAtCloseButton }
+						clickAtRemoveButton = { clickAtRemoveButton }
+					/>
+				</div>
 
 			</div>
 		</div>

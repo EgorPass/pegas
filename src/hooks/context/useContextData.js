@@ -4,7 +4,7 @@ import { useRefference } from "../componentsHooks/ref/useRefference.js"
 
 import { useLogin } from "../componentsHooks/loginHooks/useLogin"; 
 
-import { useTaskHeader } from "../componentsHooks/tasksHooks/useTaskHeader";
+// import { useTaskHeader } from "../componentsHooks/tasksHooks/useTaskHeader";
 import { useTaskItemList } from "../componentsHooks/tasksHooks/useTaskItemList";
 import { useTaskItemField } from "../componentsHooks/tasksHooks/useTaskItemField"
 import { useEdit } from "../componentsHooks/tasksHooks/useEdit"
@@ -37,23 +37,23 @@ export const useLoginContext = () => useContext(ContextForLogin);
 //////////////////////////////////////////////////
 ////////// работа с задчником ////////////////////
 
-const ContextForTaskHeader = createContext( null )
+// const ContextForTaskHeader = createContext( null )
 const ContextForTaskItemList = createContext( null )
 const ContextForTaskItemField = createContext( null )
 const ContextForEdit = createContext( null )
 
 
-export const TaskHeaderContext = ( { value, children } ) => {
+// export const TaskHeaderContext = ( { value, children } ) => {
 	
-	const headerMethods = useTaskHeader()
+// 	const headerMethods = useTaskHeader()
 	
-	return (
-		<ContextForTaskHeader.Provider value = { headerMethods } >
-			{ children }
-		</ContextForTaskHeader.Provider>
-	)
-}
-export const useTaskHeaderContext = () => useContext( ContextForTaskHeader )
+// 	return (
+// 		<ContextForTaskHeader.Provider value = { headerMethods } >
+// 			{ children }
+// 		</ContextForTaskHeader.Provider>
+// 	)
+// }
+// export const useTaskHeaderContext = () => useContext( ContextForTaskHeader )
 
 
 export const TaskItemListContext = ( { value, children } ) => {

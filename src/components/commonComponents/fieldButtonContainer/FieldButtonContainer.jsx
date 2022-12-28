@@ -19,7 +19,7 @@ import "./button-container.scss"
 export const FieldButtonContainer =	memo(
 	( { id, clickAtRemoveButton, clickAtCloseButton, classNameBlock } ) => {
 
-		// console.log( "button field render...", "  id: ", id)
+		console.log( "button field render...", "  id: ", id)
 		console.log(id)
 
 		return (

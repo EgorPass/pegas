@@ -9,7 +9,7 @@ import { FieldDeadlineContainer } from "../fieldDeadlineContainer/FieldDeadlineC
 
 import { FieldButtonContainer } from "../../commonComponents/fieldButtonContainer/FieldButtonContainer"
 
-import './field-container.scss';
+import './task-field.scss';
 
 /**
  * Компонент создает блок контейнер в виде модального окна с перекритием содержимого на экране прозрачным блоком и формирует поля описания задания из дочерних компонентов.
@@ -44,10 +44,10 @@ export const TaskItemField =
 					clickAtFile,					clickAtAddFile,
 					clickAtRemoveFile,		clickAtCancelLoad,
 
-					setModeForTitle,			uploadTaskRef,
+					setModeForTitle,
 																									}) => {
 	
-	// console.log("taskItemField render ......",)
+	console.log("taskItemField render ......",)
 
 	const classNameForFieldTitle =
 		useMemo( () => (
@@ -56,14 +56,10 @@ export const TaskItemField =
 																												fieldContent.isComplite
 																											)}` )
 		, [fieldContent.isComplite, fieldContent.deadline])
-		
-	// console.log("uploadTaskRef from TaskField: ", uploadTaskRef)
-
-			// console.log(".....////  :  ", fieldContent.isComplite)
-			
+					
 	return (
 		<div className = "list-body__cover-field" >
-			<div className = "list-body__field-container field-container" >
+			<div className = "list-body__task-field task-field" >
 				
 				<FieldTitleContainer
 					className = { classNameForFieldTitle }

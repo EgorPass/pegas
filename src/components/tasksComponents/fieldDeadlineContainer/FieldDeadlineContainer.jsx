@@ -17,7 +17,7 @@ import "./deadline-container.scss"
 export const FieldDeadlineContainer = memo(
 	( { content, onchange, isComplite } ) => { 
 
-		// console.log( "deadline field render..." )
+		console.log( "deadline field render..." )
 		
 		const date = new Date( content )
 		const today = Date.now()
@@ -28,7 +28,7 @@ export const FieldDeadlineContainer = memo(
 			isComplite ? "" : dayState ? "Выполнить до: " : "истек срок: "
 
 		return (
-			<div className = "field-container__deadline-container deadline-container">
+			<div className = "task-field__deadline-container deadline-container">
 				
 				<span className = "deadline-container__deadline-description">
 					{ deadLineDescription }
