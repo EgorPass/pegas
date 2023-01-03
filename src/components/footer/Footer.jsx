@@ -1,12 +1,10 @@
 import { memo } from "react";
 
+import { Anchor } from "../commonComponents/anchor/Anchor";
+
 import "./footer.scss"
 
-export const Footer = memo( () => {
-
-	// console.log( "Footer reder..." )
-
-	return(
+export const Footer = memo( () => (
 		<footer className="pegas-body__body-footer body-footer">
 
 			<div className = "body-footer__container">
@@ -16,40 +14,50 @@ export const Footer = memo( () => {
 				>
 					<span 
 						className="body-footer__contact-item"
-					>Пасюков Егор</span>
-					<a
+						>Пасюков Егор</span>
+					
+					<Anchor
 						href = "tel:+79146287409"
-						className=" body-footer__contact-item body-footer__contact-anch"
+						// className=" body-footer__contact-item body-footer__contact-anch"
 					>
 						8 914 628 74 09
-					</a>
+					</Anchor>
+
 					<span 
 						className="body-footer__contact-item"
-					>pegas1984.sd@gmail.com</span>
+					>
+						pegas1984.sd@gmail.com
+					</span>
 				</div>
 				
 				<div
 					className="body-footer__contacts"
 				>
-					<a
+					<Anchor
 						href="https://github.com/EgorPass"
-						target = "_blanc"
-						className="body-footer__contact-item body-footer__contact-anch"
-					>GitHub</a>
-					<a
+						// className="body-footer__contact-item body-footer__contact-anch"
+					>
+						GitHub
+					</Anchor>
+					
+					<Anchor
 						href="https://t.me/pegas1984"
-						target = "_blanc"
-						className="body-footer__contact-item body-footer__contact-anch"
-					>Написать в телегу</a>
-					<a
+						// className="body-footer__contact-item body-footer__contact-anch"
+					>
+						Написать в телегу
+					</Anchor>
+
+					<Anchor
 						href="mailto:pegas1984.sd@gmail.com"
-						// target = "_blanc"
-						className="body-footer__contact-item body-footer__contact-anch"
-					>Написать на email</a>
+						// className="body-footer__contact-item body-footer__contact-anch"
+					>
+						Написать на email
+					</Anchor>
+
 				</div>
 
 			</div>
 
 		</footer >
 	)
-} )
+)

@@ -12,7 +12,9 @@ export const InputField = memo(({ title, content, classNameBlock, onchange, clas
 						`${ classNameBlock }__field 
 						${ classNameBlock }__field${classMod}`
 				}>
-					<legend className = { `${ classNameBlock }__field-description` }> { title }:</legend>
+					<legend className = { `${ classNameBlock }__field-description` } >
+							{title} 
+					</legend>
 						
 							<input
 							value={content}
@@ -29,4 +31,15 @@ export const InputField = memo(({ title, content, classNameBlock, onchange, clas
 				</label>
 			</div>
 	)
-} )
+}
+	// , (prevProps, nextProps) => {
+
+	// 	console.log(prevProps.title === nextProps.title)
+	// 	// if (prevProps.title === nextProps.title) return false
+	// 	// else return true
+	// 	// prevProps.title !== nextProps.title ||
+	// 	// prevProps.content !== nextProps.content || 
+	// 	// prevProps.onchange !== nextProps.onchange
+	
+	// }
+)

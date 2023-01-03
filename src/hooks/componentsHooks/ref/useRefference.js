@@ -4,11 +4,11 @@ export function useRefference() {
 	
 	const headerNavRef = useRef(null).current
 	const navListRef = useRef(null).current
-	const uploadTaskRef = useRef({}).current
+	const uploadFileRef = useRef({}).current
 	const tooltipRef = useRef( null )
 
 	return {
-		uploadTaskRef,
+		uploadFileRef,
 		tooltipRef
 	}
 }

@@ -7,6 +7,8 @@ import "./button-container.scss"
 /**
  * Мемоизированый компонент контейнер, создает блок с классом "task-field__button-container" для размещения кнопок закрытия и удаления.
  * 
+ * мемоизация работает при загрузке файлов, в остальном нет
+ * 
  * Отрисовывает компоненты кнопок CloseItemButton, RemoveItemButton.
  *  
  * Родительский компонент TaskItemField.
@@ -17,10 +19,9 @@ import "./button-container.scss"
  * @returns 
  */
 export const FieldButtonContainer =	memo(
-	( { id, clickAtRemoveButton, clickAtCloseButton, classNameBlock } ) => {
+	( { id, clickAtRemoveButton, clickAtCloseButton } ) => {
 
-		console.log( "button field render...", "  id: ", id)
-		console.log(id)
+		// console.log( "button field render...", "  id: ", id)
 
 		return (
 			<div className = { `field-container__button-container button-container` }>

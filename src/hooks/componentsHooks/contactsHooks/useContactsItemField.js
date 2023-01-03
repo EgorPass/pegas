@@ -1,37 +1,53 @@
-import { useMemo, useCallback } from "react";
+import { useCallback } from "react";
+import { useLoginContext } from "../../context/useContextData"
 
 import { useFirebase } from "../firebaseHooks/useFirebase";
 
 import { useGetStore } from "../../reduxHooks/useGetStore";
-import { useContactDataActions, useContactNameActions, useContactStateActions, } from "../../reduxHooks/useBindActions";
-import { contacts } from "../../../redux/contactsStore/contactsSlice";
+import { useContactsActions } from "../../reduxHooks/useBindActions";
+
 
 export function useContactsItemField() {
 	
 	const { user } = useGetStore("auth")
-	const { contactName, contactData, contactState } = useGetStore("contacts")
 	const {
-					setFieldAtDatabase,			uploadFileToStorage,
-					deleteFileFromStorage,	downlaodFileFromStorage
-																														} = useFirebase()
+		contacts, 		contactId, 	contactState,
+		contactName, contactData,	contactPhoto
+																															} = useGetStore("contacts")
+	const {setFieldAtDatabase, uploadFileToStorage,	deleteFileFromStorage, getImageUrl	} = useFirebase()
 	
-	const { setOpenContact } = useContactStateActions();
-	const { setName, setSurName, setSecondName, resetNameData } = useContactNameActions();
-	const { setPhone, setTelegram, setEmail, setGitHub, setOther, resetContactData } = useContactDataActions()
+	const {
+		setContactId, setOpenContact,
 
+		setName, setSurName, setSecondName, resetNameData,
+		
+		setPhone, setTelegram, setEmail, setGitHub, setOther, resetContactData,
+
+		setContactPhotoStatus, setContactPhotoUpload, setContactPhotoPath, resetContactPhoto, setContactPhoto, setContactPhotoUrl
+
+	} = useContactsActions();
+
+
+	const { uploadFileRef } = useLoginContext();
+	
 
 	const changeName = useCallback(({ target: { value } }) => {
 		setName(value)
+			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactName/name" , value )
+
 	}
 		, [contactName.name])
 	
 	const changeSurName = useCallback(({ target: { value } }) => {
 		setSurName(value)
+			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactName/surName" , value )
+
 	}
 		, [contactName.surName])
 
 	const changeSecondName = useCallback(({ target: { value } }) => {
 		setSecondName(value)
+
 	}
 		, [contactName.secondName])
 
@@ -74,31 +90,113 @@ export function useContactsItemField() {
 
 			if( !checkName() ) return;
 			
-			setFieldAtDatabase( `/contacts/${ user }/${ contactName.id }`,  "contactName" , contactName )
-			setFieldAtDatabase( `/contacts/${ user }/${ contactName.id }`,  "contactData" , contactData )
+			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactName" , contactName )
+			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactData" , contactData )
 			
 			setOpenContact(false) 
+			setContactId(0)
 			resetNameData();
 			resetContactData();
-			
+			resetContactPhoto();
 		}
-	, [ contactData, contactName, contactState.openContact ] )
+	, [ contactData, contactName, contactState, contactPhoto,  ] )
 	
 
 	const clickAtRemoveButton = useCallback(
 		( id ) => {
 			if ( !window.confirm( `Вы уверены, что хотите удалить контакт ${contactName.surName} ${contactName.name}?` )) return;
 
+			for ( let prop in uploadFileRef ) {
+				console.log(prop)
+				uploadFileRef[prop].cancel();
+
+			}
+			
 			setOpenContact( false ) 
+			setContactPhotoUpload( false );
+			
+			setContactId(0)
 			resetNameData();
 			resetContactData();
+			resetContactPhoto();
 
-		setFieldAtDatabase( `/contacts/${ user }`, contactName.id, null )
+		setFieldAtDatabase( `/contacts/${ user }`, contactId, null )
 
 	}
-	, [ contactName ])
-	// , [ contacts, contactName, contactData, contactState ])
+	, [ ])
 	
+
+	const clickAtAddImage =	useCallback( ( { target } ) => {
+		if (!target) return;
+
+		const files = target.files
+		if ( !files ) return 
+					
+			Array.from( files ).forEach( async ( file ) => {					
+				const type = file.type	
+				
+					if(!/^(image)/gi.test(type)) return 
+
+				const name = file.name;
+				const fileId = Date.now();
+			
+				setContactPhotoStatus("pending")
+				setContactPhotoUpload(true)
+				
+				const uploadTask = uploadFileToStorage(`/contacts/${ user }/${ contactId }/contactPhoto/${ fileId }/${ name }`, file);
+				
+				uploadFileRef[ fileId ] = uploadTask;
+						
+				uploadTask
+					.on("state_changed",
+						async (snapshot) => {  },
+						(err) => {
+							console.log(`изображение ${name} не загрузилось `)
+						},
+						(data) => {
+							console.log( "upload image ready...")
+							
+							delete uploadFileRef[fileId]							
+							
+							setFieldAtDatabase(
+								`/contacts/${ user }/${ contactId }`,
+								`contactPhoto`,
+								{ fileId, name }
+							)
+							setContactPhotoUpload(false);
+
+								getImageUrl(`/contacts/${user}/${contactId}/contactPhoto/${fileId}/${name}`)
+									.then(url => {				
+										setContactPhotoUrl( { status: "fulfilled", url } )
+									} )
+									.catch( err => {
+										setContactPhotoUrl( { status: "rejected", url: "" } )
+									} )						
+						}
+					)
+		})
+	}
+	, [  ])
+	
+	const clickAtRemoveImage = useCallback(
+		async() => {
+			console.log(" click at remove image button...")
+
+			setContactPhotoStatus("pending")
+
+			const contact = contacts.find(it => it.contactId === contactId)
+			const photo = contact.contactPhoto
+
+			await deleteFileFromStorage(`/contacts/${user}/${contactId}/contactPhoto/${photo.fileId}/${photo.name}`, photo.name)	
+			setFieldAtDatabase(
+									`/contacts/${ user }/${ contactId }`,
+									`contactPhoto`,
+									{fileId: "", name: ""}
+			)
+			setContactPhotoStatus("rejected")
+			
+		}
+	, [ contactId,  ] )
 
 	return {
 		changeName,
@@ -113,5 +211,8 @@ export function useContactsItemField() {
 
 		clickAtCloseButton,
 		clickAtRemoveButton,
+
+		clickAtAddImage,
+		clickAtRemoveImage,
 	}
 }

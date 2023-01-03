@@ -87,18 +87,19 @@
 	}
 
 	&__contacts-field {
-
+		overflow-y: auto;
+		
 		@extend %template-listBody-field;
 		@include setBox((10px), (5px 15px 15px));
 		@include setBorder($gray-border-thin, 2px, $field-shadow-black-down );
-		@include setGrid( (auto), 1fr, stretch, stretch);
+		@include setGrid( auto, auto, auto, auto);
 		grid-auto-rows: auto;
-		grid-template-areas: "contact-field-left-side" "contact-field-right-side";
-		align-items: start;
-
+		grid-template-areas: 	"contacts-field__name-container" 								
+													"contacts-field__contact-container"
+													"contacts-field__image-container"
+													"contacts-field__button-container";
 
 		@media (min-width: 500px) {
-			width: 80%;
 			width: 400px;
 		}
 			
@@ -106,14 +107,20 @@
 			margin: 0;
 			width: 100%;
 			height: 100%;
-			
-			grid-template-columns: $contactFieldGridColBig;
-			grid-template-areas: "contact-field-left-side contact-field-right-side"
+			grid-template-columns: .5fr .5fr;
+			grid-template-areas: 
+			"contacts-field__name-container contacts-field__contact-container"
+			"contacts-field__image-container contacts-field__contact-container"
+			"contacts-field__image-container contacts-field__button-container"
 			
 		}
 		
-		@media (min-height: 700px) {
-			grid-template-areas: "contact-field-left-side" "contact-field-right-side";
+		@media ( (min-height: 700px) AND (min-width: 980px) ) {
+			padding: 20px;
+			grid-template-areas: 
+				"contacts-field__name-container contacts-field__image-container"
+				"contacts-field__contact-container contacts-field__image-container"
+				"contacts-field__button-container contacts-field__button-container";
 		}
 
 	}

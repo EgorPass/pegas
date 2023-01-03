@@ -1,44 +1,76 @@
-import { memo,  } from "react"
+import { useEffect } from "react"
 
-import "./contacts-field.scss"
+import { useGetStore } from "../../../hooks/reduxHooks/useGetStore"
+
+import { useContactsActions } from "../../../hooks/reduxHooks/useBindActions"
+
+import { useFirebase } from "../../../hooks/componentsHooks/firebaseHooks/useFirebase"
+
+import { useContactsItemField } from "../../../hooks/componentsHooks/contactsHooks/useContactsItemField"
+
+import { Image } from "../../commonComponents/image/Image"
+
+import { FieldButtonContainer } from "../../commonComponents/fieldButtonContainer/FieldButtonContainer"
 
 import { FieldNameContainer } from "../fieldNameContainer/FieldNameContainer"
 import { FieldContactsContainer } from "../fieldContactsContainer/FieldContactsContainer"
-import { FieldPhotoContainer } from "../fieldPhotoContainer/FieldPhotoContainer"
-import { FieldButtonContainer } from "../../commonComponents/fieldButtonContainer/FieldButtonContainer"
 
-export const ContactsItemField = memo( ( {id, dataOfName, dataOfContacts, clickAtCloseButton, clickAtRemoveButton } ) => {
 
-	console.log("ContactsItemField render... ")
+import "./contacts-field.scss"
+
+export const ContactsItemField = ( ) => {
+
+	// console.log("ContactsItemField render... ")
+
+	
+	const { contactName, contactData, contactId, contactPhoto, contactState } = useGetStore("contacts")
+	const {
+		changeName, changeSurName, changeSecondName,
+		changePhone, changeTelegram, changeEmail,
+		changeGitHub, changeOther,
+		
+		clickAtCloseButton, clickAtRemoveButton,
+
+		clickAtAddImage,		clickAtRemoveImage,
+	} = useContactsItemField();
 
 	return (
 		<div className = { `list-body__cover-field` }>
 			<div className = "list-body__contacts-field contacts-field" >
 
-				<div className = "contacts-field__left-side">
-					<FieldNameContainer
-						dataOfName = { dataOfName }
-						/>
-
-					<FieldPhotoContainer />
-				</div>
+				<FieldNameContainer
+					contactName = { contactName }
+					changeName = { changeName }
+					changeSurName = { changeSurName }
+					changeSecondName = { changeSecondName }
+				/>
 				
-				<div className = "contacts-field__right-side">
-
-					<FieldContactsContainer
-						dataOfContacts = { dataOfContacts }
-						/>
-
-
-					<FieldButtonContainer
-						id = { id }
-						classNameBlock = "contacts-field"
-						clickAtCloseButton = { clickAtCloseButton }
-						clickAtRemoveButton = { clickAtRemoveButton }
-					/>
-				</div>
+				<FieldContactsContainer
+					contactData = { contactData }
+					changePhone = { changePhone }
+					changeTelegram = { changeTelegram }
+					changeEmail = { changeEmail }
+					changeGitHub = { changeGitHub }
+					changeOther = { changeOther }
+				/>
+				
+				<Image
+					url = { contactPhoto.url }
+					status = { contactPhoto.status }
+					addImage = { true }
+					classNameForImage =  "contacts-field__image"
+					classNameForContainer = "contacts-field__image-container"
+					clickAtAddImage	= { clickAtAddImage }
+					clickAtRemoveImage = { clickAtRemoveImage }	
+				/>
+				
+				<FieldButtonContainer
+					id = { contactId }
+					clickAtCloseButton = { clickAtCloseButton }
+					clickAtRemoveButton = { clickAtRemoveButton }
+				/>
 
 			</div>
 		</div>
 	)
-} )
+} 

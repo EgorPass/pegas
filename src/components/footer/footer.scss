@@ -1,9 +1,5 @@
 @import "../../styles/template.scss";
-@import "../../styles/var/font.scss";
-@import "../../styles/var/border.scss";
-@import "../../styles/var/size.scss";
-@import "../../styles/var/box.scss";
-@import "../../styles/mixin.scss";
+
 
 .body-footer{
 
@@ -40,67 +36,25 @@
 		@media (min-width: 700px) {
 			margin: 0 60px 0 0;
 		}
-	}
 
+		& * {
+			height: 16px;
 
-	&__contact-item{
-		
-		height: 16px;
-		padding:  0 ;
-		color: $main-font-color;
-		text-decoration: none;
-		cursor: default;
-
-		@include setFlex( $flexFlowRow, start, center );
-
-		@media (min-width: 700px) {
-			height: 20px;
-		}
-	}
-	
-	&__contact-anch {
-		box-sizing: border-box;
-		&:hover {
-			color: $body-header__navLink-color-hover;
-			text-shadow: $gray-text-shadow; 
-		}
-		
-		&:active {
-			color: $body-header__navLink-color-active;
-		}
-
-		&[href ^= "mailto"]::after {
-			@extend %template-anch-email;
-			font-size: 1.2em;
-		}
-
-		&[href ^= "tel"]::after {
-			@extend %template-anch-phone;
-			font-size: 1.2em;
-		}
-
-		&[href ^="https://github.com"]::after {
-			background-image: url("../../images/gitHub/github.png");
-		}
-
-		&[href ^="https://t.me/pegas1984"]::after {
-			@extend %template-anch-telegram;
-		}
-
-		&[href ^="https://t.me/pegas1984"]::after,
-		&[href ^="https://github.com"]::after { 
+			@include setFlex( $flexFlowRow, start, center );
 			
+			@media (min-width: 700px) {
+				height: 20px;
+			}
+		}
+
+		& a::after {			
 			width: 10px;
 			height: 10px;
-			@extend %template-anch-image-setting;
 
 			@media (min-width: 700px) {
-				width: 16px;
-				height: 16px;
-				
+				width: 18px;
+				height: 18px;
 			}
 		}
 	}
-	
-
 }

@@ -1,4 +1,3 @@
-import { memo } from "react";
 /**
  * Компонент рисует редактируемую часть тестовых полей в описании задачи.
  * 
@@ -18,16 +17,10 @@ import { memo } from "react";
  * @param onchange обработчик для изменения содержимого textarea 
  * @returns 
  */
-export const EditableTextField = memo( ( { className, content, onchange, nodeRef } ) => {
-
-	console.log( "/editableTextField render..." )
-
-	return (		
-		<textarea
-			ref = { nodeRef }
-			value = { content }
-			className = { className }
-			onChange = { onchange }
-		></textarea>
-	)
-} )
+export const EditableTextField = ( { className, content, onchange } ) => (
+	<textarea
+		value={content}
+		className={className}
+		onChange={onchange}
+	></textarea>
+)

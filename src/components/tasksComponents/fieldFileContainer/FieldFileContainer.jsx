@@ -22,27 +22,22 @@ import "./file-container.scss"
  * @returns 
  */
 export const FieldFileContainer =	memo(
-	({id, upload, clickAtAddFile, files, clickAtFile, clickAtCancelLoad, clickAtRemoveFile, }) => {
+	({id, upload, clickAtAddFile, files, clickAtFile, clickAtCancelLoad, clickAtRemoveFile, }) => (
+		
+		<div className="task-field__file-container file-container">	
+			<FileConetnt
+				id = {id }
+				files = {files}
+				upload = { upload }
+				clickAtFile = { clickAtFile }
+				clickAtCancelLoad = { clickAtCancelLoad }
+				clickAtRemoveFile = { clickAtRemoveFile }
 
-		console.log("file field render...")
-
-		return (
-			<div className="task-field__file-container file-container">	
-					<FileConetnt
-						id = {id }
-						files = {files}
-						upload = { upload }
-						clickAtFile = { clickAtFile }
-						clickAtCancelLoad = { clickAtCancelLoad }
-						clickAtRemoveFile = { clickAtRemoveFile }
-
-					/>
-					<FileAddButton
-						id = { id }
-						clickAtAddFile = { clickAtAddFile }
-					/>
-			</div>
-		)
-	}
-	
+			/>
+			<FileAddButton
+				id = { id }
+				clickAtAddFile = { clickAtAddFile }
+			/>
+		</div>
+	)	
 )

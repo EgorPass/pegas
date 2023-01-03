@@ -1,11 +1,10 @@
+import { memo } from "react"
 import { NavLink } from "react-router-dom";
 
-export const SimpleLink =( { children, to, className } ) => {
+export const SimpleLink =	memo(	( { children, to, className } ) => {
 	
 	const setActive = ({ isActive }) => isActive ? (className + " " + className + "_active") : className;
 	 
-	// console.log("SimpleLink render...")
-
 	return (
 		<NavLink
 			to = { to }
@@ -15,4 +14,5 @@ export const SimpleLink =( { children, to, className } ) => {
 		</NavLink>
 			)
 
-} 
+		}
+	)

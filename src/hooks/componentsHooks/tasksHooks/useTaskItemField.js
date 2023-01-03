@@ -1,44 +1,45 @@
 import {  useCallback } from "react";
 
-import { useFirebase } from "../firebaseHooks/useFirebase"
-import {
-				useUploadFileActions,
-				useFieldContentActions,
-				useFieldStateActions,
-				useFieldFilesActions,
-										} from "../../reduxHooks/useBindActions" 
-import { useGetStore} from "../../reduxHooks/useGetStore"
+import { useLoginContext } from "../../context/useContextData";
 
-import { useRefference } from "../ref/useRefference"
+import { useGetStore } from "../../reduxHooks/useGetStore"
+import { useTasksActions } from "../../reduxHooks/useBindActions" 
+
+import { useFirebase } from "../firebaseHooks/useFirebase"
+
 
 /**
  * Хук для обработки изменений описания поля задачи (кнопики закрыть или удалить, чекбокс, изменение текстовых полей)
  * 
  * @returns {object} Возвращает объект методов для функциональности описания поля задачи: 		clickAtCheckboxField, clickAtRemoveButton, clickAtCloseButton, changeTitle, changeDescription, changeDate,
  */
-// export function useTaskItemField( uploadTaskRef ) {
-export function useTaskItemField(  ) {
+// export function useTaskItemField( uploadFileRef ) {
+export function useTaskItemField(   ) {
 	
 	const { user } = useGetStore( "auth" )
-	const { fieldContent, fieldFiles, fieldState, uploadFile, } = useGetStore( "tasks" )
+	const { contacts, fieldContent, fieldFiles, fieldState, uploadFile, } = useGetStore( "tasks" )
+
+	const { uploadFileRef } = useLoginContext();
 
 	const {
 					setFieldAtDatabase,			uploadFileToStorage,
-					deleteFileFromStorage,	downlaodFileFromStorage
-																													} = useFirebase()
+					deleteFileFromStorage,	downlaodFileFromStorage,
+	} = useFirebase()
 
-	const { setOpenField, setNewField } = useFieldStateActions()
-	const {
-					setFieldTitle,				setFieldDescription,
-					setFieldIsComplite,		setFieldDeadline,
+	const { 
+					setOpenField, 			setNewField,
+					
+					setFieldTitle, 			setFieldDescription,
+					setFieldIsComplite,	setFieldDeadline,
 					resetFieldContent,
-																											} = useFieldContentActions()
-	const { setFieldFiles, removeFieldFiles, resetFieldFiles } = useFieldFilesActions();
 
-	const { uploadTaskRef } = useRefference()
-	const { setUploadFile, deleteUploadFile } = useUploadFileActions()
+					setFieldFiles, 			removeFieldFiles, resetFieldFiles,
+								
+					setUploadFile, 			deleteUploadFile
 
-	
+	} = useTasksActions()
+
+
 	/**
 	 * Изменение состояния чекбокса о выполнения задачи в поле описания задачи.
 	 * 
@@ -50,7 +51,7 @@ export function useTaskItemField(  ) {
 		() => {
 			setFieldIsComplite( !fieldContent.isComplite )
 		}
-	, [ fieldContent ]  )
+	, [ fieldContent.isComplite, ]  )
 
 	/**
 	 * Закрывает поле с описанием задачи, которое на экране.
@@ -111,11 +112,11 @@ export function useTaskItemField(  ) {
 				
 			for ( let [ name, value ] of entries ) {
 			
-				if ( ( name in uploadTaskRef ) && ( uploadTaskRef[ name ]._state === "running" ) ) {
+				if ( ( name in uploadFileRef ) && ( uploadFileRef[ name ]._state === "running" ) ) {
 
-					uploadTaskRef[ name ].cancel();
+					uploadFileRef[ name ].cancel();
 					deleteUploadFile( id, name );
-					delete uploadTaskRef[ name ];
+					delete uploadFileRef[ name ];
 				
 				}
 				else
@@ -136,8 +137,11 @@ export function useTaskItemField(  ) {
 	const changeTitle = useCallback ( 
 		( { target: { value } } ) => {
 			setFieldTitle( value )
+			
+			setFieldAtDatabase( `/tasks/${ user }/${ fieldContent.id }`,  "title" , value )
+			
 		}
-	, [ fieldContent.title ] )
+	, [ fieldContent.title, contacts ] )
 		
 	/**
 	 * Изменение textarea поля EditableTextField в описании задачи.
@@ -166,6 +170,8 @@ export function useTaskItemField(  ) {
 	const changeDate = useCallback (
 		( { target: { value } } ) => {		
 			setFieldDeadline( value )
+			setFieldAtDatabase( `/tasks/${ user }/${ fieldContent.id }`,  "deadline" , value )
+			
 		}
 	, [ fieldContent.deadline ] )
 
@@ -202,47 +208,55 @@ export function useTaskItemField(  ) {
 	 * 
 	 * Используется на onClick эмитации кнопки (тэг input[type ='file']) компоненты FileAddButton.
 	 * 
+	 * В setFileAtStorage: 
+	 * 
+	 * параметр pathToStorage ставим полный путь включая имя файла (`/tasks/${ user }/${ id }/${ fileId }/${ name }`  || (`/contacts/${ user }/${ contactPhoto }/${ fileId }/${ name }`)) ;
+	 * 
+	 * параметр pathToDatabase ставим путь до папки с название где храняться файлы (`/tasks/${ user }/${ id }/files/` || `/contacts/${ user }/`);
+	 *  
+	 * для установки контактов в fileId передаем строку contactPhoto
+	 * 
+	 * 
 	 * @param {number} id инфификаотр задачи (объекта массива taskState), к которой загружаем файл,
 	 * @param {object} target объект события input[type='file'] для забора файла который выбрали,
 	 * @returns {void} 
 	 */
 	const clickAtAddFile = useCallback(
 		async ( id, target ) => {
-
 			if ( !target ) return;
 
 			const files = target.files
 			if ( !files ) return 
-						
-			Array.from( files ).forEach( async ( file ) => {
+			
+				Array.from( files ).forEach( async ( file ) => {
+					const name = file.name;
+					const fileId = Date.now();
 
-				const name = file.name;
-				const fileId = Date.now();
-				const uploadTask = uploadFileToStorage(`/tasks/${ user }/${ id }/${ fileId }/${ name }`, file );
-								
-				uploadTaskRef[ fileId ] = uploadTask;
+						setFieldFiles( { [ fileId ]: name } )
 
-				setFieldFiles( { [ fileId ]: name } )
-				setUploadFile( id, fileId, name )			
-				
-				uploadTask
-					.on( "state_changed",
-						async ( snapshot ) => {
-								const progress = Math.round(
-									( snapshot.bytesTransferred / snapshot.totalBytes ) * 100
-								);
-							setUploadFile(id, fileId, name, progress)
-						},
-						( err ) => {
-								console.log( `Файл ${ name } не загрузился `)
-						},
-						(data) => {
-								setFieldAtDatabase( `/tasks/${ user }/${ id }/files/`, fileId, name )	
-								delete uploadTaskRef[fileId]
-								deleteUploadFile( id, fileId )
-						}
-					)
-			})
+					const uploadTask = uploadFileToStorage(`/tasks/${ user }/${ id }/${ fileId }/${ name }`, file);
+			
+						setUploadFile( id, fileId, name )			
+						uploadFileRef[ fileId ] = uploadTask;
+					
+						uploadTask
+							.on("state_changed",
+								async (snapshot) => {
+									const progress = Math.round(
+										(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+									);
+									setUploadFile(id, fileId, name, progress)
+								},
+								(err) => {
+									console.log(`Файл ${name} не загрузился `)
+								},
+								(data) => {
+									setFieldAtDatabase(`/tasks/${ user }/${ id }/files/`, fileId, name)
+									delete uploadFileRef[fileId]
+									deleteUploadFile(id, fileId)
+								}
+							)
+				})
 		}
 	, [  ])
 
@@ -265,10 +279,10 @@ export function useTaskItemField(  ) {
 		
 					if (uploadFile[ id ][ fileId ].progress === 100) return;
 				
-				updateFieldAfterUpLoadOrCancel(`/tasks/${ user }/${ id }/files/`, fileId, null)
+				updateFieldAfterUpLoadOrCancel( `/tasks/${ user }/${ id }/files/`, fileId, null )
 
-				uploadTaskRef[ fileId ].cancel()			
-				delete uploadTaskRef[ fileId ]			
+				uploadFileRef[ fileId ].cancel()			
+				delete uploadFileRef[ fileId ]			
 				deleteUploadFile( id, fileId )
 			}
 		}
@@ -289,10 +303,10 @@ export function useTaskItemField(  ) {
 	 */
 	const clickAtRemoveFile = useCallback(
 		async ( id, fileId, name ) => {
-			updateFieldAfterUpLoadOrCancel(`/tasks/${ user }/${ id }/files/`, fileId, null)		
-			deleteFileFromStorage(`/tasks/${ user }/${ id }/${ fileId }/${ name }`, name)				
+			updateFieldAfterUpLoadOrCancel( `/tasks/${ user }/${ id }/files/`, fileId, null )		
+			deleteFileFromStorage( `/tasks/${ user }/${ id }/${ fileId }/${ name }`, name )				
 		}
-	, [])
+	, [ uploadFile ])
 
 	/**
 	 * По клику на название в списке прикрепленных файлов, функция направит по ссылке,

@@ -9,6 +9,7 @@ import './task-item.scss'
 
 /**
  * Мемоизированный компонент контейнер, создает блок с классом "task-body__content-container" для размещения списка задач.
+ * Не отрисовывается при загрузке файлов к задаче.
  * 
  * Отрисовывает компоненты строки списка задачи: Checkbox, Title и FileAnchor.
  * 
@@ -24,39 +25,35 @@ import './task-item.scss'
  */
 export const TaskItemList =
 	memo(
-	({ tasks, setModeForTitle, clickAtTitle, clickAtCheckboxTitle }) => {
-
-		console.log( "taskItemList render ..." )
+	({ tasks, setModeForTitle, clickAtTitle, clickAtCheckboxTitle }) => (
 			
-		return (
-			<>
-					{
-						tasks.map(it => (
-							<li
-							key = { `${ it.id }` }
-							className="task-container__task-item task-item"
-							>
-								<Checkbox
-									id = { it.id }
-									isComplite = { it.isComplite }
-									className = "task-item__checkbox"
-									clickAtCheckbox = { clickAtCheckboxTitle }
-									/>
-								<Title
-									id ={ it.id }
-									title = { it.title }
-									clickAtTitle = { clickAtTitle }
-									className=  {`task-item__title task-item__title_${ setModeForTitle ( it.deadline, it.isComplite ) }`}
+			<>	
+				{
+					tasks.map(it => (
+						<li
+						key = { `${ it.id }` }
+						className="task-container__task-item task-item"
+						>
+							<Checkbox
+								id = { it.id }
+								isComplite = { it.isComplite }
+								className = "task-item__checkbox"
+								clickAtCheckbox = { clickAtCheckboxTitle }
 								/>
+							<Title
+								id ={ it.id }
+								title = { it.title }
+								clickAtTitle = { clickAtTitle }
+								className=  {`task-item__title task-item__title_${ setModeForTitle ( it.deadline, it.isComplite ) }`}
+							/>
 
-								{
-									it.files &&
-									<FileAnchor />
-								}
-							</li>
-						))
-					}
-			</>
-		)
-	}
+							{
+								it.files &&
+								<FileAnchor />
+							}
+						</li>
+					))
+				}
+		</>
+	)
 )

@@ -14,12 +14,7 @@ import { memo } from "react";
  * @param content состояния для передачи в value элемента  input
  * @returns 
  */
-export const SearchField = memo( ( { changeSearch, content }  ) => {
-
-	
-	// console.log("/searchFiled render...")
-
-	return (
+export const SearchField = memo( ( { changeSearch, content }  ) => (
 		<div className="body-header__search-field">
 			<span>				
 			</span>
@@ -34,4 +29,4 @@ export const SearchField = memo( ( { changeSearch, content }  ) => {
 		</div>
 
 	)
-} )
+)

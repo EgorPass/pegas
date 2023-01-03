@@ -4,25 +4,26 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useGetStore } from "../../reduxHooks/useGetStore";
 import {
 	useLoginActions, useAuthActions,
-	useTasksActions, useFieldContentActions, useFieldStateActions,
-	useContactDataActions, useContactNameActions, useContactStateActions, useContactsActions,
+	useTasksActions, useContactsActions,
 } from "../../reduxHooks/useBindActions";
 
-export function useLogin() {
+export function useLogin(
+	uploadFileRef
+) {
 
-	const { error } = useGetStore( "auth" )
-	const { tasks, fieldState, fieldContent } = useGetStore( "tasks" );
-	const { contacts, contactState, contactName, contactData } = useGetStore( "contacts" );
+	const { error, user } = useGetStore( "auth" )
+	
+	const { tasks, fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks");
+	
+	const { contacts, contactState, contactName, contactData, contactPhoto } = useGetStore("contacts");
 	const { login, password, confirmPassword } = useGetStore( "login" )
 
-	const { getTasks } = useTasksActions();
-	const { setOpenField } = useFieldStateActions();
-	const { resetFieldContent } = useFieldContentActions();
+	const { getTasks, setOpenField, resetFieldContent, deleteUploadFile, resetFieldFiles } = useTasksActions();
 
-	const { getContacts } = useContactsActions();
-	const { resetNameData, } = useContactNameActions()
-	const { resetContactData } = useContactDataActions()
-	const { setOpenContact } = useContactStateActions();
+	const {
+					getContacts, resetNameData, 
+					resetContactData, setOpenContact
+	} = useContactsActions();
 
 	const { setLogin, setPassword, setConfirmPassword } = useLoginActions();
 	const { setError, loginAtFirebase, reginAtFirebase, logoutAtFirebase } = useAuthActions();
@@ -30,6 +31,8 @@ export function useLogin() {
 	const location = useLocation()
 	const navigate = useNavigate();
 	
+
+	// console.log( "uplaodFile in begin: ", uploadFileRef)
 	
 	const changeLogin = useCallback(
 		({ target: { value } }) => {
@@ -86,16 +89,59 @@ export function useLogin() {
 		navigateAfterAuth(res, login)
 	}
 
-	const logoutButton = useCallback( async (e) => {
+	const logoutButton =
+		// useCallback(
+			async (e) => {
 		e.preventDefault();
 		
+		console.log(" .... log out .......")
+		
+		console.log(uploadFileRef)
+		// console.log( fieldContent )		
+		// console.log(uploadFile)
+		// console.log(contacts)
+				console.log("////////////////////")
+				
+		// contacts.forEach( it => {
+			
+		// 		console.log( "id: ", it.id )
+		// 		console.log( "id in uploadFile: ", it.id in uploadFile )
+
+		// 		// if (it.id in uploadFile) {
+		// 		// 	deleteUploadFile(fieldContent.id, prop)
+		// 		// }
+		// 	}
+		// )
+
+		for (let id in uploadFile) {
+			// console.log( "id: ", id )	
+			// console.log("obj: ", uploadFile[id])	
+
+			Object.keys(uploadFile[id]).forEach(it => {
+				// console.log(it)
+
+				uploadFileRef[it].cancel();
+				delete uploadFileRef[it]	
+				deleteUploadFile(id, it)
+			})
+		}
+				
+		for (let prop in uploadFileRef) {
+			
+			uploadFileRef[prop].cancel();
+			delete uploadFileRef[prop]
+		}
+
 		navigate("/", { replace: true })
 		logoutAtFirebase()
 
 		if( tasks.length > 0 ) getTasks([]);
 		if ( fieldState.openField ) {
+			console.log(" reset tasks fields")
+			
 			setOpenField(false)
 			resetFieldContent();
+			resetFieldFiles();
 		}
 		
 		if( contacts.length > 0 ) getContacts([])
@@ -105,7 +151,7 @@ export function useLogin() {
 			resetContactData();
 		}
 	}
-	, [ fieldState, fieldContent, contactData, contactName, contactState ] )
+	// , [ fieldFiles, fieldState, fieldContent, contactData, contactName, contactPhoto, contactState, user, uploadFileRef ] )
 
 	const resetLoginFields = useCallback( () => {
 		setPassword("")

@@ -11,8 +11,7 @@ export const LoaderForList =
 	memo(
 	( { state, content } ) => {
 		
-		// console.log( "   ... LoaderForList state: ", state )
-		console.log("three dots render ....")
+		// console.log("three dots render ....")
 
 
 		return (

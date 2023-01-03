@@ -1,14 +1,17 @@
 import {  useLocation, useParams  } from "react-router-dom"
 
 import { ErrorMessageContainer } from "../../components/errorComponents/errorMessageContainer/ErrorMessageContainer";
-import { ErrorLinkContainer } from "../../components/errorComponents/errorLinkContainer/ErrorLinkContainer";
-import { ErrorLinkDescription } from "../../components/errorComponents/errorLinkDeacription/ErrorLinkDescription";
+import { ErrorLinkContainer } from "../../__For_remove/contactPhotoData/errorLinkContainer/ErrorLinkContainer";
+import { ErrorLinkDescription } from "../../__For_remove/contactPhotoData/errorLinkContainer/errorLinkDeacription/ErrorLinkDescription";
 
-export const NotFound = () => {
+const NotFound = () => {
 	const { state: { errorName, errorMessage } } = useLocation();
 
 	return (
 		<main className="pegas-body__error-page error-page">
+			<p className="error-page__notefication">
+				Что то пошло не так...
+			</p>
 			<ErrorMessageContainer >
 				{
 						errorName &&
@@ -36,3 +39,5 @@ export const NotFound = () => {
 		</main>
 	)
 }
+
+export default NotFound

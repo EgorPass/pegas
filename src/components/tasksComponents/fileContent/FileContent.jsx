@@ -36,8 +36,6 @@ export const FileConetnt =( {
 			clickAtRemoveFile,
 	} ) => {
 	
-		console.log("/file content render ....")
-
 		const entries = (files && Object.entries(files)) || []	
 						
 		return (

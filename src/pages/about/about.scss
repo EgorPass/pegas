@@ -36,30 +36,8 @@
 		
 		& a {
 			display: inline-block;
-			color: $main-font-color;
-			text-decoration: none;
-			cursor: default;
 
-			&:hover {
-				color: $body-header__navLink-color-hover;
-				text-shadow: 1px 1px 2px black;
-			}
-
-			&:active {
-				color: $body-header__navLink-color-active;
-			}
-
-			&[href ^="mailto"]::after {
-				@extend %template-anch-email;
-			}
-
-			&[href ^="tel"]::after {
-				@extend %template-anch-phone;
-			}
-
-			&[href ^="https://t.me/pegas1984"]::after {
-				@extend %template-anch-telegram;
-				@extend %template-anch-image-setting;
+			&::after {
 				width: 16px;
 				height: 16px;
 			}

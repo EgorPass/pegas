@@ -1,9 +1,10 @@
 import { memo } from "react"
 
 /**
- * Компонент для отрисовки чекбокса задачи.
+ * Мемоизированный компонент для отрисовки чекбокса задачи.
+ * мемоизируется, что бы не отрисовываться при обновлении списка.
  * 
- * Не мемоизируем, на TaskItemList зависит от сотояния task, которое обновляется при изменении чекбокса или вводе в поисковой строке. А на TaskItemField мемоизируется родитель (FieldCheckboxContainer) компонента Checkbox
+ * Отрисовывается в списке задач и описании задачи, но в описании задачи, если только ширина экрана от 700px
  * 
  * перерендеривается при изменении пропса isComplite
  * или className
@@ -20,13 +21,8 @@ import { memo } from "react"
  * @param clickAtCheckbox обработчик клика по чекбоксу, зависит от id
  * @returns 
  */
-export const Checkbox =
-	// memo(
-		({ id, isComplite, className, clickAtCheckbox }) => {
-
-	console.log("/checkbox render...")
-		
-	return (
+export const Checkbox = memo(
+	( { id, isComplite, className, clickAtCheckbox }) => (
 		<label
 			className = { className }		
 		>
@@ -40,5 +36,4 @@ export const Checkbox =
 			></div>
 		</label>
 	)
-	} 
-// )
+)

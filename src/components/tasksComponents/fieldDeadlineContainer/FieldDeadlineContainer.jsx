@@ -16,8 +16,6 @@ import "./deadline-container.scss"
  */
 export const FieldDeadlineContainer = memo(
 	( { content, onchange, isComplite } ) => { 
-
-		console.log( "deadline field render..." )
 		
 		const date = new Date( content )
 		const today = Date.now()

@@ -13,19 +13,14 @@ import { memo } from "react";
  * @returns 
  */
 export const FileName = memo(
-	( { id = 0, fileId = 0, name = "", clickAtFile = () => { } }) => {
-
-		console.log("///file name render ....")
-
-		return (
-			<div
-				className = "file-container__file-name"
-				onClick = {(e)=> clickAtFile(id, fileId, name)}
-			>
-				<span>
-					{name}
-				</span>
-			</div>
-		)
-	}
+	( { id = 0, fileId = 0, name = "", clickAtFile = () => { } }) => (
+		<div
+			className = "file-container__file-name"
+			onClick = {(e)=> clickAtFile(id, fileId, name)}
+		>
+			<span>
+				{name}
+			</span>
+		</div>
+	)
 )

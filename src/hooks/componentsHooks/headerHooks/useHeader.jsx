@@ -52,6 +52,8 @@ export function useHeader() {
 	const searchTask = useCallback(
 		async ( value ) => {
 			
+			const stateSearch = value.length === 0
+
 			if (path === "tasks") {
 				const newTasks = await getFilesFromDatabase(`/${path}/${user}/`)
 				const tasks = Object.values(newTasks)
@@ -63,7 +65,8 @@ export function useHeader() {
 					return title.includes(value) || desc.includes(value)
 				}) || []
 				
-				return find.length > 0 ? find : tasks;
+				// return find.length > 0 ? find : tasks;
+				return stateSearch ? tasks: find.length > 0 ? find : [];
 			}
 			
 			if (path === "contacts") {
@@ -95,7 +98,8 @@ export function useHeader() {
 					
 				} 
 
-				return find.size > 0 ? [ ...find ] : contacts
+				// return find.size > 0 ? [ ...find ] : contacts;
+				return stateSearch ? contacts : find.size > 0 ? [ ...find ] : [ ]
 			}
 		
 		}

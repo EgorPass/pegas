@@ -1,11 +1,15 @@
-import { useMemo, memo } from "react";
+import { useMemo } from "react";
+
+import { useGetStore } from "../../../hooks/reduxHooks/useGetStore"
+
+import { useTaskItemField } from "../../../hooks/componentsHooks/tasksHooks/useTaskItemField";
+import { useEdit } from "../../../hooks/componentsHooks/tasksHooks/useEdit"
 
 import { FieldTitleContainer } from "../fieldTitleContainter/FieldTitleContainter";
 import { FieldDescriptionContainer } from "../fieldDescriptionContainer/FieldDescriptionContainer";
 import { FieldFileContainer } from "../fieldFileContainer/FieldFileContainer";
 import { FieldCheckboxContainer } from "../fieldCheckboxContainer/FieldCheckboxContainer";
 import { FieldDeadlineContainer } from "../fieldDeadlineContainer/FieldDeadlineContainer";
-// import { FieldButtonContainer } from "../fieldButtonContainer/FieldButtonContainer";
 
 import { FieldButtonContainer } from "../../commonComponents/fieldButtonContainer/FieldButtonContainer"
 
@@ -16,11 +20,7 @@ import './task-field.scss';
  * 
  * Через контекст useTaskItemFieldContext принимает: clickAtCheckboxField clickAtCloseButton,	clickAtRemoveButton, changeTitle, changeDescription, changeDate для работы с датой и текстовыми полями описания задачи
  * 
- * Через контекст useFileContext принимает clickAtAddFile, clickAtFile, clickAtCancelLoad, clickAtRemoveFile для работы с разделом прикрепленных файлов
- * 
- * Через конекст useEditContext принимает setModeForTitle, который обрабатывает deaeline и isComplite для установки модификатора стиля заголовка
- * 
- * Состяния textField, fieldState, fieldFiles используются для построения поля описания задачи.
+ * Состяния fieldContent, fieldState, fieldFiles используются для построения поля описания задачи.
  * 
  * uploadFile - для отслеживания уровня загрузки для прикрепленных файлов, передается в FileContent и далее в FileLoader для передачи уровня отгрузки файла.
  * 
@@ -28,27 +28,24 @@ import './task-field.scss';
  * 
  * @returns 
  */
-export const TaskItemField =
-	memo(
-		(
-			{
-					
-					
-					fieldContent,						fieldState,
-					fieldFiles,							uploadFile,
-					
-					clickAtCheckboxField,	clickAtCloseButton,
-					clickAtRemoveButton,	changeTitle,
-					changeDescription,		changeDate,
-								
-					clickAtFile,					clickAtAddFile,
-					clickAtRemoveFile,		clickAtCancelLoad,
-
-					setModeForTitle,
-																									}) => {
+export const TaskItemField = () => {
 	
 	console.log("taskItemField render ......",)
 
+	const { fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
+	
+	const {
+		clickAtCheckboxField,			clickAtCloseButton,
+		clickAtRemoveButton,			changeTitle,
+		changeDescription,				changeDate,
+					
+		clickAtFile,							clickAtAddFile,
+		clickAtRemoveFile,				clickAtCancelLoad,
+	} = useTaskItemField()
+
+	const { setModeForTitle } = useEdit();
+
+			
 	const classNameForFieldTitle =
 		useMemo( () => (
 			`title-container__title title-container__title_${setModeForTitle(
@@ -105,5 +102,5 @@ export const TaskItemField =
 			</div>		
 		</div>
 	)
-	} 
-)
+} 
+

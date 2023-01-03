@@ -1,10 +1,6 @@
 import { useCallback } from "react";
 import { useGetStore} from "../../reduxHooks/useGetStore.js"
-import {	
-	useFieldContentActions,
-	useFieldStateActions,
-	useFieldFilesActions
-} from "../../reduxHooks/useBindActions" 
+import { useTasksActions } from "../../reduxHooks/useBindActions" 
 import { useFirebase } from "../firebaseHooks/useFirebase";
 import { useTaskItemField } from "./useTaskItemField.js";
 
@@ -18,13 +14,15 @@ export function useTaskItemList( ) {
 	const { user } = useGetStore("auth")
 	const { tasks,  uploadFile, fieldFiles,fieldState, fieldContent }= useGetStore("tasks")
 	
-	const { setFieldFiles } = useFieldFilesActions();
-	const { setOpenField, setNewFieldState } = useFieldStateActions()
-	const { newFieldContent, setFieldIsComplite } = useFieldContentActions()
+	const {
+		setFieldFiles,		setOpenField,
+		setNewFieldState, newFieldContent,	setFieldIsComplite
+	} = useTasksActions();
+	
+	const {  setFieldAtDatabase } = useFirebase()
 	
 	const { clickAtCloseButton } = useTaskItemField()
-	const {  setFieldAtDatabase, getFilesFromDatabase } = useFirebase()
-
+	
 	
 	/**
 	 * Вспомогательная функция, которая используется для создания объекта новой задачи, внутри функции createTask.
@@ -87,15 +85,18 @@ export function useTaskItemList( ) {
 	 */
 	const clickAtTitle = useCallback(
 		( id ) => {
-		 			
+		 		
+			const task = tasks.find( it => it.id === id ) 
+			if ( !task ) return;
+			
+			if( fieldContent.id === task.id) return 
+
 			if (fieldState.openField) {
 				clickAtCloseButton(id)
 			}
 
-			getFilesFromDatabase(`/tasks/${ user }/${id}`)
+			// getFilesFromDatabase(`/tasks/${ user }/${id}`)
 
-			const task = tasks.find( it => it.id === id ) 
-			if ( !task ) return;
 			
 			let files
 
@@ -126,7 +127,7 @@ export function useTaskItemList( ) {
 			setOpenField( true )
 		
 		}
-	, [ tasks, fieldFiles, fieldContent, fieldState ])
+	, [ tasks, fieldFiles, fieldContent, fieldState,  ] )
 
 	/**
 	 * Изменение компонента Chexkbox в списке задач.
@@ -148,7 +149,8 @@ export function useTaskItemList( ) {
 			setFieldAtDatabase( `/tasks/${ user }/${ task.id }`, "isComplite", !task.isComplite )
 
 		}
-	, [ tasks, fieldState.openField, fieldContent.isComplite, fieldContent.id  ] )
+	// , [ tasks, fieldState.openField, fieldContent.isComplite, fieldContent.id  ] )
+	, [  fieldContent.isComplite, fieldContent.id  ] )
 
 
 	return {		

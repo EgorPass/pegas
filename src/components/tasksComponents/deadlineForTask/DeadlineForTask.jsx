@@ -10,17 +10,12 @@
  * @param onchange функция для изменения даты в input
  * @returns 
  */
-export const DeadlineForTask = ({ content, onchange }) => {
-	
-	console.log("/deadline for task render ...")
-	
-	return (
-		<input
-			type = "date"
-			name = "date"
-			value={content}
-			className= "deadline-container__deadline"
-			onChange = { onchange }
-		/>
-	)
-} 
+export const DeadlineForTask = ({ content, onchange }) => (
+	<input
+		type = "date"
+		name = "date"
+		value={content}
+		className= "deadline-container__deadline"
+		onChange = { onchange }
+	/>
+)

@@ -1,11 +1,11 @@
-import { memo } from "react"
 
 /**
  * Компонент создает элемент заголовка для названия задиня в компоненте TaskItemList.
  * 
- * Не мемоизируем, зависит от функции clickAtTitle, которая зависит от состояния task.
- * 
  * Обрабатывает клик для открытия описания поля задачи.
+ * 
+ * Не мемоизируем, зависит от функции clickAtTitle, которая зависит от состояний task, fieldContent, feildFiles, то есть все что меняет описание задач, что бы можно было сохранять это самое поле при клике по другой задаче
+ * 
  * 
  * @param {object} param0
  * @param {number | string} param0.id 
@@ -19,25 +19,16 @@ import { memo } from "react"
  * @param className принимает динамически изменяемое название класса, из родительского компонента (модификатор класса зависит от состояния выоплнения задания, даты завершения задания и текущей даты)
  * @returns 
  */
-export const Title =
-	memo(
-		({ id, title, className, clickAtTitle }) => {
-
-	console.log( "title in List render..." )
-
-	return (
-		<span
-			className = { className }
-			onClick = { (e) => {
-				clickAtTitle( id )
-			} }
-			data-task-tooltip = {
-				`По клику откроется описание задачи: \n${ title }`
-			}
-		>
-			{ title }
-		</span>
-	)
-
-	} 
+export const Title = ( { id, title, className, clickAtTitle } ) =>  (
+	<span
+		className = { className }
+		onClick = { (e) => {
+			clickAtTitle( id )
+		} }
+		data-task-tooltip = {
+			`По клику откроется описание задачи: \n${ title }`
+		}
+	>
+		{ title }
+	</span>
 )

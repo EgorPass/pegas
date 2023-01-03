@@ -1,31 +1,30 @@
-import { memo } from "react"
 import { LoaderForList } from "../loaderForList/LoaderForList"
+import { CreateButton } from "../buttons/CreateButton"
 
 import "./itemList.scss"
 
-export const ItemList = memo(( { classBlockName, loader, loaderContent, children, create }) => {
-	
-		console.log("ItemList render: ", classBlockName)
 
-	return (
+/**
+ * 
+ * 
+ * Не мемоизируем, зависит от метода create, 
+ * который в свою очередь сильно зависит от
+ * cсотояния fieldContent
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
+export const ItemList = ( { classBlockName, loader, loaderContent, children, create }) => (
 		<div className={`list-body__list-container list-container`}>
 			
 			<div className={`list-container__list-field`}>
-					<div
-						className={`list-container__create-container`}
-						>
-						<div
-							onClick = { create }
-							className={`list-container__create-button`}
-							data-task-tooltip = "Создать новую задачу"
-							>	+	</div>
-					</div>
+					
+				<CreateButton create = { create } />
 
+				<ul className = {`list-container__items-container ${ classBlockName }-container` }>
+					{children}
+				</ul>
 
-					<ul className = {`list-container__items-container ${ classBlockName }-container` }>
-						
-						{children}
-					</ul>
 			</div>
 
 			<LoaderForList	
@@ -34,6 +33,4 @@ export const ItemList = memo(( { classBlockName, loader, loaderContent, children
 				classBlockName = { classBlockName }
 			/>
 		</div>
-
-	)
-})
+)

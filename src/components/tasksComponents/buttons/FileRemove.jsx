@@ -11,25 +11,20 @@ import { memo } from "react";
  * @returns 
  */
 export const FileRemove = memo(
-	( { id, fileId, name, clickAtRemoveFile } ) => {
-
-		console.log("///file remove render ...")
-
-		return (
-			<div
-				key = { `span${ id }` }
-				className = {
-					`file-container__file-remove`
+	( { id, fileId, name, clickAtRemoveFile } ) => (
+		<div
+			key = { `span${ id }` }
+			className = {
+				`file-container__file-remove`
+			}
+			onClick = {
+				(e) => {
+					clickAtRemoveFile( id, fileId, name )
 				}
-				onClick = {
-					(e) => {
-						clickAtRemoveFile( id, fileId, name )
-					}
-				}
-				data-task-tooltip = {`Удалить ${ name }` }
-			>
-				X
-			</div>
-		)
-	}
+			}
+			data-task-tooltip = {`Удалить ${ name }` }
+		>
+			X
+		</div>
+	)
 )

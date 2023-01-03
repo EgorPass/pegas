@@ -1,33 +1,34 @@
+import { memo } from "react"
 import { SimpleLink } from "../Links/SimpleLink";
+import { HeaderLogLinkBox } from "../headerLogLinkBox/HeaderLogLinkBox";
 
-export const HeaderList = ({children}) => {
-	
-	// console.log("HeaderList render...")
-	
+export const HeaderList =	memo(	( { isAuth } ) => {
+		
 	const classForLink = "body-header__nav-link"
 	const classForListItem =  "body-header__nav-list-item"
 	const linksList = [
-		{
-			name: "Home",
-			to: "/"
-		},
-		{
-			name: "About",
-			to: "about"
-		},
-		{
-			name: "Contacts",
-			to: "contacts"
-		},
-		{
-			name: "Tasks",
-			to: "tasks"
-		},
-	]
+											{
+												name: "Home",
+												to: "/"
+											},
+											{
+												name: "About",
+												to: "about"
+											},
+											{
+												name: "Contacts",
+												to: "contacts"
+											},
+											{
+												name: "Tasks",
+												to: "tasks"
+											},
+										]
 
 	return (
-		<>
-			<ul className = "body-header__nav-lists">
+		<nav className="body-header__nav">
+		
+			<ul className="body-header__nav-lists">
 
 				{
 					linksList.map(it => {
@@ -40,9 +41,10 @@ export const HeaderList = ({children}) => {
 					} )
 				}
 
-				{ children }
-
+				<HeaderLogLinkBox isAuth = { isAuth } />
+			
 			</ul>
-		</>
+		</nav>
+			
 	)
-}
+})

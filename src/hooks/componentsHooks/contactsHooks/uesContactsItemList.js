@@ -1,38 +1,71 @@
 import { useCallback } from "react"
 import { useGetStore } from "../../reduxHooks/useGetStore";
-import { useContactNameActions, useContactDataActions, useContactStateActions,  } from "../../reduxHooks/useBindActions";
+import { useContactsActions } from "../../reduxHooks/useBindActions";
 
 import { useFirebase } from "../firebaseHooks/useFirebase";
-
 
 import { useContactsItemField } from "./useContactsItemField";
 
 export function useContactsItemList(  ) {
 
+	const { setFieldAtDatabase , getImageUrl } = useFirebase();
 	const { user } = useGetStore("auth")
-	const { contactState, contactName, contactData, contacts } = useGetStore( "contacts" )
-	const { setNameData, setId } = useContactNameActions();
-	const { setContactData } = useContactDataActions();
-	const { setOpenContact } = useContactStateActions();
+	const {
+		contacts,		contactState, contactId,
+		contactName, contactData, contactPhoto
+	} = useGetStore("contacts")
+	
+	const { 
+					setNameData,
+					setContactId,
+					setContactData,
+					setOpenContact,
+					setContactPhotoPath, resetContactPhoto, setContactPhotoStatus, setContactPhotoUrl
+																														} = useContactsActions()
+
 	const { clickAtCloseButton } = useContactsItemField()
-	const { setFieldAtDatabase } = useFirebase();
 
 
-	const clickAtTitle = useCallback( (id) => {
+	const clickAtTitle = useCallback( async( id ) => {
+		
+		const contact = contacts.find(it => it.contactId === id)		
+		if (!contact) return;
+		
+		if( contactId === contact.contactId ) return;
 		
 		if (contactState.openContact) { 
 			clickAtCloseButton()
 		}
 		
-		const contact = contacts.find(it => it.contactName.id === id)		
-		if (!contact) return;
-		
-			setNameData( contact.contactName )
-			setContactData(contact.contactData)
-			setOpenContact( true )
-		
+		setContactId(contact.contactId)
+		setNameData( contact.contactName )
+		setContactData(contact.contactData)
+		setOpenContact(true)
+		setContactPhotoUrl('')
+
+		let photo = contact.contactPhoto;
+		let path = ""
+
+		if (photo.fileId) {
+			path = `/contacts/${user}/${id}/contactPhoto/${photo.fileId}/${photo.name}`
 		}
-	, [ contacts, contactState.openContact, contactName, contactData ] )
+		
+		if ( !photo.fileId ) {
+			path = ""
+		}
+
+		setContactPhotoStatus("pending")
+		
+		getImageUrl(path)
+			.then(url => {				
+				setContactPhotoUrl( { status: "fulfilled", url } )
+			} )
+			.catch( err => {
+				setContactPhotoUrl( { status: "rejected", url: "" } )
+			} )
+
+	}
+	, [ contacts, contactId, contactState, contactName, contactData, contactPhoto  ] )
 
 
 	const createContact = useCallback(
@@ -44,7 +77,8 @@ export function useContactsItemList(  ) {
 			}
 		
 			const id = Date.now();
-			const contact = { 
+			const contact = {
+				contactId: id,
 				contactData: {
 					phone: "",
 					email: "",
@@ -52,15 +86,18 @@ export function useContactsItemList(  ) {
 					telegram: "",
 				},
 				contactName: {
-					id,
 					name: "",
 					surName: "",
 					secondName: "",
+				},
+				contactPhoto: {
+					fileId: "",
+					name: "",
 				}
 			}
 
-			setId(id)
-			
+			setContactId(id)
+			resetContactPhoto();
 			// setFieldAtDatabase(`/contacts/${ user }/${ id }`, "contactName", { ...contactName, id })
 			setFieldAtDatabase(`/contacts/${ user }`, id, contact )
 			

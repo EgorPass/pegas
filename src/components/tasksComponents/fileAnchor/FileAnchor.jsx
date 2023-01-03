@@ -5,18 +5,12 @@ import { memo } from "react"
  * 
  * @returns 
  */
-export const FileAnchor =	memo(
-	() => {
-
-		console.log("/FileAnchor render...")
-
-		return (
-			<span
-				data-task-tooltip = "Задача содержит прекрипленные файлы"
-				className="task-item__file-anchor"
-			>
-				{/* &#128206; */}
-			</span>
-		)
-	}
+export const FileAnchor =	memo( () => (
+	<span
+		data-task-tooltip = "Задача содержит прекрипленные файлы"
+		className="task-item__file-anchor"
+	>
+		{/* &#128206; */}
+	</span>
+)
 )

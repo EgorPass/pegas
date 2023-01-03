@@ -10,7 +10,6 @@ import { useTaskItemField } from "../componentsHooks/tasksHooks/useTaskItemField
 import { useEdit } from "../componentsHooks/tasksHooks/useEdit"
 
 
-
 //////////////////////////////////////////////////
 /////////// работа с авторизацией ////////////////
 
@@ -18,12 +17,14 @@ const ContextForLogin = createContext();
 
 
 export const LoginContext = ({ children }) => {
-	const loginMethods = useLogin()
+	const { uploadFileRef } = useRefference()
+
+	const loginMethods = useLogin(uploadFileRef)
 
 
 	return (
 
-		<ContextForLogin.Provider value={ loginMethods }>
+		<ContextForLogin.Provider value={ { ...loginMethods, uploadFileRef } }>
 			{ children }
 		</ContextForLogin.Provider>
 	)

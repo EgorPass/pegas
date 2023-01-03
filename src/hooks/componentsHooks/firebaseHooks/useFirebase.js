@@ -2,7 +2,8 @@ import { useCallback } from "react"
 import { getAuth } from "firebase/auth"
 import { getDatabase, onValue, ref as databasRef, update, get, set, child, } from "firebase/database"
 import { deleteObject, getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage"
-import { useLoaderActions } from "../../reduxHooks/useBindActions"
+import { useLoaderActions, useUploadFileActions, useContactsActions } from "../../reduxHooks/useBindActions"
+import { useRefference } from "../ref/useRefference"
 
 
 /**
@@ -12,6 +13,9 @@ import { useLoaderActions } from "../../reduxHooks/useBindActions"
 export function useFirebase() {
 	
 	const { setLoader } = useLoaderActions()
+	const { uploadTaskRef } = useRefference()
+	// const { setUploadFile, deleteUploadFile } = useUploadFileActions();
+	const { setContactPhotoUrl } = useContactsActions();
 	// getAuth()
 
 	/**
@@ -29,8 +33,8 @@ export function useFirebase() {
 	const setFieldAtDatabase = useCallback(
 		async ( path, field, prop ) => {
 
-			console.log(path)
-			console.log(prop)
+			// console.log(path)
+			// console.log(prop)
 
 			const db = databasRef( getDatabase(), path )
 			return await update( db, { [ field ]: prop } )
@@ -91,8 +95,9 @@ export function useFirebase() {
 					
 			return uploadTask
 		}
-	, [ ] )
-
+		, [])
+	
+	
 	/**
 	 * сохранение файла прикрепленного к задаче
 	 * 
@@ -112,6 +117,14 @@ export function useFirebase() {
 		}
 	, [ ] )
 
+	const controller = new AbortController();
+
+
+	const getImageUrl =	async ( path ) => {
+			return getDownloadURL( storageRef( getStorage(), `${path}` ) )		
+	}
+
+	// , [ ] );
 
 	/**
 	 * делает первую загрузку, и следит запоследующими изменениям в realtimeDatabas,
@@ -155,10 +168,13 @@ export function useFirebase() {
 	return {
 		monitor,
 		setFieldAtDatabase,
-		uploadFileToStorage,
 		getFilesFromDatabase,
+		uploadFileToStorage,
+		// setFileAtStorage,
 		deleteFileFromStorage,
 		downlaodFileFromStorage,
+		controller,
+		getImageUrl,
 	}
 
 }

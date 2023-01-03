@@ -37,19 +37,21 @@
 
 %template-anch-email {
 	content: "\2709";
-	padding: 0px 0 0px 5px;
 }
 %template-anch-phone {
 	content: "\2706";
-	padding: 0px 0 0px 5px;
 }
 %template-anch-telegram {
 	background-image: url("../images/telegram/telegram.png");
 }
+
+%template-anch-gitHub {
+	background-image: url("../images/gitHub/github.png");
+}
+
 %template-anch-image-setting {
 	display: inline-block;
-	padding: 0px 0 0px 5px;
-	content: "";
+	content: "   ";
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center right;

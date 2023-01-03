@@ -3,16 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const { actions: contactNameActions, reducer: contactName } = createSlice({
 	name: "contactName",
 	initialState: {
-		id: 0,
+		// id: 0,
 		name: "",
 		surName: "",
 		secondName: "",
 	},
 	reducers: {
-		setId: {
-			prepare: ( val ) => ( { payload: val } ),
-			reducer: ( state, { payload } ) => ( { ...state, id: payload } )
-		},
 		setName: {
 			prepare: ( val ) => ( { payload: val } ),
 			reducer: ( state, { payload } ) => ( { ...state, name: payload } )
@@ -30,7 +26,7 @@ export const { actions: contactNameActions, reducer: contactName } = createSlice
 			reducer: ( state, { payload } ) => payload
 		},
 		resetNameData: {
-			reducer: ( state ) => ( { id: 0, name: "", surName: "", secondName: "" } )
+			reducer: ( state ) => ( { name: "", surName: "", secondName: "" } )
 		},
 	}
 })

@@ -7,20 +7,15 @@ import { memo } from "react"
  * 
  * @returns
  */
-export const CreateButton = memo(	( { createTask } ) => {
-
-	console.log( "/create button render ..." )
-	
-	return (
-		<div className = "task-header__create-container">
+export const CreateButton = memo(	( { create } ) => (
+		<div className = "list-container__create-container">
 			<div
-				onClick = { createTask }
-				className = "task-header__create-button"
-				data-task-tooltip = "Создать новую задачу"
+				onClick = { create }
+				className = "list-container__create-button"
+				data-task-tooltip = "Создать"
 			>
 				+
 			</div>
 		</div>				
-
 	)
-} )
+)

@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 
 import { useGetStore } from '../../hooks/reduxHooks/useGetStore'
 import { useLoginContext } from "../../hooks/context/useContextData";
+import { useLogin } from "../../hooks/componentsHooks/loginHooks/useLogin";
+
+import { useRefference } from "../../hooks/componentsHooks/ref/useRefference";
 
 import { LoginButton } from '../../components/loginComponents/loginButtons/LoginButton'
 import { InputField } from "../../components/commonComponents/inputField/InputField"
@@ -28,9 +31,7 @@ import "./login.scss"
  *  
  * @returns 
  */
-export const Login = ( { regin = false } ) => {
-	
-	// console.log("login render...")
+const Login = ( {  regin = false } ) => {
 
 	const { error } = useGetStore("auth");	
 	const { login, password, confirmPassword } = useGetStore("login");
@@ -44,6 +45,7 @@ export const Login = ( { regin = false } ) => {
 		errorCatcher,
 		classModAndTitleDescription,
 	} = useLoginContext();
+
 
 	const { state } = useLocation()
 	
@@ -62,7 +64,7 @@ export const Login = ( { regin = false } ) => {
 			"Введите логин и пароль Вашей учетной записи" 
 	
 	return (
-		<main className = "pegas-body__login-body login-body">
+		<div className = "pegas-body__login-body login-body">
 
 			<div className = "login-body__form-container">
 				
@@ -127,6 +129,8 @@ export const Login = ( { regin = false } ) => {
 				</form>
 			</div>
 		
-		</main>
+		</div>
 	)
 }
+
+export default Login

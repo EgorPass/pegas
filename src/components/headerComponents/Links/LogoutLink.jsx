@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom"
 import { useLoginContext } from "../../../hooks/context/useContextData";
 
-
 export const LogoutLink = () => {
-
-	// console.log("LogoutLink render...")
 
 	const { logoutButton } = useLoginContext()
 
@@ -16,6 +13,5 @@ export const LogoutLink = () => {
 		>
 			Log Out
 		</Link>
-
 	)
 }

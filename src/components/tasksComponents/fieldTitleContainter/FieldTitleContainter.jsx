@@ -1,4 +1,4 @@
-import { memo, useRef } from "react"
+import { memo } from "react"
 
 import { EditableTextField } from "../editableTextField/EditableTextField";
 
@@ -16,33 +16,20 @@ import "./title-container.scss"
  * @param {object | null} nextProps.onchange обработчик изменения строкового состояния changeTitle заголовка для передачи EditableTextField
  * @returns 
  */
-export const FieldTitleContainer =	memo(
-	( { className, content, onchange } ) => {
-
-		const nodeRef = useRef(null)
-		console.log("title field render...")
-	
-			return (
-				<div
-					className="task-field__title-container title-container"
-					onClick={(e) => {
-						console.log( " click at title")
-						console.log( nodeRef.current)
-						if (nodeRef) nodeRef.current.focus();
-					} }
-				>
-					<div className = "task-field__text-height">	
-						{ content }
-						&nbsp;
-						
-						<EditableTextField
-							nodeRef = { nodeRef }
-							onchange = { onchange }
-							content = { content }
-							className = { className }
-						/>
-					</div>
+export const FieldTitleContainer = memo(({ className, content, onchange }) => (
+		<label
+			className="task-field__title-container title-container"
+		>
+			<div className="task-field__text-height">
+				{content}
+				&nbsp;
+			
+				<EditableTextField
+					onchange={onchange}
+					content={content}
+					className={className}
+				/>
 			</div>
-		)
-	} 
+		</label>
+	)
 )

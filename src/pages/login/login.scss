@@ -5,14 +5,18 @@
 
 	&__form-container{
 		box-sizing: border-box;
-		width: 400px;
-		min-width: 300px;
+		height: 100%;
 
-		@include setBox ($loginBody__formContainer-margin, $loginBody__formContainer-padding);
+		// @include setBox ($loginBody__formContainer-margin, $loginBody__formContainer-padding);
+		@include setBox(0 , 0 );
+
+		@include setGrid( (25% auto ), auto, center, start );
 		
+	
 	}
 
 	&__form-description {
+		align-self: end;
 
 		@include setBox($loginBody__formDescription-margin, $loginBody__formDescription-padding);
 
@@ -25,6 +29,10 @@
 			text-shadow: 2px 2px 2px gray;
 		}
 
+		@media (min-width: 700px) {
+			font-size: 20px;
+		}
+
 	}
 
 	&__field-container {
@@ -34,7 +42,6 @@
 	}	
 
 	&__field {
-
 		background-color: $loginBody__field-background;
 		
 		@include setBox($loginBody__field-margin, $loginBody__field-padding);
@@ -48,10 +55,15 @@
 
 	&__field-description {
 		position: relative;
-		top:  -8px;
+		top:  -7px;
 		left : -5%;
 		font: $loginBody__fieldDescription-font;
 		text-shadow: $loginBody__formDescription-textShadow;
+		
+		@media (min-width: 700px) {
+			font-size: 18px;
+			top: -8px;
+		}
 	}
 
 	&__field-input {
@@ -126,14 +138,6 @@
 		margin: 0 0 0 15px;
 		text-shadow: $loginBody__regin-textShadow;
 	}
-
-	&__go-home {
-		position: fixed;
-		top: 20px;
-		left: 20px;
-		font: $loginBody__regin-font;
-	}
-
 	
 	&__link:visited{
 		color: $loginBody__regin-color;

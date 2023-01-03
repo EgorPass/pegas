@@ -14,16 +14,12 @@
  * @param clickAtCancelLoad обработчик для отмены загрузки 
  * @returns 
  */
-export const FileLoaderCancel =	( { id, fileId, clickAtCancelLoad } ) => {
-
-	console.log( "///file cancel render ..." )
-
-	return (
-		<div
-			onClick = { () => clickAtCancelLoad( id, fileId ) }
-			className = "file-container__file-loader-cancel"
-			data-task-tooltip = "Отменить загрузку"
-		>X</div>
-
-	)
-}
+export const FileLoaderCancel =	( { id, fileId, clickAtCancelLoad } ) =>  (
+	<div
+		onClick = { () => clickAtCancelLoad( id, fileId ) }
+		className = "file-container__file-loader-cancel"
+		data-task-tooltip = "Отменить загрузку"
+	>
+		X
+	</div>
+)
