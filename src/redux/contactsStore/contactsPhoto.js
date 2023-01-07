@@ -3,37 +3,33 @@ import { createSlice } from "@reduxjs/toolkit"
 export const { actions: contactPhotoActions, reducer: contactPhoto } = createSlice({
 	name: "contactPhoto",
 	initialState: {
-		status: "",
+		fileId: "",
+		name: "",
 		url: "",
 		path: '',
-		upload: false,
 	},
 	reducers: {
-		setContactPhotoStatus: {
-			prepare: (val) => ( { payload: val } ),
-			reducer: ( state, { payload } ) => ( { ...state, status: payload } )
+		setContactPhotoStore: {
+			prepare: ({ fileId, name,  path, url }) => ( { payload: { fileId, path, url, name } } ),
+			reducer: ( state, { payload } ) => ( { ...state,  ...payload } )
 		},
 		setContactPhotoPath: {
-			prepare: ( val ) => ( { payload: val } ),
-			reducer: ( state, { payload } ) => ( { 	...state,	path: payload, } ),
+			prepare: (  val ) => ( { payload: val } ),
+			reducer: (state, { payload }) => ({ ...state, path: payload } )
 		},
 		setContactPhotoUrl: {
 			prepare: ( val ) => ( { payload: val } ),
-			reducer: ( state, { payload } ) => ( {
-				...state,
-				url: payload.url,
-				status: payload.status,
-			})
+			reducer: ( state, { payload } ) => ( { ...state, 	url: payload	} )
 		},
-		setContactPhotoUpload: {
+		setContactPhotoFileId: {
 			prepare: ( val ) => ( { payload: val } ),
-			reducer: ( state, { payload } ) => ( { ...state, upload: payload } )
+			reducer: ( state, { payload } ) => ( { ...state, fileId: payload } )
 		},
 		resetContactPhoto: () => ({
+			fileId: "",
 			url: "",
 			path: "",
-			status: "",
-			upload: false,
+			name: ""
 		})
 	}
 })

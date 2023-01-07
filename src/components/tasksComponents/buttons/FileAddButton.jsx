@@ -14,7 +14,8 @@ export const FileAddButton = memo( ( { id, clickAtAddFile } ) =>  (
 	<div className = "file-container__file-add-position">
 		<label>
 			<input
-				onChange = { ( e ) => clickAtAddFile( id, e.target ) }
+				multiple
+				onChange={(e) => clickAtAddFile(id, e.target)}
 				name = "files"
 				type = "file"
 				className = 'file-container__file-add-input'

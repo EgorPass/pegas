@@ -1,6 +1,3 @@
-import { FileLoaderCancel } from "../buttons/FileLoaderCancel"
-import { FileName } from "../fileName/FileName";
-
 
 /**
  * Компонент отрисовывает степень загрузки загружаемого файла
@@ -23,28 +20,18 @@ import { FileName } from "../fileName/FileName";
  * @returns 
  * 
  */
-export const FileLoader =	({ fileId, id, name, progress, clickAtCancelLoad }) => {
+export const FileLoader =	({ progress, children }) => {
 
 	console.log("//file loader render ...")
 
 	return (
-		<>
-			<div className = "file-container__file-loader">
-				
-				<FileName name = { name } />
-
-				<div className = "file-container__file-loader-cover"></div>
+			<div className = "pegas-body__file-loader file-loader">
 				<div
 					style = { { width: `${progress}%` } }
-					className = "file-container__file-loader-progress"
-				></div>
+					className = "file-loader__progress"
+				>
+				</div>
+					{ children }
 			</div>
-			
-			<FileLoaderCancel
-				id = { id }
-				fileId = { fileId }	
-				clickAtCancelLoad = { clickAtCancelLoad }
-			/>
-		</>
 	)
 }

@@ -13,14 +13,16 @@ import { memo } from "react";
  * @returns 
  */
 export const FileName = memo(
-	( { id = 0, fileId = 0, name = "", clickAtFile = () => { } }) => (
+	( { id, fileId, name, clickAtFile, children}) => (
 		<div
 			className = "file-container__file-name"
-			onClick = {(e)=> clickAtFile(id, fileId, name)}
-		>
-			<span>
+			>
+			<span
+				onClick = {(e)=> clickAtFile(id, fileId, name)}
+			>
 				{name}
 			</span>
+			{ children }
 		</div>
 	)
 )

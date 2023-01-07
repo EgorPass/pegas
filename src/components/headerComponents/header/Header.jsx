@@ -15,13 +15,11 @@ export const Header = () => {
 
 	const { search } = useGetStore();
 	const { isAuth } = useGetStore("auth")		
-	const { changeSearch } = useHeader();
+	const { changeSearch, clickAtLink } = useHeader();
 	const { pathname } = useLocation();
 
 	const stateSearch = pathname === "/tasks" || pathname === "/contacts"
-	
-	console.log("Heder render...")
-	
+		
 	return (
 		<header className = "pegas-body__body-header body-header">
 			<div className = "body-header__container">

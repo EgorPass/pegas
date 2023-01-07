@@ -1,3 +1,4 @@
+import Resizer from "react-image-file-resizer"
 import { useCallback } from "react";
 import { useLoginContext } from "../../context/useContextData"
 
@@ -12,7 +13,7 @@ export function useContactsItemField() {
 	const { user } = useGetStore("auth")
 	const {
 		contacts, 		contactId, 	contactState,
-		contactName, contactData,	contactPhoto
+		contactName, contactData,	contactPhoto, uploadFile
 																															} = useGetStore("contacts")
 	const {setFieldAtDatabase, uploadFileToStorage,	deleteFileFromStorage, getImageUrl	} = useFirebase()
 	
@@ -23,7 +24,13 @@ export function useContactsItemField() {
 		
 		setPhone, setTelegram, setEmail, setGitHub, setOther, resetContactData,
 
-		setContactPhotoStatus, setContactPhotoUpload, setContactPhotoPath, resetContactPhoto, setContactPhoto, setContactPhotoUrl
+		resetContactPhoto, setContactPhotoStore, setContactPhotoPath,
+		setContactPhotoUrl, setContactPhotoFileId,
+
+		setUploadFile, deleteUploadFile
+
+
+		
 
 	} = useContactsActions();
 
@@ -99,7 +106,7 @@ export function useContactsItemField() {
 			resetContactData();
 			resetContactPhoto();
 		}
-	, [ contactData, contactName, contactState, contactPhoto,  ] )
+	, [ contactId, contactData, contactName, contactState, contactPhoto,  ] )
 	
 
 	const clickAtRemoveButton = useCallback(
@@ -113,7 +120,6 @@ export function useContactsItemField() {
 			}
 			
 			setOpenContact( false ) 
-			setContactPhotoUpload( false );
 			
 			setContactId(0)
 			resetNameData();
@@ -124,79 +130,86 @@ export function useContactsItemField() {
 
 	}
 	, [ ])
-	
+		
+	const resizeFileAtNormal = ( file ) => new Promise( ( resolve ) => {
+		Resizer.imageFileResizer( file, 180, 200, 'webp', 100, 0, (uri) => { resolve(uri)}, "blob")
+	})
 
-	const clickAtAddImage =	useCallback( ( { target } ) => {
+	const clickAtAddImage =	useCallback( async ( id, target  ) => {
 		if (!target) return;
 
 		const files = target.files
 		if ( !files ) return 
 					
-			Array.from( files ).forEach( async ( file ) => {					
-				const type = file.type	
-				
-					if(!/^(image)/gi.test(type)) return 
-
-				const name = file.name;
-				const fileId = Date.now();
+		Array.from( files ).forEach( async ( file ) => {					
+			const type = file.type	
+		
+				if(!/^(image)/gi.test(type)) return 
 			
-				setContactPhotoStatus("pending")
-				setContactPhotoUpload(true)
+			const reader = new FileReader()							
+			const normal = await resizeFileAtNormal( file )
+			const name = file.name;
+			const fileId = Date.now();
+			
+			setUploadFile(id, fileId, name)							
+
+			reader.onload = (e) => {
+				const result = reader.result
+				const path = `/contacts/${ user }/${ id }/contactPhoto/${ fileId }/${ name }`
 				
-				const uploadTask = uploadFileToStorage(`/contacts/${ user }/${ contactId }/contactPhoto/${ fileId }/${ name }`, file);
-				
+				setContactPhotoStore( { fileId, name, url: result, path: "" } )
+
+				const uploadTask = uploadFileToStorage( path, normal);
+			
 				uploadFileRef[ fileId ] = uploadTask;
 						
 				uploadTask
 					.on("state_changed",
-						async (snapshot) => {  },
+						async (snapshot) => { 
+							const progress = Math.round( ( snapshot.bytesTransferred / snapshot.totalBytes ) * 100 );
+							
+							setUploadFile(id, fileId, name, progress)
+
+						 },
 						(err) => {
 							console.log(`изображение ${name} не загрузилось `)
 						},
 						(data) => {
 							console.log( "upload image ready...")
 							
-							delete uploadFileRef[fileId]							
-							
 							setFieldAtDatabase(
-								`/contacts/${ user }/${ contactId }`,
+								`/contacts/${ user }/${ id }`,
 								`contactPhoto`,
-								{ fileId, name }
-							)
-							setContactPhotoUpload(false);
-
-								getImageUrl(`/contacts/${user}/${contactId}/contactPhoto/${fileId}/${name}`)
-									.then(url => {				
-										setContactPhotoUrl( { status: "fulfilled", url } )
-									} )
-									.catch( err => {
-										setContactPhotoUrl( { status: "rejected", url: "" } )
-									} )						
+								{ fileId,  name }
+							)								
+													
+							delete uploadFileRef[fileId]
+							deleteUploadFile( id, fileId )
 						}
 					)
+			}
+			reader.readAsDataURL(normal)
 		})
 	}
 	, [  ])
 	
 	const clickAtRemoveImage = useCallback(
-		async() => {
+		async(id, fileId, name ) => {
 			console.log(" click at remove image button...")
+			
+			resetContactPhoto();
+			
+			await deleteFileFromStorage(`/contacts/${user}/${id}/contactPhoto/${ fileId }/${ name }`, name)	
 
-			setContactPhotoStatus("pending")
-
-			const contact = contacts.find(it => it.contactId === contactId)
-			const photo = contact.contactPhoto
-
-			await deleteFileFromStorage(`/contacts/${user}/${contactId}/contactPhoto/${photo.fileId}/${photo.name}`, photo.name)	
 			setFieldAtDatabase(
-									`/contacts/${ user }/${ contactId }`,
+									`/contacts/${ user }/${ id }`,
 									`contactPhoto`,
 									{fileId: "", name: ""}
-			)
-			setContactPhotoStatus("rejected")
-			
+			)			
 		}
-	, [ contactId,  ] )
+	, [ uploadFile ] )
+
+
 
 	return {
 		changeName,

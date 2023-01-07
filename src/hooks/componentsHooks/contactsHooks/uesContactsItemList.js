@@ -6,9 +6,12 @@ import { useFirebase } from "../firebaseHooks/useFirebase";
 
 import { useContactsItemField } from "./useContactsItemField";
 
+import placeholder from "../../../images/placeholder.svg"
+import noFoto from "../../../images/no-foto.png"
+
 export function useContactsItemList(  ) {
 
-	const { setFieldAtDatabase , getImageUrl } = useFirebase();
+	const { setFieldAtDatabase } = useFirebase();
 	const { user } = useGetStore("auth")
 	const {
 		contacts,		contactState, contactId,
@@ -20,7 +23,7 @@ export function useContactsItemList(  ) {
 					setContactId,
 					setContactData,
 					setOpenContact,
-					setContactPhotoPath, resetContactPhoto, setContactPhotoStatus, setContactPhotoUrl
+					setContactPhotoStore
 																														} = useContactsActions()
 
 	const { clickAtCloseButton } = useContactsItemField()
@@ -41,28 +44,23 @@ export function useContactsItemList(  ) {
 		setNameData( contact.contactName )
 		setContactData(contact.contactData)
 		setOpenContact(true)
-		setContactPhotoUrl('')
 
-		let photo = contact.contactPhoto;
-		let path = ""
+		let path = "";
+		let url = "";
 
-		if (photo.fileId) {
-			path = `/contacts/${user}/${id}/contactPhoto/${photo.fileId}/${photo.name}`
+		const { fileId, name } = contact.contactPhoto
+
+		if (fileId) {
+			path = `/contacts/${ user }/${ id }/contactPhoto/${ fileId }/${ name }`
+			url = placeholder;
 		}
 		
-		if ( !photo.fileId ) {
-			path = ""
+		if ( !fileId ) {
+			path = ``
+			url = noFoto
 		}
 
-		setContactPhotoStatus("pending")
-		
-		getImageUrl(path)
-			.then(url => {				
-				setContactPhotoUrl( { status: "fulfilled", url } )
-			} )
-			.catch( err => {
-				setContactPhotoUrl( { status: "rejected", url: "" } )
-			} )
+		setContactPhotoStore( { fileId, name, path, url } )
 
 	}
 	, [ contacts, contactId, contactState, contactName, contactData, contactPhoto  ] )
@@ -96,15 +94,15 @@ export function useContactsItemList(  ) {
 				}
 			}
 
-			setContactId(id)
-			resetContactPhoto();
-			// setFieldAtDatabase(`/contacts/${ user }/${ id }`, "contactName", { ...contactName, id })
 			setFieldAtDatabase(`/contacts/${ user }`, id, contact )
 			
+			setContactId(contact.contactId)
+			setNameData( contact.contactName )
+			setContactData(contact.contactData)
 			setOpenContact( true ) 
 		}
 
-	, [ contacts, contactState.openContact, contactName, contactData ] )
+	, [ contacts, contactId, contactState, contactName, contactData, contactPhoto ] )
 
 
 		return {

@@ -73,6 +73,9 @@ export function useFirebase() {
 					console.log( "Файл: ", file, " - удален" )
 				} )
 				.catch( () => {
+					console.log("path: ", path)
+					console.log("file: ", file)
+					
 					console.log( "что то пошло не так, файл: ", file, " - не удален" )
 				} )
 		}

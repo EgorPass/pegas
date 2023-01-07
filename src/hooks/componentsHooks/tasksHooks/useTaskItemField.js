@@ -53,6 +53,24 @@ export function useTaskItemField(   ) {
 		}
 	, [ fieldContent.isComplite, ]  )
 
+	const closeTask = () => { 
+		if ( fieldContent.title.length < 5 ) return;
+
+			for ( let prop in fieldContent ) {
+				
+				setFieldAtDatabase( `/tasks/${ user }/${ fieldContent.id }`,  prop , fieldContent[ prop ] )
+			}
+			
+				setOpenField( false )
+				resetFieldContent()
+				resetFieldFiles()
+
+			if ( fieldState.newField ) {
+				setNewField( false )
+			}
+
+	} 
+
 	/**
 	 * Закрывает поле с описанием задачи, которое на экране.
 	 * 
@@ -343,5 +361,7 @@ export function useTaskItemField(   ) {
 		clickAtAddFile,
 		clickAtRemoveFile,
 		clickAtCancelLoad,
+
+		closeTask,
 	}
 }

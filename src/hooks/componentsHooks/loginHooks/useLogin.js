@@ -6,33 +6,36 @@ import {
 	useLoginActions, useAuthActions,
 	useTasksActions, useContactsActions,
 } from "../../reduxHooks/useBindActions";
+import { useTaskItemField } from "../tasksHooks/useTaskItemField";
+import { useContactsItemField } from "../contactsHooks/useContactsItemField";
+import { useFirebase } from "../firebaseHooks/useFirebase";
 
 export function useLogin(
 	uploadFileRef
 ) {
 
-	const { error, user } = useGetStore( "auth" )
+	const { error, user } = useGetStore("auth")
 	
-	const { tasks, fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks");
+	const { tasks, fieldState, fieldContent, uploadFile } = useGetStore("tasks");
 	
-	const { contacts, contactState, contactName, contactData, contactPhoto } = useGetStore("contacts");
-	const { login, password, confirmPassword } = useGetStore( "login" )
+	const { contacts, contactState, contactName, contactData, contactId } = useGetStore("contacts");
+	const { login, password, confirmPassword } = useGetStore("login")
 
 	const { getTasks, setOpenField, resetFieldContent, deleteUploadFile, resetFieldFiles } = useTasksActions();
 
 	const {
-					getContacts, resetNameData, 
-					resetContactData, setOpenContact
+		getContacts, resetNameData, resetContactPhoto, setContactId,
+		resetContactData, setOpenContact
 	} = useContactsActions();
 
 	const { setLogin, setPassword, setConfirmPassword } = useLoginActions();
 	const { setError, loginAtFirebase, reginAtFirebase, logoutAtFirebase } = useAuthActions();
 
+	const { setFieldAtDatabase } = useFirebase()
+
 	const location = useLocation()
 	const navigate = useNavigate();
 	
-
-	// console.log( "uplaodFile in begin: ", uploadFileRef)
 	
 	const changeLogin = useCallback(
 		({ target: { value } }) => {
@@ -89,37 +92,15 @@ export function useLogin(
 		navigateAfterAuth(res, login)
 	}
 
-	const logoutButton =
-		// useCallback(
-			async (e) => {
+	const logoutButton = async (e) => {
 		e.preventDefault();
 		
 		console.log(" .... log out .......")
-		
-		console.log(uploadFileRef)
-		// console.log( fieldContent )		
-		// console.log(uploadFile)
-		// console.log(contacts)
-				console.log("////////////////////")
-				
-		// contacts.forEach( it => {
-			
-		// 		console.log( "id: ", it.id )
-		// 		console.log( "id in uploadFile: ", it.id in uploadFile )
-
-		// 		// if (it.id in uploadFile) {
-		// 		// 	deleteUploadFile(fieldContent.id, prop)
-		// 		// }
-		// 	}
-		// )
+	
 
 		for (let id in uploadFile) {
-			// console.log( "id: ", id )	
-			// console.log("obj: ", uploadFile[id])	
 
 			Object.keys(uploadFile[id]).forEach(it => {
-				// console.log(it)
-
 				uploadFileRef[it].cancel();
 				delete uploadFileRef[it]	
 				deleteUploadFile(id, it)
@@ -137,8 +118,15 @@ export function useLogin(
 
 		if( tasks.length > 0 ) getTasks([]);
 		if ( fieldState.openField ) {
+			
 			console.log(" reset tasks fields")
 			
+			if ( fieldContent.title.length < 5 ) return;
+
+			for ( let prop in fieldContent ) {
+				setFieldAtDatabase( `/tasks/${ user }/${ fieldContent.id }`,  prop , fieldContent[ prop ] )
+			}
+
 			setOpenField(false)
 			resetFieldContent();
 			resetFieldFiles();
@@ -146,12 +134,17 @@ export function useLogin(
 		
 		if( contacts.length > 0 ) getContacts([])
 		if (contactState.openContact) {
-			setOpenContact(false) 
+
+			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactName" , contactName )
+			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactData" , contactData )
+
+			setOpenContact(false)
+			resetContactPhoto();
+			setContactId(0);
 			resetNameData();
 			resetContactData();
 		}
 	}
-	// , [ fieldFiles, fieldState, fieldContent, contactData, contactName, contactPhoto, contactState, user, uploadFileRef ] )
 
 	const resetLoginFields = useCallback( () => {
 		setPassword("")
@@ -160,8 +153,6 @@ export function useLogin(
 	, [ ] )
 
 	const errorCatcher = ( prevLocationState, errorModAndTitle) => {
-		// сделать основной функцие по перехвату ошибок на странице Login.jsx
-		// принимать ошибку, если нужен переход на страницу, делает переход, иначе вызывать функуцию classModAndTitleDescription и возвращать объект с модификаторами
 		
 		prevLocationState = prevLocationState || {}
 		

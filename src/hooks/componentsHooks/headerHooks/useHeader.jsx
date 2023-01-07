@@ -6,26 +6,22 @@ import { useGetStore } from "../../reduxHooks/useGetStore";
 import { useFirebase } from "../firebaseHooks/useFirebase"
 import { useTaskItemField } from "../tasksHooks/useTaskItemField";
 import { useContactsItemField } from "../contactsHooks/useContactsItemField"
-import { contactState } from "../../../redux/contactsStore/contactStateSlice";
 
 export function useHeader() {
 	
 	const { user } = useGetStore("auth")
-	const { tasks, fieldState: { openField: tasksOpen}, fieldContent } = useGetStore("tasks")
-	const { contacts, contactState: { openContact: contactsOpen}, contactName, contactData } = useGetStore("contacts")
-	const state = useGetStore("contacts")
-	const { getTasks } = useTasksActions()
+	const { fieldState: { openField: tasksOpen}, fieldContent } = useGetStore("tasks")
+	const { contactState: { openContact: contactsOpen}, contactName, contactData } = useGetStore("contacts")
+	const { getTasks, } = useTasksActions()
 	const { getContacts } = useContactsActions()
 	const { setSearch } = useSearchActions();
 
 	const { clickAtCloseButton: tasksClose } = useTaskItemField()
 	const { clickAtCloseButton: contactsClose } = useContactsItemField();
 	
-	const { setFieldAtDatabase, getFilesFromDatabase } = useFirebase();
-	
+	const {  getFilesFromDatabase } = useFirebase();
 	
 	const { pathname } = useLocation(); 
-
 
 	const path = pathname.replace( /\//gi, ''	)
 
@@ -38,7 +34,6 @@ export function useHeader() {
 		contactsOpen
 
 	}
-
 
 /**
 	 * Вспомогательная функция для обрабтчика ввода в поисковую строку changeSearct
@@ -133,9 +128,14 @@ export function useHeader() {
 	, [ pathname,  contactName, contactData, fieldContent] )
 
 
-	return {
-changeSearch
+	const clickAtLink = () => {
+		if( tasksOpen )  tasksClose();
+		if( contactsOpen )  contactsClose();
+	}
 
+	return {
+		changeSearch,
+		clickAtLink
 	}
 
 }

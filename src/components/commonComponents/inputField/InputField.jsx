@@ -2,7 +2,7 @@ import { memo } from "react";
 
 export const InputField = memo(({ title, content, classNameBlock, onchange, classMod = "", type = " text", autocomplite = "off", autofocus = false }) => {
 
-		console.log( ` InputField ${ title } render....`)
+		// console.log( ` InputField ${ title } render....`)
 
 	return (
 		<div className = { `${ classNameBlock }__field-container` }>

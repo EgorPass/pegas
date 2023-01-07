@@ -1,4 +1,4 @@
-import { lazy, } from "react";
+import { lazy, Suspense } from "react";
 import {  Routes, Route } from "react-router-dom"
 
 import { getAuth } from "firebase/auth";
@@ -9,6 +9,7 @@ import { useAuthActions } from "./hooks/reduxHooks/useBindActions"
 
 import { Layout } from "./components/layout/Layout"
 import { RequestAuth } from "./hooks/HOCs/RequestAuth"
+import { PageLoader } from "./components/commonComponents/pageLoader/PageLoader"
 
 const Home = lazy( ()=> import("./pages/home/Home") )
 const About = lazy( () => import ( "./pages/about/About" ) )
@@ -32,29 +33,36 @@ function App() {
  
 	return (
 		<LoginContext>
-			<Routes>
-				<Route path="/" element={<Layout />} >
-	
-						<Route index element = { <Home />	} />
-														
-						<Route path="tasks" element={
-																					<RequestAuth>
-																						<Tasks /> 
-																					</RequestAuth>
-																				} />	
-						<Route path = "contacts" element = { 
+			
+			<Suspense fallback = { <PageLoader /> } > 
+			
+				<Routes>
+					<Route path="/" element={<Layout />} >
+		
+							<Route index element = { <Home />	} />
+															
+							<Route path="tasks" element={
 																						<RequestAuth>
-																							<Contacts	/>
-																						</RequestAuth> 
-																					} />
-						<Route path = "about" element = {	<About />	} />
+																							<Tasks /> 
+																						</RequestAuth>
+																					} />	
+							<Route path = "contacts" element = { 
+																							<RequestAuth>
+																								<Contacts	/>
+																							</RequestAuth> 
+																						} />
+							<Route path = "about" element = {	<About />	} />
 
-						<Route path = "login" element = { <Login	/> } />
-						<Route path = "regin" element = { <Login regin = { true } /> } />
-											
-						<Route path = "/*" element = { <NotFound /> } />
-				</Route>
-			</Routes>
+							<Route path = "login" element = { <Login	/> } />
+							<Route path = "regin" element = { <Login regin = { true } /> } />
+												
+							<Route path = "/*" element = { <NotFound /> } />
+					</Route>
+				</Routes>
+				
+			</Suspense>
+		
+		
 		</LoginContext>
   );
 }

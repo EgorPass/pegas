@@ -1,29 +1,21 @@
-import { useEffect } from "react"
-
 import { useGetStore } from "../../../hooks/reduxHooks/useGetStore"
-
-import { useContactsActions } from "../../../hooks/reduxHooks/useBindActions"
-
-import { useFirebase } from "../../../hooks/componentsHooks/firebaseHooks/useFirebase"
 
 import { useContactsItemField } from "../../../hooks/componentsHooks/contactsHooks/useContactsItemField"
 
-import { Image } from "../../commonComponents/image/Image"
-
+import { ImageContact } from "../../commonComponents/image/ImageContact"
+import { FileLoader } from "../../commonComponents/fileLoader/FileLoader"
 import { FieldButtonContainer } from "../../commonComponents/fieldButtonContainer/FieldButtonContainer"
 
 import { FieldNameContainer } from "../fieldNameContainer/FieldNameContainer"
 import { FieldContactsContainer } from "../fieldContactsContainer/FieldContactsContainer"
 
-
 import "./contacts-field.scss"
 
-export const ContactsItemField = ( ) => {
+export const ContactsItemField = () => {
 
 	// console.log("ContactsItemField render... ")
 
-	
-	const { contactName, contactData, contactId, contactPhoto, contactState } = useGetStore("contacts")
+	const { contactName, contactData, contactId, contactPhoto, uploadFile } = useGetStore("contacts")
 	const {
 		changeName, changeSurName, changeSecondName,
 		changePhone, changeTelegram, changeEmail,
@@ -31,8 +23,10 @@ export const ContactsItemField = ( ) => {
 		
 		clickAtCloseButton, clickAtRemoveButton,
 
-		clickAtAddImage,		clickAtRemoveImage,
+		clickAtAddImage, clickAtRemoveImage,
 	} = useContactsItemField();
+
+	const upload = uploadFile?.[contactId]?.[contactPhoto.fileId] || null
 
 	return (
 		<div className = { `list-body__cover-field` }>
@@ -54,15 +48,26 @@ export const ContactsItemField = ( ) => {
 					changeOther = { changeOther }
 				/>
 				
-				<Image
-					url = { contactPhoto.url }
-					status = { contactPhoto.status }
+				<ImageContact
+					urlPhoto = { contactPhoto.url }
+					path = { contactPhoto.path }
+					fileId = { contactPhoto.fileId }
+					name = { contactPhoto.name }
+					uploadFile = { upload }
 					addImage = { true }
+					contactId = { contactId }
 					classNameForImage =  "contacts-field__image"
 					classNameForContainer = "contacts-field__image-container"
 					clickAtAddImage	= { clickAtAddImage }
 					clickAtRemoveImage = { clickAtRemoveImage }	
-				/>
+				>
+					{
+						upload &&
+						<FileLoader progress={(upload !== null && upload.progress) || null} >
+								Загрузка...
+						</FileLoader>
+					}
+						</ImageContact>
 				
 				<FieldButtonContainer
 					id = { contactId }

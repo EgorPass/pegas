@@ -1,5 +1,5 @@
 export const Anchor = ( { href, children, className = "pegas-body__contact-anchor" } ) => {
-	console.log( "Anchor render>>>: ", children)
+	// console.log( "Anchor render>>>: ", children)
 	return (
 
 		<a

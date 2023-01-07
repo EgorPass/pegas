@@ -1,6 +1,7 @@
-import { FileLoader } from "../fileLoader/FileLoader";
+import { FileLoader } from "../../commonComponents/fileLoader/FileLoader";
 import { FileRemove } from "../buttons/FileRemove";
 import { FileName } from "../fileName/FileName";
+import { FileLoaderCancel } from "../buttons/FileLoaderCancel";
 
 /**
  * Компонент контейнер создает контейнер списка с калассом "task-field__file-list" для размещения списка загруженных файлов.
@@ -49,28 +50,38 @@ export const FileConetnt =( {
 							className="file-container__file-item"
 						>
 							{
-								(upload && upload[fileId]) ?
-									<FileLoader
-										id = { id }
-										name = { name }
-										fileId = { fileId }
-										progress = { upload[fileId].progress }
-										clickAtCancelLoad = { clickAtCancelLoad }
-									/>		
-										:
+		
 									<>
 										<FileName
-											id={id}
-											fileId={fileId}
-											name={name}
+											id = { id }
+											fileId = { fileId }
+											name = { name }
 											clickAtFile = { clickAtFile }
+										>
+
+											{ ( upload && upload[ fileId ] ) &&
+											<FileLoader
+												id = { id }
+												fileId = { fileId }
+												progress = { upload[fileId].progress }
+											/>	}
+
+										</FileName>
+
+									{(upload && upload[fileId]) ?
+										<FileLoaderCancel
+											id = { id }
+											fileId = { fileId }	
+											clickAtCancelLoad={clickAtCancelLoad}
 										/>
+										:
 										<FileRemove
 											id={id}
 											fileId={fileId}
-											name={name}	
-											clickAtRemoveFile = { clickAtRemoveFile }			
-										/>	
+											name={name}
+											clickAtRemoveFile={clickAtRemoveFile}
+										/>
+									}
 									</>
 							}
 						
