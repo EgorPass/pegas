@@ -82,20 +82,42 @@ export function useTaskItemField(   ) {
 	const clickAtCloseButton = useCallback(
 		( id ) => {
 
-			if ( fieldContent.title.length < 5 ) return;
+			// if ( fieldContent.title.length < 5 ) return;
 
+			const { title, description } = fieldContent
+
+			if ( !title && !description ) {
+				const entries = Object.entries( fieldFiles ) || []
+				for ( let [ name, value ] of entries ) {
+			
+					if ( ( name in uploadFileRef ) && ( uploadFileRef[ name ]._state === "running" ) ) {
+
+					uploadFileRef[ name ].cancel();
+					deleteUploadFile( id, name );
+					delete uploadFileRef[ name ];
+				
+					}
+					else {		
+							deleteFileFromStorage( `/tasks/${ user }/${ id }/${ name }/${ value }`, value );
+					}
+				}
+				
+				setFieldAtDatabase(`/tasks/${user}`, id, null)
+
+			}
+			else
 			for ( let prop in fieldContent ) {
 				
 				setFieldAtDatabase( `/tasks/${ user }/${ fieldContent.id }`,  prop , fieldContent[ prop ] )
 			}
 			
+	
+				if ( fieldState.newField ) {
+					setNewField( false )
+				}
 				setOpenField( false )
 				resetFieldContent()
 				resetFieldFiles()
-
-			if ( fieldState.newField ) {
-				setNewField( false )
-			}
 		}
 	, [ fieldContent, fieldState ])
 
@@ -124,7 +146,9 @@ export function useTaskItemField(   ) {
 					setNewField( false )
 				}				
 				setOpenField( false )
+				resetFieldContent()
 				resetFieldFiles()
+				
 				setFieldAtDatabase( `/tasks/${ user }`, id, null )
 
 				

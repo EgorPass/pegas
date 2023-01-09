@@ -1,8 +1,6 @@
 import { memo } from "react"
 
-import { Title } from "../title/Title";
-import { Checkbox } from "../checkbox/Checkbox";
-import { FileAnchor } from "../fileAnchor/FileAnchor";
+import { TaskItemTitle } from "../taskItemTitle/TaskItemTitle";
 
 import './task-container.scss';
 import './task-item.scss'
@@ -30,28 +28,13 @@ export const TaskItemList =
 			<>	
 				{
 					tasks.map(it => (
-						<li
-						key = { `${ it.id }` }
-						className="task-container__task-item task-item"
-						>
-							<Checkbox
-								id = { it.id }
-								isComplite = { it.isComplite }
-								className = "task-item__checkbox"
-								clickAtCheckbox = { clickAtCheckboxTitle }
-								/>
-							<Title
-								id ={ it.id }
-								title = { it.title }
-								clickAtTitle = { clickAtTitle }
-								className=  {`task-item__title task-item__title_${ setModeForTitle ( it.deadline, it.isComplite ) }`}
-							/>
-
-							{
-								it.files &&
-								<FileAnchor />
-							}
-						</li>
+						<TaskItemTitle
+							key = { it.id }
+							task = { it }
+							setModeForTitle = { setModeForTitle }
+							clickAtCheckboxTitle = { clickAtCheckboxTitle }
+							clickAtTitle = { clickAtTitle }
+						/>
 					))
 				}
 		</>

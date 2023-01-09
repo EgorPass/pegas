@@ -1,3 +1,5 @@
+import { memo } from "react"
+
 /**
  * Компонент создает элемент кнопки закрытия описания задачи, которая отрисовывается в компоненте FieldButtonContainer.
  * 
@@ -11,9 +13,9 @@
  * @param clickAtCloseButton обработчик кликов для закрытия окна описания задачи
  * @returns 
  */
-export const CloseButton = ( { id, clickAtCloseButton } ) => {
+export const CloseButton = memo( ( { id, clickAtCloseButton } ) => {
 	
-	// console.log("/close button render ....")
+	// console.log("/close button render ....", id)
 
 	return (
 		<button
@@ -23,4 +25,4 @@ export const CloseButton = ( { id, clickAtCloseButton } ) => {
 			Закрыть
 		</button>
 	)
-}
+})

@@ -54,7 +54,7 @@ export function useContactsItemField() {
 
 	const changeSecondName = useCallback(({ target: { value } }) => {
 		setSecondName(value)
-
+			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactName/secondName" , value )
 	}
 		, [contactName.secondName])
 
@@ -84,27 +84,41 @@ export function useContactsItemField() {
 	}
 		, [contactData.other])
 
-	const checkName = () => {
-		const { name, surName, secondName } = contactName
-
-		if( name.length > 2|| surName.length > 2 || secondName.length > 2 ) return true
-		
-		return false
-	}
 	
 	const clickAtCloseButton = useCallback(
 		( id ) => {
 
-			if( !checkName() ) return;
-			
-			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactName" , contactName )
-			setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactData" , contactData )
-			
-			setOpenContact(false) 
-			setContactId(0)
-			resetNameData();
-			resetContactData();
-			resetContactPhoto();
+			const { name, surName, secondName } = contactName;
+			const { phone, telegram, email, gitHub, other } = contactData;
+
+			if (
+					!name && !surName &&
+					!secondName && !phone &&
+					!telegram && !email &&
+					!gitHub && !other	) {
+
+				if (contactPhoto.fileId) {
+					if (contactPhoto.fileId in uploadFileRef) { 
+						uploadFileRef[contactPhoto.fileId].cancel();
+					}
+					else {
+						deleteFileFromStorage( `/contacts/${ user }/${ contactId }/contactPhoto/${ contactPhoto.fileId }/${ contactPhoto.name }`, contactPhoto.name );
+					}
+				}
+
+				setFieldAtDatabase(`/contacts/${user}`, contactId, null)
+			}
+			else {
+	
+				setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactName" , contactName )
+				setFieldAtDatabase( `/contacts/${ user }/${ contactId }`,  "contactData" , contactData )
+			}
+				
+				setOpenContact(false) 
+				setContactId(0)
+				resetNameData();
+				resetContactData();
+				resetContactPhoto();
 		}
 	, [ contactId, contactData, contactName, contactState, contactPhoto,  ] )
 	
@@ -113,23 +127,25 @@ export function useContactsItemField() {
 		( id ) => {
 			if ( !window.confirm( `Вы уверены, что хотите удалить контакт ${contactName.surName} ${contactName.name}?` )) return;
 
-			for ( let prop in uploadFileRef ) {
-				console.log(prop)
-				uploadFileRef[prop].cancel();
-
+			if (contactPhoto.fileId) {
+				if (contactPhoto.fileId in uploadFileRef) { 
+					uploadFileRef[contactPhoto.fileId].cancel();
+				}
+				else {
+					deleteFileFromStorage( `/contacts/${ user }/${ contactId }/contactPhoto/${ contactPhoto.fileId }/${ contactPhoto.name }`, contactPhoto.name );
+				}
 			}
-			
+		
 			setOpenContact( false ) 
-			
 			setContactId(0)
 			resetNameData();
 			resetContactData();
 			resetContactPhoto();
 
-		setFieldAtDatabase( `/contacts/${ user }`, contactId, null )
+		setFieldAtDatabase( `/contacts/${ user }`, id, null )
 
 	}
-	, [ ])
+	, [ contactPhoto, ])
 		
 	const resizeFileAtNormal = ( file ) => new Promise( ( resolve ) => {
 		Resizer.imageFileResizer( file, 180, 200, 'webp', 100, 0, (uri) => { resolve(uri)}, "blob")

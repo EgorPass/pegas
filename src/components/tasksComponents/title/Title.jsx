@@ -19,10 +19,11 @@
  * @param className принимает динамически изменяемое название класса, из родительского компонента (модификатор класса зависит от состояния выоплнения задания, даты завершения задания и текущей даты)
  * @returns 
  */
-export const Title = ( { id, title, className, clickAtTitle } ) =>  (
+export const Title = ( { id, title, className, styled, clickAtTitle } ) =>  (
 	<span
 		className = { className }
-		onClick = { (e) => {
+		style = { styled }
+		onClick = { ( e ) => {
 			clickAtTitle( id )
 		} }
 		data-task-tooltip = {

@@ -29,7 +29,7 @@ export function useContactsItemList(  ) {
 	const { clickAtCloseButton } = useContactsItemField()
 
 
-	const clickAtTitle = useCallback( async( id ) => {
+	const clickAtTitle = useCallback( async( id , target) => {
 		
 		const contact = contacts.find(it => it.contactId === id)		
 		if (!contact) return;

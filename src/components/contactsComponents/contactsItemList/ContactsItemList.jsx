@@ -9,24 +9,34 @@ export const ContactsItemList = memo(
 	} ) => (
 		<>
 			{
-			contacts && contacts.map(it => {
+				contacts && contacts.map(it => {
+				
+					const { name, surName, secondName } = it.contactName;
+					const { phone, telegram, email, gitHub, other } = it.contactData;
+					
 					return (
 						<li
 							key = { it.contactId }
 							className = "contacts-container__contact-item contact-item" 
-						>
+							>
 
 							<span
-								className = "contact-item__contact-name"
-								onClick = { ( e ) => {clickAtTitle( it.contactId ) } }
+								className="contact-item__contact-name"
+								onClick = { ( e ) => { clickAtTitle( it.contactId ) } }
 							>
-								{ it.contactName.surName } 
-								{ it.contactName.surName &&
-									<span>
-										&nbsp;
-									</span>
+								{
+									( name ||  secondName ||  surName) ? (
+										<>
+											<span> { surName } </span>
+											<span> { name } </span>
+											<span> { secondName } </span>
+										</>
+									) : ( 
+										phone || telegram || email || gitHub || other
+									) ? (
+										phone || telegram || email || gitHub || other
+									) : "..."
 								}
-								{ it.contactName.name } 
 							</span>
 						</li>
 					)

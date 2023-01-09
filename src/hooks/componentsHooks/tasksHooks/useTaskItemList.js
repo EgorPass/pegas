@@ -10,6 +10,11 @@ import { useTaskItemField } from "./useTaskItemField.js";
  * @returns {object} методы для обработки кликов по списку задач: 		clickAtTitle,	clickAtCheckboxTitle,
  */
 export function useTaskItemList( ) {
+		// const list = target.closest(".contacts-container__contact-item")		
+		// const title = list.querySelector(".contact-item__contact-name").innerHTML.length
+
+		// if( !!title && target === list) return
+		// console.log(title)
 
 	const { user } = useGetStore("auth")
 	const { tasks,  uploadFile, fieldFiles,fieldState, fieldContent }= useGetStore("tasks")
@@ -85,7 +90,7 @@ export function useTaskItemList( ) {
 	 */
 	const clickAtTitle = useCallback(
 		( id ) => {
-		 		
+
 			const task = tasks.find( it => it.id === id ) 
 			if ( !task ) return;
 			
@@ -95,7 +100,6 @@ export function useTaskItemList( ) {
 				clickAtCloseButton(id)
 			}
 
-			// getFilesFromDatabase(`/tasks/${ user }/${id}`)
 
 			
 			let files
@@ -134,13 +138,17 @@ export function useTaskItemList( ) {
 	 * 
 	 * @param {number} id инфификатор задачи (обекта из массива taskState), которая откроется при клики 
 	 */
-	const clickAtCheckboxTitle = useCallback(
+	const clickAtCheckboxTitle =
+		useCallback(
 		( id ) => {
 			
+			console.log( tasks )
 			const task = tasks.find(it => it.id === id)
 			
-			if (fieldState.openField && (id === fieldContent.id)) {
-				console.log("click at checkbox: taskId: ", id,)
+			console.log(task.id)
+
+			if( fieldState.openField && ( id === fieldContent.id ) ) {
+				console.log( "click at checkbox: taskId: ", id, )
 				console.log( "click at checkbox: fieldContentId: ", fieldContent.id, )
 				
 				setFieldIsComplite( !task.isComplite )	
@@ -149,8 +157,8 @@ export function useTaskItemList( ) {
 			setFieldAtDatabase( `/tasks/${ user }/${ task.id }`, "isComplite", !task.isComplite )
 
 		}
-	// , [ tasks, fieldState.openField, fieldContent.isComplite, fieldContent.id  ] )
-	, [  fieldContent.isComplite, fieldContent.id  ] )
+	, [ tasks, fieldState.openField, fieldContent.isComplite, fieldContent.id  ] )
+	// , [  fieldContent.isComplite, fieldContent.id  ] )
 
 
 	return {		
