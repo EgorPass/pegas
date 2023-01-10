@@ -30,7 +30,7 @@ import './task-field.scss';
  */
 export const TaskItemField = () => {
 	
-	console.log("taskItemField render ......",)
+	// console.log("taskItemField render ......",)
 
 	const { fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
 	

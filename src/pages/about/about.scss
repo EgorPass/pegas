@@ -22,6 +22,7 @@
 		
 		@include setBox(0, ( 10px 0 10px 25px));
 	}
+
 	&__contacts-item {
 		line-height: 1.6;
 		
@@ -46,8 +47,6 @@
 		grid-area: about-experience;
 
 		& h2 {
-			// @include setBox((10px 0 5px), (0));
-
 			@media (min-width: 700px) {
 				margin: 15px 0 10px;
 			}
@@ -123,16 +122,20 @@
 			height: 100%;
 			@include setFlex($flexFlowRow, start, end);
 		}
+
+		@media print {
+			display: block;
+			margin-top: 20px;
+			margin-bottom: -20px;
+		}
 	}
 
 	&__photo {
 		box-sizing: border-box;
-		border: 1px solid gray;
 		width: 100%;
 		height: 80%;
 	
-		box-shadow: $field-shadow-black-down;
-
+		@include setBorder( ( 1px solid gray ), 0, $field-shadow-black-down);
 		@include setBox( (0), (0) );
 	}
 }

@@ -58,7 +58,6 @@ function rejected( state, { payload } ) {
 }
 
 function fulfilled( state, { payload } ) {
-	console.log(payload)
 	return {
 		error: "",
 		isAuth: true,

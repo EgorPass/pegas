@@ -21,12 +21,15 @@ body {
 	color: black;
 
 	background-color: $bodybackgoundColor;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
 
 .pegas-body {
 	box-sizing: border-box;
@@ -41,6 +44,7 @@ code {
 		grid-template-rows: 74px auto 74px;
 	}
 
+
 	&__page-loader {
 		position: absolute;
 		width: 100%;
@@ -48,19 +52,27 @@ code {
 		z-index: 100;
 		@include setFlex($flexFlowRow, center, center)
 	}
-
+	
 	&__body-header {
 		grid-area: pegas-body__header;
-		@extend %template-body-headerAndFooter;
 		@include setBorder( $gray-border-thin,  0, $field-shadow-black-down );
+		
 	}
-
+	
 	&__body-footer {
 		grid-area: pegas-body__footer;
-		@extend %template-body-headerAndFooter;
 		@include setBorder( $gray-border-thin, 0, $field-shadow-black-up );
 	}
+	
+	&__body-header,
+	&__body-footer {
+		@extend %template-body-headerAndFooter;
 
+		@media print {
+			display: none;
+		}
+	}
+	
 	&__main {
 		grid-area: pegas-body__main;
 		
@@ -72,11 +84,20 @@ code {
 		overflow-y: auto;
 		overflow-x: hidden;
 
-
 		@include setBox( ( 0 auto ), ( 10px ) );
 		@media (min-width: 700px) {
 			height: calc(100vh - 148px);
 		}
+		
+		@media print {
+			height: auto;
+
+			widows: 0;
+			orphans: 0;
+
+			@include setBox( 0, 0 );
+		}
+
 	}
 
 	&__list-body {
@@ -101,14 +122,25 @@ code {
 		}
 	}
 
+	&__print-info {
+		grid-area: print-info;
+		display: none;
+		font-size: 14px;
+		font-style: italic;
+
+		@media print {
+			display: block;
+		}
+	}
+
 	&__home,
 	&__about {
+
 		font-size: 18px;
 		text-align: justify;
 		line-height: 1.3;
 
 		@include setBox((0 auto), 0);
-		@include setGrid(auto, 1fr, auto, auto);
 
 		@media (min-width: 700px) {
 				line-height: 1.5;
@@ -118,20 +150,24 @@ code {
 			width: 960px;
 		}
 	
+
+
 		& h2 {
 			text-align: center;
 			text-shadow: $main-text-shadow;
 
 			@include setBox((10px 0 5px), (0));
-		}
 
-		& p, & ul {
-			text-shadow: 1px 1px 4px gray;
+			@media print {
+				font-size: 18px;
+			}
 		}
-
+		
+		
 		& p {
 			text-indent: 25px;
 			@include setBox((10px 0 5px), (0));
+			
 		}
 
 		& ul {
@@ -140,19 +176,41 @@ code {
 			@media (min-width: 500px) {
 				padding-left: 50px;
 			}
-
+			
 			& li {
 				@include setBox(0, 0)
 			}
-
-			// & ul {
-			// @include setBox((0px 0 0), (0 0px 0 35px));
-			// }
 		}
-	
+
+		& p, & ul {
+			text-shadow: 1px 1px 4px gray;	
+		}
+
+		@media print {
+			font-size: 16px;
+			padding: .5cm .5cm .5cm 1cm;
+			orphans: 3;
+			widows: 2;
+		}
+
+		& p, & ul, & h2 {
+			@media print {
+				text-shadow: none;
+			}
+		}
+		
 	}
 
 	&__home {
+
+		@include setGrid( auto, 100%, auto, auto );
+		grid-auto-rows: auto;			
+		grid-template-areas: 	
+													"home-intro" 
+													"home-description" 
+													"home-contacts" 
+													"home-tasks";
+
 		& h4 {
 			@include setBox ( (24px 0 0 0 ), 0);
 		}
@@ -162,15 +220,18 @@ code {
 			@include setBox( ( 10px 0 5px ), 0)
 		}
 
+		@media print {
+			grid-template-areas:
+													"print-info"
+													"home-intro"
+													"home-description"
+													"home-contacts"
+													"home-tasks";
+		}
 	}
 
 	&__about {
-
-		// & h2 {
-		// 	text-align: center;
-		// 	text-shadow: $main-text-shadow;
-		// }
-
+		@include setGrid(auto, 1fr, auto, auto);
 		grid-template-areas: 	"about-name"
 													"about-contacts"
 													"about-skills"
@@ -189,6 +250,16 @@ code {
 			grid-template-areas: 	"about-name about-photo" 
 														"about-contacts about-photo"
 														"about-experience about-skills";
+		}
+
+		@media print {
+
+			grid-template-areas: 
+				"print-info print-info"
+				"about-name about-photo"
+				"about-contacts about-photo"
+				" about-skills about-skills "
+				"about-experience about-experience";;
 		}
 
 	}

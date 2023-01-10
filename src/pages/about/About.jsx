@@ -1,4 +1,4 @@
-import {  memo , lazy, useEffect, Suspense} from "react";
+import {  memo } from "react";
 
 
 import { AboutName } from "../../components/aboutComponents/AboutName";
@@ -10,31 +10,35 @@ import { ImageContact } from "../../components/commonComponents/image/ImageConta
 
 import placeholder from "../../images/placeholder.svg"
 
-import photo from "../../images/photo/myPhoto1.jpg"
+import photo from "../../images/photo/myPhoto4b.png"
 
 import "./about.scss"
+import { PrintInfo } from "../../components/commonComponents/printInfo.jsx/PrintInfo";
 
 const About = memo( () => {
 	
-	console.log( " About render.....")
+	// console.log( " About render.....")
 	
 	return (
 		
 		<section className="pegas-body__about about">
 			
+			<PrintInfo />
+
 			<AboutName />
 
 			<AboutContacts />
 
-			<AboutExperience />
-			
 			<AboutSkills />
-
+			
 			<ImageContact
 				urlPhoto = { photo ? photo : placeholder}
 				classNameForContainer = "about__photo-container"
 				classNameForImage = "about__photo"
 			/>
+			
+			<AboutExperience />
+
 		
 		</section>
 	)

@@ -1,0 +1,19 @@
+.home {
+
+	&__intro {
+		grid-area: home-intro;
+	}
+
+	&__description {
+		grid-area: home-description;
+	}
+
+	&__contacts {
+		grid-area: home-contacts;
+	}
+
+	&__tasks {
+		grid-area: home-tasks;
+	}
+
+}

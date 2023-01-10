@@ -12,10 +12,10 @@ export function useContactsItemField() {
 	
 	const { user } = useGetStore("auth")
 	const {
-		contacts, 		contactId, 	contactState,
+		contactId, 	contactState,
 		contactName, contactData,	contactPhoto, uploadFile
 																															} = useGetStore("contacts")
-	const {setFieldAtDatabase, uploadFileToStorage,	deleteFileFromStorage, getImageUrl	} = useFirebase()
+	const {setFieldAtDatabase, uploadFileToStorage,	deleteFileFromStorage	} = useFirebase()
 	
 	const {
 		setContactId, setOpenContact,
@@ -24,13 +24,9 @@ export function useContactsItemField() {
 		
 		setPhone, setTelegram, setEmail, setGitHub, setOther, resetContactData,
 
-		resetContactPhoto, setContactPhotoStore, setContactPhotoPath,
-		setContactPhotoUrl, setContactPhotoFileId,
+		resetContactPhoto, setContactPhotoStore, 
 
 		setUploadFile, deleteUploadFile
-
-
-		
 
 	} = useContactsActions();
 

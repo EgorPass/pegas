@@ -32,6 +32,11 @@ export const AboutExperience = () => (
 					использовать состояние, методы жизненого цикла и ссылки React для создания анимации за счет Canvas холста.
 				</li>
 			</ul>
+		
+		{/* от этого момента все части должны подгружаться динамически */}
+		
+
+		{/* 1 messure */}
 		<p>
 			Для ознакомления использования способов типизации TypeScript и работы с Redux сделал todolist (<a href = "https://github.com/EgorPass/todolist.git" />):
 		</p>
@@ -95,6 +100,8 @@ export const AboutExperience = () => (
 				А так же изучение react-router-dom 6.
 			</li>
 		</ul>
+
+		{/* 2 messure */}
 
 		<h2>
 			О себе

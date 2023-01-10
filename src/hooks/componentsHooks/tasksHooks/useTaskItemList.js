@@ -142,14 +142,10 @@ export function useTaskItemList( ) {
 		useCallback(
 		( id ) => {
 			
-			console.log( tasks )
 			const task = tasks.find(it => it.id === id)
 			
-			console.log(task.id)
 
 			if( fieldState.openField && ( id === fieldContent.id ) ) {
-				console.log( "click at checkbox: taskId: ", id, )
-				console.log( "click at checkbox: fieldContentId: ", fieldContent.id, )
 				
 				setFieldIsComplite( !task.isComplite )	
 			}

@@ -6,8 +6,6 @@ import {
 	useLoginActions, useAuthActions,
 	useTasksActions, useContactsActions,
 } from "../../reduxHooks/useBindActions";
-import { useTaskItemField } from "../tasksHooks/useTaskItemField";
-import { useContactsItemField } from "../contactsHooks/useContactsItemField";
 import { useFirebase } from "../firebaseHooks/useFirebase";
 
 export function useLogin(
@@ -72,7 +70,6 @@ export function useLogin(
 		e.preventDefault();
 		
 		const res = await loginAtFirebase({ login, password })
-		console.log( res )
 		setPassword("")
 		navigateAfterAuth(res, login)
 	}
@@ -94,10 +91,7 @@ export function useLogin(
 
 	const logoutButton = async (e) => {
 		e.preventDefault();
-		
-		console.log(" .... log out .......")
-	
-
+			
 		for (let id in uploadFile) {
 
 			Object.keys(uploadFile[id]).forEach(it => {
