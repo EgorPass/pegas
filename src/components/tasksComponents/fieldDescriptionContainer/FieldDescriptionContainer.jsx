@@ -4,14 +4,12 @@ import { EditableTextField } from "../editableTextField/EditableTextField";
 
 import "./description-container.scss"
 
-/**
- * Мемоизированный компонент создает элемент описания задачи за счет компонента EditableTextField и его подложки.
- * 
- * @param {string} nextProp.content описание задачи из объекта массива taskState,
- * @param {object | null} nextProp.onchanger обработчик изменения строкового состояния changeDescription для передачи EditableTextField
- * @returns 
- */
-export const FieldDescriptionContainer = memo(({ content, onchange }) => (
+
+export const FieldDescriptionContainer = memo(({ content, onchange }) => {
+
+	console.log( 'FieldDescriptionContainer render...')
+
+	return (
 		<label
 			className="task-field__descriptio-container description-container"
 		>
@@ -26,4 +24,5 @@ export const FieldDescriptionContainer = memo(({ content, onchange }) => (
 			</div>
 		</label>
 	)
+}
 )

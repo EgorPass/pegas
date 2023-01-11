@@ -2,7 +2,7 @@ import { memo } from "react";
 
 export const InputField = memo(({ title, content, classNameBlock, onchange, classMod = "", type = " text", autocomplite = "off", autofocus = false }) => {
 
-		// console.log( ` InputField ${ title } render....`)
+		console.log( ` InputField ${ title } render....`)
 
 	return (
 		<div className = { `${ classNameBlock }__field-container` }>
@@ -32,14 +32,5 @@ export const InputField = memo(({ title, content, classNameBlock, onchange, clas
 			</div>
 	)
 }
-	// , (prevProps, nextProps) => {
 
-	// 	console.log(prevProps.title === nextProps.title)
-	// 	// if (prevProps.title === nextProps.title) return false
-	// 	// else return true
-	// 	// prevProps.title !== nextProps.title ||
-	// 	// prevProps.content !== nextProps.content || 
-	// 	// prevProps.onchange !== nextProps.onchange
-	
-	// }
 )

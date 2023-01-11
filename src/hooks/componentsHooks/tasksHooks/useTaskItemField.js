@@ -348,7 +348,7 @@ export function useTaskItemField(   ) {
 			updateFieldAfterUpLoadOrCancel( `/tasks/${ user }/${ id }/files/`, fileId, null )		
 			deleteFileFromStorage( `/tasks/${ user }/${ id }/${ fileId }/${ name }`, name )				
 		}
-	, [ uploadFile ])
+	, [  ])
 
 	/**
 	 * По клику на название в списке прикрепленных файлов, функция направит по ссылке,

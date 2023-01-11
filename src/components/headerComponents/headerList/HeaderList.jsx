@@ -25,6 +25,9 @@ export const HeaderList =	memo(	( { isAuth } ) => {
 											},
 										]
 
+	console.log( "HeaderList render... ")
+	
+	
 	return (
 		<nav className="body-header__nav">
 		

@@ -3,6 +3,9 @@ import { useLoginContext } from "../../../hooks/context/useContextData";
 
 export const LogoutLink = () => {
 
+	console.log( "LogoutLink render... ")
+
+
 	const { logoutButton } = useLoginContext()
 
 	return (

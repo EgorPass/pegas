@@ -25,6 +25,9 @@ export const ContactsListContainer = () => {
 		monitor( `/contacts/${ user }`, getContacts )		
 	}, [  ] )
 
+	console.log( "ContactsListContainer render... ")
+	
+
 	return (
 		<ItemList 
 			classBlockName = "contacts"

@@ -2,16 +2,12 @@ import { memo } from "react"
 import { ThreeDots } from "react-loader-spinner"
 
 
-/**
- * Мемоизированный компонент для отрисовки лоадера ожидания
- * 
- * Или строит фразу о создании первой задачи
- */
+
 export const LoaderForList =
 	memo(
 	( { state, content } ) => {
 		
-		// console.log("three dots render ....")
+		console.log("three dots render ....")
 
 
 		return (

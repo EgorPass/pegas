@@ -54,6 +54,7 @@ code {
 	}
 	
 	&__body-header {
+
 		grid-area: pegas-body__header;
 		@include setBorder( $gray-border-thin,  0, $field-shadow-black-down );
 		
@@ -74,6 +75,8 @@ code {
 	}
 	
 	&__main {
+		// user-select: none;
+
 		grid-area: pegas-body__main;
 		
 		box-sizing: border-box;

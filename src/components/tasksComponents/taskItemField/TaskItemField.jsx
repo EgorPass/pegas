@@ -15,22 +15,10 @@ import { FieldButtonContainer } from "../../commonComponents/fieldButtonContaine
 
 import './task-field.scss';
 
-/**
- * Компонент создает блок контейнер в виде модального окна с перекритием содержимого на экране прозрачным блоком и формирует поля описания задания из дочерних компонентов.
- * 
- * Через контекст useTaskItemFieldContext принимает: clickAtCheckboxField clickAtCloseButton,	clickAtRemoveButton, changeTitle, changeDescription, changeDate для работы с датой и текстовыми полями описания задачи
- * 
- * Состяния fieldContent, fieldState, fieldFiles используются для построения поля описания задачи.
- * 
- * uploadFile - для отслеживания уровня загрузки для прикрепленных файлов, передается в FileContent и далее в FileLoader для передачи уровня отгрузки файла.
- * 
- * Родительский компонент TaskBody.
- * 
- * @returns 
- */
+
 export const TaskItemField = () => {
 	
-	// console.log("taskItemField render ......",)
+	console.log("taskItemField render ......",)
 
 	const { fieldState, fieldContent, fieldFiles, uploadFile } = useGetStore("tasks")
 	

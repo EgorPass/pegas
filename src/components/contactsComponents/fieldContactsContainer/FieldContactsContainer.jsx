@@ -5,7 +5,7 @@ import { InputField } from "../../commonComponents/inputField/InputField"
 
 export const FieldContactsContainer = memo( ( { contactData, changePhone, changeTelegram, changeEmail, changeGitHub, changeOther, } ) => {
 
-	// console.log("FieldContactsContainer render...")
+	console.log("FieldContactsContainer render...")
 
 	const className = "contact-container"
 

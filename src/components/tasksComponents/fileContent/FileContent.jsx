@@ -1,33 +1,9 @@
-import { FileLoader } from "../../commonComponents/fileLoader/FileLoader";
-import { FileRemove } from "../buttons/FileRemove";
-import { FileName } from "../fileName/FileName";
-import { FileLoaderCancel } from "../buttons/FileLoaderCancel";
+import { RemoveFile } from "../../commonComponents/buttons/RemoveFile";
 
-/**
- * Компонент контейнер создает контейнер списка с калассом "task-field__file-list" для размещения списка загруженных файлов.
- * 
- * В пропсах принимает объект files и из него создает сиписок файлов.
- * 
- * К имени файла при загрузке отрисовывает FileLoader - уровень загрузки.
- * 
- * @param {object} param0
- * @param {string | number} param0.id 
- * @param {object | null} prop0.uploadFile
- * @param {object} prop0.files
- * @param {function} prop0.clickAtAddFile
- * @param {function} prop0.clickAtFile
- * @param {function} prop0.clickAtCancelLoad
- * @param {function} prop0.clickAtRemoveFile
- * 
- * @param id индификатор задачи (обекта из массива taskState), использутся для обработки кликов в методами clickAtFile и clickAtRemoveFile,
- * @param  prop0.uploadFile содержит информацию о файле для отгрузке (fileId и progress-уровень загрузки),
- * @param files объект содержащий список загруженных и загружаемых файлов к задаче,
- * @param clickAtAddFile обработчик добавления файла в список файлов для компонента FileAddButton
- * @param clickAtFile обработчик клика по файлу в списке фаойлов для компонента FileName в компоненте FileContent
- * @param clickAtCancelLoad обработчик отмены загрузки файла для компонента FileLoaderCancel в компоненте FileLoader
- * @param clickAtRemoveFile обработчик удвлени файла из списка файлов для компонента FileRemove в компоненте FileContent
- * @returns 
- */
+import { FileLoader } from "../../commonComponents/fileLoader/FileLoader";
+import { FileName } from "../fileName/FileName";
+
+
 export const FileConetnt =( {
 			id,
 			files,
@@ -39,6 +15,8 @@ export const FileConetnt =( {
 	
 		const entries = (files && Object.entries(files)) || []	
 						
+		console.log("FileContent render...")
+	
 		return (
 			<ul className="file-container__file-list" >
 				{
@@ -69,17 +47,19 @@ export const FileConetnt =( {
 										</FileName>
 
 									{(upload && upload[fileId]) ?
-										<FileLoaderCancel
+										<RemoveFile 
 											id = { id }
 											fileId = { fileId }	
-											clickAtCancelLoad={clickAtCancelLoad}
+											onclick = { clickAtCancelLoad }
+											className = "file-container__file-loader-cancel"
 										/>
 										:
-										<FileRemove
-											id={id}
-											fileId={fileId}
-											name={name}
-											clickAtRemoveFile={clickAtRemoveFile}
+										<RemoveFile 
+											id = { id }
+											fileId = { fileId }
+											name = { name }
+											onclick = { clickAtRemoveFile }
+											className = "file-container__file-remove"
 										/>
 									}
 									</>

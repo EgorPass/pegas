@@ -4,19 +4,12 @@ import { EditableTextField } from "../editableTextField/EditableTextField";
 
 import "./title-container.scss"
 
-/**
- * Мемоизированный компонент контейнер, для отрисовки названия задачи в поле описания задачи.
- *  
- * Отрисовывает компонент EditableTextField и поле подложку для него.
- *  
- * Через пропс принимает className для компонента EditableTextField с модификаторм для заголовка.
- * 
- * @param {string} nextProps.content название задачи, передается в EditableTextField,
- * @param {boolean} nextProps.className класс стиля с установленным модификатором для EditableTextField.
- * @param {object | null} nextProps.onchange обработчик изменения строкового состояния changeTitle заголовка для передачи EditableTextField
- * @returns 
- */
-export const FieldTitleContainer = memo(({ className, content, onchange }) => (
+
+export const FieldTitleContainer = memo(({ className, content, onchange }) => {
+		
+	console.log("FieldTitleContainer render...")
+	
+	return (
 		<label
 			className="task-field__title-container title-container"
 		>
@@ -32,4 +25,5 @@ export const FieldTitleContainer = memo(({ className, content, onchange }) => (
 			</div>
 		</label>
 	)
+}
 )

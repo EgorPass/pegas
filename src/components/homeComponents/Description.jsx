@@ -20,7 +20,7 @@ export const Description = () => (
 		<UploadToDescription />
 
 		<p>
-			Для сохранения информации введенной от пользователя используется Realtime Database сервиса firebase от Google, а для сохранения файлов прикрепленных к задаче и изображений контактов используется Storage сервиса firebase от Google.
+			Для сохранения информации введенной от пользователя используется Realtime Database сервиса firebase от Google, а для сохранения файлов, прикрепленных к задаче и изображений контактов, используется Storage сервиса firebase от Google.
 		</p>
 
 	</div>

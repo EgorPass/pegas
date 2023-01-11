@@ -11,16 +11,10 @@ import { useEdit  } from "../../../hooks/componentsHooks/tasksHooks/useEdit";
 import { ItemList } from "../../commonComponents/itemList/ItemList";
 import { TaskItemList } from "../taskItemList/TaskItemList"
 
-/**
- * Компонент контейнер для списка задач.
- * 
- * Подключается к database от firebase , забивает состояние tasks и следит за обновлениями при изменении. 
- * 
- * @returns 
- */
+
 export const TaskListContainer = () => {
 	
-	// console.log(" TaskListCntainer render...")
+	console.log(" TaskListCntainer render...")
 
 	const { loaderItem } = useGetStore()
 	const { user } = useGetStore( "auth" )

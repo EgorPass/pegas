@@ -8,6 +8,7 @@ export const TaskItemTitle = ( {
 	setModeForTitle, clickAtCheckboxTitle, clickAtTitle
 }) => {
 
+		console.log( "TaskItemTitle render...")
 
 	return (
 		<li	className="task-container__task-item task-item" >

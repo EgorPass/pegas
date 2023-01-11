@@ -6,8 +6,9 @@ import { useContactsActions } from "../../../hooks/reduxHooks/useBindActions";
 
 import noFoto from "../../../images/no-foto.png"
 
+import { RemoveFile } from "../buttons/RemoveFile";
+
 import { ImageAddButton } from "../../contactsComponents/buttons/ImageAddButton";
-import { ImageRemoveButton } from "../../contactsComponents/buttons/ImageRemoveButton";
 
 export const ImageContact = memo(
 													({		
@@ -25,6 +26,9 @@ export const ImageContact = memo(
 														children
 	}) => {
 		
+	console.log( "ImageContact render... ")
+
+
 		const { getImageUrl } = useFirebase();
 		const { setContactPhotoUrl } = useContactsActions();
 
@@ -61,13 +65,12 @@ export const ImageContact = memo(
 			
 				{
 					!uploadFile && addImage && !!fileId &&
-					
-					<ImageRemoveButton
+					<RemoveFile 
 						id = { contactId }
 						fileId = { fileId }
 						name = { name }
 						onclick = { clickAtRemoveImage }
-						className={`${classNameForImage}-remove`}
+						className = { `${ classNameForImage }-remove` }
 					/>
 				}
 						

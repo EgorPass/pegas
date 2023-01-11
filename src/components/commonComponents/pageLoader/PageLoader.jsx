@@ -2,6 +2,9 @@ import { Oval } from "react-loader-spinner"
 
 export const PageLoader = () => {
 
+	console.log( "PageLoader render... ")
+	
+
 	return (
 		<div className = "pegas-body__page-loader">
 
