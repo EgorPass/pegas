@@ -4,7 +4,7 @@ import { LogoutLink } from "../Links/LogoutLink"
 
 export const HeaderLogLinkBox = memo(({ isAuth }) => {
 	
-	console.log("HeaderLogLinkBox render... ")
+	// console.log("HeaderLogLinkBox render... ")
 
 	return (
 		<li className="body-header__nav-list-item">

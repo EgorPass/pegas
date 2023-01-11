@@ -15,7 +15,7 @@ export const FileConetnt =( {
 	
 		const entries = (files && Object.entries(files)) || []	
 						
-		console.log("FileContent render...")
+		// console.log("FileContent render...")
 	
 		return (
 			<ul className="file-container__file-list" >

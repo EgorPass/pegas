@@ -1,7 +1,7 @@
 
 export const CloseButton = ( { id, clickAtCloseButton } ) => {
 	
-	console.log("/close button render ....", id)
+	// console.log("/close button render ....", id)
 
 	return (
 		<button

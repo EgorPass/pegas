@@ -14,7 +14,7 @@ import { TaskItemList } from "../taskItemList/TaskItemList"
 
 export const TaskListContainer = () => {
 	
-	console.log(" TaskListCntainer render...")
+	// console.log(" TaskListCntainer render...")
 
 	const { loaderItem } = useGetStore()
 	const { user } = useGetStore( "auth" )

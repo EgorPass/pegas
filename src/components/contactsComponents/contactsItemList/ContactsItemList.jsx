@@ -2,7 +2,7 @@ import './contacts-container.scss'
 
 export const ContactsItemList = ( { contacts,	clickAtTitle } ) => {
 		
-		console.log("ContactItemList render... ")
+		// console.log("ContactItemList render... ")
 
 		return (
 			<>

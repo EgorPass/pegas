@@ -2,7 +2,7 @@
 
 export const Title = ({ id, title, className, styled, clickAtTitle }) => {
 
-	console.log("Title render...")
+	// console.log("Title render...")
 	
 	return (
 		<span

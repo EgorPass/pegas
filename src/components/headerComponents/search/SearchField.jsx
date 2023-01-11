@@ -2,7 +2,7 @@ import { memo } from "react";
 
 export const SearchField = memo(({ changeSearch, content }) => {
 	
-	console.log( "SearchField render... ")
+	// console.log( "SearchField render... ")
 	
 	return (
 		<div className="body-header__search-field">

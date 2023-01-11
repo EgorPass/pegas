@@ -7,7 +7,7 @@ import './checkbox-container.scss'
 export const FieldCheckboxContainer =	memo(
 	( { id, isComplite, clickAtCheckbox, newField } ) => {
 	
-		console.log("FieldCheckbox render")
+		// console.log("FieldCheckbox render")
 
 		let checkDescription = isComplite ? "Выполненно!" : "В работе...";
 	

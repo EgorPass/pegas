@@ -7,7 +7,7 @@ export const SimpleLink =	( { children, to, className } ) => {
 
 	const setActive = ({ isActive }) => isActive ? (className + " " + className + "_active") : className;
 	 
-	console.log( "SimpleLink render... ")
+	// console.log( "SimpleLink render... ")
 
 
 	return (

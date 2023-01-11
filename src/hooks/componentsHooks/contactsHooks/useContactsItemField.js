@@ -207,7 +207,7 @@ export function useContactsItemField() {
 	
 	const clickAtRemoveImage = useCallback(
 		async(id, fileId, name ) => {
-			console.log(" click at remove image button...")
+			// console.log(" click at remove image button...")
 			
 			resetContactPhoto();
 			

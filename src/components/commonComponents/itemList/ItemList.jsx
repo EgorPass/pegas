@@ -6,7 +6,7 @@ import "./itemList.scss"
 
 export const ItemList = ({ classBlockName, loader, loaderContent, children, create }) => {
 	
-	console.log("ItemList render... ")
+	// console.log("ItemList render... ")
 
 	return (
 		<div className={`list-body__list-container list-container`}>

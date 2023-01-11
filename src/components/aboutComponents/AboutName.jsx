@@ -1,6 +1,6 @@
 export const AboutName = () => {
 	
-	console.log(" AboutName render...")
+	// console.log(" AboutName render...")
 	
 	return (
 		<header className="about__name">

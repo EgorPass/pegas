@@ -68,7 +68,7 @@ export function useContactsItemList(  ) {
 
 	const createContact = useCallback(
 		() => {
-			console.log( "click at create contact")
+			// console.log( "click at create contact")
 
 			if ( contactState.openContact ) {
 				clickAtCloseButton()

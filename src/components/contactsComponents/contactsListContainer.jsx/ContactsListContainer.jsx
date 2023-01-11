@@ -25,7 +25,7 @@ export const ContactsListContainer = () => {
 		monitor( `/contacts/${ user }`, getContacts )		
 	}, [  ] )
 
-	console.log( "ContactsListContainer render... ")
+	// console.log( "ContactsListContainer render... ")
 	
 
 	return (

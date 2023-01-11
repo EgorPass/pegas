@@ -1,7 +1,7 @@
 
 export const DeadlineForTask = ({ content, onchange }) => {
 
-	console.log( "DeadLineForTask render... ")
+	// console.log( "DeadLineForTask render... ")
 
 	
 	return (

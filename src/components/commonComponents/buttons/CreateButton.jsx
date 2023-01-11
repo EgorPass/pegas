@@ -4,7 +4,7 @@ export const CreateButton =
 	memo(
 		({ create }) => { 
 
-	console.log( "CreateButton render... ")
+	// console.log( "CreateButton render... ")
 
 	return (
 		<div className = "list-container__create-container">

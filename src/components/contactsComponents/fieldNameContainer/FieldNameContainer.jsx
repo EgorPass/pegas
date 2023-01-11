@@ -26,7 +26,7 @@ export const FieldNameContainer = memo( ( {  contactName, changeName, changeSurN
 				}
 	]
 	
-	console.log( "FieldNameContainer render... ")
+	// console.log( "FieldNameContainer render... ")
 
 
 	return (

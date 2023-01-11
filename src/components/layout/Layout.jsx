@@ -6,7 +6,7 @@ import { Footer } from "../footer/Footer"
 import "./listBody.scss"
 
 export const Layout = () => {
-	console.log(" Layout render....")
+	// console.log(" Layout render....")
 	
 	return (
 		<div

@@ -1,6 +1,6 @@
 export const AboutSkills = () => {
 	
-	console.log(" AboutSkills render...")
+	// console.log(" AboutSkills render...")
 	
 	return (
 		<div className="about__skills-container" >

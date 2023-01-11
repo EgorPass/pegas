@@ -3,7 +3,7 @@ import { memo } from "react";
 
 export const FileAddButton = memo(({ id, clickAtAddFile }) => {
 	
-	console.log("FileAddButton render... ")
+	// console.log("FileAddButton render... ")
 	
 	return (
 		<div className="file-container__file-add-position">

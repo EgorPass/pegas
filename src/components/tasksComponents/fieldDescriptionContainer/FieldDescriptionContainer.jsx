@@ -7,7 +7,7 @@ import "./description-container.scss"
 
 export const FieldDescriptionContainer = memo(({ content, onchange }) => {
 
-	console.log( 'FieldDescriptionContainer render...')
+	// console.log( 'FieldDescriptionContainer render...')
 
 	return (
 		<label

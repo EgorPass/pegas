@@ -13,7 +13,7 @@ import "./contacts-field.scss"
 
 export const ContactsItemField = () => {
 
-	console.log("ContactsItemField render... ")
+	// console.log("ContactsItemField render... ")
 
 	const { contactName, contactData, contactId, contactPhoto, uploadFile } = useGetStore("contacts")
 	const {

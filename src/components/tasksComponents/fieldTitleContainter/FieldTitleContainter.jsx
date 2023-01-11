@@ -7,7 +7,7 @@ import "./title-container.scss"
 
 export const FieldTitleContainer = memo(({ className, content, onchange }) => {
 		
-	console.log("FieldTitleContainer render...")
+	// console.log("FieldTitleContainer render...")
 	
 	return (
 		<label

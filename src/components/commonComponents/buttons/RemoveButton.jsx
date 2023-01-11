@@ -3,7 +3,7 @@ import { memo } from "react";
 export const RemoveButton = memo(
 		( { id, clickAtRemoveButton } ) => {
 
-		console.log( "/remove button render ....", id )
+		// console.log( "/remove button render ....", id )
 
 		return (
 			<button

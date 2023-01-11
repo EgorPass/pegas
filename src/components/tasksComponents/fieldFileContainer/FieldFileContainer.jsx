@@ -8,7 +8,7 @@ import "./file-container.scss"
 export const FieldFileContainer =	memo(
 	({ id, upload, clickAtAddFile, files, clickAtFile, clickAtCancelLoad, clickAtRemoveFile, }) => {
 		
-		console.log( "FieldFileContainer render...")
+		// console.log( "FieldFileContainer render...")
 		
 		return (
 		

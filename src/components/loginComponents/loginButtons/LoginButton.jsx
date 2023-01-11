@@ -2,7 +2,7 @@
 
 export const LoginButton = ({title, onclick}) => {
 
-	console.log( "LoginButton render... ")
+	// console.log( "LoginButton render... ")
 
 	return (
 		<button

@@ -3,7 +3,7 @@ import { memo } from "react";
 export const FileName = memo(
 	({ id, fileId, name, clickAtFile, children }) => {
 		
-		console.log( "FileName render...")
+		// console.log( "FileName render...")
 		
 		return (
 			<div

@@ -2,7 +2,7 @@ import { AboutContactItem } from "./AboutContactItem"
 
 export const AboutContacts = () => {
 	
-	console.log(" AboutContacts render...")
+	// console.log(" AboutContacts render...")
 	
 	return (
 

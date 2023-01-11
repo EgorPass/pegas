@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 export const LoginLinksContainer = memo( ( { regin, onclick } ) => {
 	
-	console.log("loginLinksContainer render...")
+	// console.log("loginLinksContainer render...")
 	
 		return (
 			<>				

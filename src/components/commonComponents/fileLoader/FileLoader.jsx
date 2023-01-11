@@ -2,7 +2,7 @@
 
 export const FileLoader =	({ progress, children }) => {
 
-	console.log("//file loader render ...")
+	// console.log("//file loader render ...")
 
 	return (
 			<div className = "pegas-body__file-loader file-loader">

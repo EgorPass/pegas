@@ -25,7 +25,7 @@ export const HeaderList =	memo(	( { isAuth } ) => {
 											},
 										]
 
-	console.log( "HeaderList render... ")
+	// console.log( "HeaderList render... ")
 	
 	
 	return (

@@ -6,7 +6,7 @@ import "./footer.scss"
 
 export const Footer = memo(() => {
 	
-	console.log("Footer render... ")
+	// console.log("Footer render... ")
 
 	return (
 		<footer className="pegas-body__body-footer body-footer">

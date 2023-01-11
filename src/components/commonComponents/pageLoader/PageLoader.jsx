@@ -2,7 +2,7 @@ import { Oval } from "react-loader-spinner"
 
 export const PageLoader = () => {
 
-	console.log( "PageLoader render... ")
+	// console.log( "PageLoader render... ")
 	
 
 	return (

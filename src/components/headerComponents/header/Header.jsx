@@ -19,7 +19,7 @@ export const Header = () => {
 
 	const stateSearch = pathname === "/tasks" || pathname === "/contacts"
 	
-	console.log( "Header render... ")
+	// console.log( "Header render... ")
 	
 
 	return (

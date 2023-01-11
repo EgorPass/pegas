@@ -2,7 +2,7 @@
 
 export const PrintInfo = () => { 
 
-	console.log( "CreateButton render... ")
+	// console.log( "CreateButton render... ")
 	
 	return (
 		<div className="pegas-body__print-info">
